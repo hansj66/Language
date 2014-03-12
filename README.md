@@ -1,4 +1,4 @@
 Language
 ========
 
-Language framework demo (flex/bison) + AST, Symboltable and Interpreter
+Language framework demo (flex/bison) + AST, symbol table and interpreter
