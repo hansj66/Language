@@ -1,0 +1,11 @@
+http://research.engineering.wustl.edu/~beardj/FlexBisonC++.html
+https://github.com/jonathan-beard/simple_wc_example
+http://epaperpress.com/lexandyacc/download/LexAndYaccTutorial.pdf
+http://foja.dcs.fmph.uniba.sk/kompilatory/docs/compiler.pdf
+http://tinf2.vub.ac.be/~dvermeir/courses/compilers/yacc.pdf
+http://www.iis.sinica.edu.tw/~tshsu/compiler2007/
+http://www.ssw.uni-linz.ac.at/Coco/Doc/AST.pdf
+http://www.tldp.org/HOWTO/Lex-YACC-HOWTO-7.html
+http://www.iis.sinica.edu.tw/~tshsu/compiler2007/slides/slide7.pdf
+
+http://flex.sourceforge.net/manual/Cxx.html#Cxx
