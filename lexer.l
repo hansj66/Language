@@ -4,6 +4,8 @@
 /* Implementation of yyFlexScanner */
 #include "scanner.hpp"
 
+extern int lineNumber;
+
 /* typedef to make the returns for the tokens shorter */
 typedef Language::Parser::token token;
 
@@ -19,30 +21,34 @@ typedef Language::Parser::token token;
 %}
 
 %option debug
-%option nodefault
 %option yyclass="Scanner"
 %option noyywrap
 %option c++
 
 %%
-[a-z]       {
-               return( token::LOWER );
-            }
 
-[A-Z]       {
-               return( token::UPPER );
-            }
+[ \t]+ ; /* Ignore white space */
+[\n] {lineNumber++;}
+
+[0-9]+ {
+                 yylval->ival = atoi(yytext);
+                return token::Integer;
+           }
+
+"if"    { return token::IF;}
+"while" { return token::WHILE;}
+"print" {return token::PRINT;}
+"==" {return token::EQ;}
+"!=" {return token::NE;}
+">=" {return token::GE;}
+"<=" {return token::LE;}
+
 
 [a-zA-Z]+   {
                yylval->sval = STOKEN( yytext );
-               return( token::WORD );
+               return( token::Identifier );
             }
 
-\n          {
-               return( token::NEWLINE );
-            }
+. { return yytext[0];}
 
-.           {
-               return( token::CHAR );
-            }
 %%

@@ -8,4 +8,10 @@ http://www.ssw.uni-linz.ac.at/Coco/Doc/AST.pdf
 http://www.tldp.org/HOWTO/Lex-YACC-HOWTO-7.html
 http://www.iis.sinica.edu.tw/~tshsu/compiler2007/slides/slide7.pdf
 
+Håndtering av include filer:
+https://www.cs.princeton.edu/~appel/modern/c/software/flex/flex.html
+
+AST:
+http://llvm.org/docs/tutorial/LangImpl2.html
+
 http://flex.sourceforge.net/manual/Cxx.html#Cxx

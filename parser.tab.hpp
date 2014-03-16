@@ -40,14 +40,15 @@
 #ifndef YY_YY_PARSER_TAB_HPP_INCLUDED
 # define YY_YY_PARSER_TAB_HPP_INCLUDED
 // //                    "%code requires" blocks.
-#line 8 "parser.yy" // lalr1.cc:386
+#line 10 "parser.yy" // lalr1.cc:386
 
    namespace Language {
       class Translator;
       class Scanner;
+      class ASTNode;
    }
 
-#line 51 "parser.tab.hpp" // lalr1.cc:386
+#line 52 "parser.tab.hpp" // lalr1.cc:386
 
 
 # include <vector>
@@ -65,7 +66,7 @@
 
 #line 5 "parser.yy" // lalr1.cc:386
 namespace Language {
-#line 69 "parser.tab.hpp" // lalr1.cc:386
+#line 70 "parser.tab.hpp" // lalr1.cc:386
 
 
 
@@ -79,11 +80,13 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 37 "parser.yy" // lalr1.cc:386
+    #line 43 "parser.yy" // lalr1.cc:386
 
    std::string *sval;
+   int ival;
+   ASTNode * pNode;
 
-#line 87 "parser.tab.hpp" // lalr1.cc:386
+#line 90 "parser.tab.hpp" // lalr1.cc:386
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -101,11 +104,19 @@ namespace Language {
       enum yytokentype
       {
         END = 0,
-        UPPER = 258,
-        LOWER = 259,
-        WORD = 260,
-        NEWLINE = 261,
-        CHAR = 262
+        GE = 258,
+        LE = 259,
+        EQ = 260,
+        NE = 261,
+        UMINUS = 262,
+        IFX = 263,
+        ELSE = 264,
+        IF = 265,
+        WHILE = 266,
+        ADD = 267,
+        PRINT = 268,
+        Integer = 269,
+        Identifier = 270
       };
     };
 
@@ -275,7 +286,7 @@ namespace Language {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const signed char yycheck_[];
+  static const unsigned char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -288,10 +299,13 @@ namespace Language {
   static const unsigned char yyr2_[];
 
 
-#if YYDEBUG
+    /// Convert the symbol name \a n to a form suitable for a diagnostic.
+    static std::string yytnamerr_ (const char *n);
+
+
     /// For a symbol, its name in clear.
     static const char* const yytname_[];
-
+#if YYDEBUG
   // YYRLINE[YYN] -- Source line where rule number YYN was defined.
   static const unsigned char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
@@ -387,13 +401,13 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 15,           //< Last index in yytable_.
-      yynnts_ = 4,  //< Number of nonterminal symbols.
+      yylast_ = 27,           //< Last index in yytable_.
+      yynnts_ = 12,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 10, //< Termination state number.
+      yyfinal_ = 6, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 8    //< Number of tokens.
+      yyntokens_ = 28    //< Number of tokens.
     };
 
 
@@ -405,7 +419,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 409 "parser.tab.hpp" // lalr1.cc:386
+#line 423 "parser.tab.hpp" // lalr1.cc:386
 
 
 

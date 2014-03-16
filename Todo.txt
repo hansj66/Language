@@ -1,0 +1,31 @@
+Code
+===
+
+0) Better node type definitions. Follow AST defines. No more dynamic casts
+1) Syntax + AST Node for function call
+2) Symbol table. Add entry for
+    a) variables (on declaration)
+    b) functions (on declaration. Save AST Node)
+3) Type system. Type checking
+4) Activation records for functions
+5) Add VLD to check for memory leaks
+6) Blog post series (new code category)
+
+Idea dump / Features:
+==============
+0) Ability to read from stdin / pipes
+1) Ability to do simple web requests
+2) Simple STL generation (gears)
+2) Ideas from flow programming ?
+
+Syntax / keywords:
+=====
+
+1) No comment syntax (yet)
+2) EOL
+3)
+
+
+
+Backend
+Emit AVR Code ?

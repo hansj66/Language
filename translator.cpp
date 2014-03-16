@@ -4,19 +4,22 @@
 
 #include "translator.hpp"
 
-Language::Translator::~Translator(){
+int lineNumber = 0;
+
+Language::Translator::~Translator()
+{
    delete(scanner);
    scanner = nullptr;
    delete(parser);
    parser = nullptr;
 }
 
-void
-Language::Translator::parse( const char *filename )
+int Language::Translator::parse( const char *filename )
 {
    assert( filename != nullptr );
    std::ifstream in_file( filename );
-   if( ! in_file.good() ) exit( EXIT_FAILURE );
+   if( ! in_file.good() )
+       exit( EXIT_FAILURE );
 
    delete(scanner);
    try
@@ -47,8 +50,10 @@ Language::Translator::parse( const char *filename )
    {
       std::cerr << "Parse failed!!\n";
    }
+   return accept;
 }
 
+/*
 void
 Language::Translator::add_upper()
 {
@@ -94,15 +99,16 @@ Language::Translator::add_char()
 {
    chars++;
 }
+*/
 
-
-std::ostream&
-Language::Translator::print( std::ostream &stream )
+std::ostream& Language::Translator::print( std::ostream &stream )
 {
+    /*
    stream << "Uppercase: " << uppercase << "\n";
    stream << "Lowercase: " << lowercase << "\n";
    stream << "Lines: " << lines << "\n";
    stream << "Words: " << words << "\n";
    stream << "Characters: " << chars << "\n";
+   */
    return(stream);
 }

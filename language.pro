@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core opengl
+QT       += core
 
 CONFIG += console
 CONFIG -= app_bundle
@@ -12,17 +12,18 @@ CONFIG -= app_bundle
 TARGET = language
 TEMPLATE = app
 
-DEFINES += YYERROR_VERBOSE
-
 QMAKE_CXXFLAGS += -std=c++11
+
+DEFINES += YYDEBUG\
+                    YYERROR_VERBOSE
 
 SOURCES += main.cpp\
         lexer.yy.cpp \
         parser.tab.cpp \
         translator.cpp \
-    symboltable.cpp \
-    ast.cpp \
-    interpreter.cpp
+       symboltable.cpp \
+       ast.cpp \
+       interpreter.cpp
 
 HEADERS  += \
     parser.tab.hpp \
@@ -37,4 +38,6 @@ OTHER_FILES += \
     lexer.l \
     parser.yy \
     Links.txt \
-    parser.yy
+    test.scripture \
+    Todo.txt
+

@@ -18,6 +18,12 @@ public:
    Scanner(std::istream *in) : yyFlexLexer(in),
                                   yylval( nullptr ){};
 
+   Scanner() : yyFlexLexer(),
+                                  yylval( nullptr )
+   {
+
+   };
+
    int yylex(Language::Parser::semantic_type *lval)
    {
       yylval = lval;
