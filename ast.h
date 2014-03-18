@@ -24,10 +24,10 @@ public:
   virtual ~ASTNode() {}
 };
 
-class IntegerLiteralNode : public ASTNode
+class NumberLiteralNode : public ASTNode
 {
 public:
-    IntegerLiteralNode(int value) : _value(value) {}
+    NumberLiteralNode(int value) : _value(value) {}
 
 private:
     int _value;
@@ -45,35 +45,58 @@ private:
 class ParameterNode: public ASTNode
 {
 public:
-    ParameterNode(string * typeName, string * name, int initializer = 0)
-        :   _typeName(typeName),
-            _name(name),
-            _initializer(initializer)
+    ParameterNode(Language::Parser::token::yytokentype type, string * name)
+        :   _type(type),
+            _name(name)
     {}
 
 private:
-    string *_typeName;
+    Language::Parser::token::yytokentype _type;
     string * _name;
-    int _initializer;
 };
 
 
 class ParameterListNode: public ASTNode
 {
 public:
-    ParameterListNode(ASTNode * parameter)
+    ParameterListNode(ParameterNode * parameter)
     {
           _parameters.push_back(parameter);
     }
 
-    void Add(ASTNode * parameter)
+    void Add(ParameterNode * parameter)
     {
         _parameters.push_back(parameter);
     }
 
+    int Count()
+    {
+        return _parameters.size();
+    }
+
 private:
-    std::vector<ASTNode *> _parameters;
+    std::vector<ParameterNode *> _parameters;
 };
+
+
+
+class ExpressionListNode: public ASTNode
+{
+public:
+    ExpressionListNode(ASTNode * expression)
+    {
+          _expressions.push_back(expression);
+    }
+
+    void Add(ASTNode * expression)
+    {
+        _expressions.push_back(expression);
+    }
+
+private:
+    std::vector<ASTNode *> _expressions;
+};
+
 
 class OperatorNode: public ASTNode
 {
@@ -114,6 +137,23 @@ private:
         ASTNode * _expression;
 };
 
+
+
+class FunctionCallNode: public ASTNode
+{
+public:
+    FunctionCallNode(string * name, ASTNode * expression)
+        :  _name(name),
+         _expression(expression)
+    {
+    }
+
+private:
+        string * _name;
+        ASTNode * _expression;
+};
+
+
 class PrintNode: public ASTNode
 {
 public:
@@ -139,27 +179,50 @@ public:
     {
         _statements.push_back(parameter);
     }
+    int Count()
+    {
+        return _statements.size();
+    }
 
 private:
     std::vector<ASTNode *> _statements;
 };
 
 
+class WhileNode: public ASTNode
+{
+public:
+    WhileNode(ASTNode * expression, ASTNode * body)
+        :  _body(body),
+         _expression(expression)
+    {
+    }
+
+private:
+        ASTNode * _body;
+        ASTNode * _expression;
+};
+
+
 class FunctionDeclarationNode: public ASTNode
 {
 public:
-    FunctionDeclarationNode(string * type, string * name, ASTNode * arguments, ASTNode * body)
+    FunctionDeclarationNode(string * type, string * name, ParameterListNode * arguments, StatementListNode * body)
         : _type(type),
           _name(name),
           _arguments(arguments),
           _body(body)
     {
+         qDebug() << "Declaring function" << QString::fromStdString(*name);
+         qDebug() << "   type" << QString::fromStdString(*type);
+         qDebug() << "   arguments: " << arguments->Count();
+         qDebug() << "   statements: " << body->Count();
     }
 
 private:
     string * _type;
     string * _name;
-    ASTNode * _arguments;
+    ParameterListNode * _arguments;
     ASTNode * _body;
 };
 

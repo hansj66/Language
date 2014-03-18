@@ -4,7 +4,7 @@
 
 #include "translator.hpp"
 
-int lineNumber = 0;
+int lineNumber = 1;
 
 Language::Translator::~Translator()
 {

@@ -5,13 +5,15 @@
 %define api.namespace {Language}
 %define parser_class_name {Parser}
 %define parse.error verbose
-// define YYERROR_VERBOSE
 
 %code requires{
    namespace Language {
       class Translator;
       class Scanner;
       class ASTNode;
+      class ParameterListNode;
+      class ParameterNode;
+      class StatementListNode;
    }
 }
 
@@ -29,6 +31,7 @@
   #include "ast.h"
   #include "translator.hpp"
   #include "interpreter.h"
+  #include "symboltable.h"
 
 extern int lineNumber;
 
@@ -42,8 +45,11 @@ extern int lineNumber;
 /* token types */
 %union {
    std::string *sval;
-   int ival;
+   double dval;
    ASTNode * pNode;
+   ParameterNode * parameterNode;
+   ParameterListNode * parameterListNode;
+   StatementListNode * statementListNode;
 }
 
 %left GE LE EQ NE '>' '<'
@@ -53,13 +59,16 @@ extern int lineNumber;
 %nonassoc IFX
 %nonassoc ELSE
 
-%token GE LE EQ NE IF WHILE ADD PRINT
+%token GE LE EQ NE IF While ADD SUB MUL DIV PRINT LT GT NumberType TextType
 
 %token  END    0     "end of file"
-%token <ival> Integer
+%token <dval> Number
 %token <sval> Identifier
 
-%type<pNode> parameter_declaration_list program expression assignment print statement statement_list function_body parameter_declaration function_declaration function_declaration_list
+%type<pNode>  program expression assignment print statement    function_declaration function_declaration_list expression_list function_call while_loop
+%type<parameterListNode> parameter_declaration_list
+%type <parameterNode> parameter_declaration
+%type <statementListNode> statement_list function_body
 
 /* destructor rule for <sval> objects */
 %destructor { if ($$)  { delete ($$); ($$) = nullptr; } } <sval>
@@ -76,7 +85,7 @@ function_declaration_list:
     ;
 
 function_declaration:
-    Identifier Identifier '(' parameter_declaration_list ')' function_body { $$ = new FunctionDeclarationNode($1, $2, $4, $6);}
+    Identifier Identifier '(' parameter_declaration_list ')' function_body {$$ = new FunctionDeclarationNode($1, $2, $4, $6); }
     ;
 
 parameter_declaration_list:
@@ -86,10 +95,9 @@ parameter_declaration_list:
 
 
 parameter_declaration:
-    Identifier Identifier '=' Integer {$$ = new ParameterNode($1, $2, $4);}
-    | Identifier Identifier {$$ = new ParameterNode($1, $2);}
+    NumberType Identifier {$$ = new ParameterNode(token::NumberType, $2);}
+    |  TextType Identifier {$$ = new ParameterNode(token::TextType, $2);}
 ;
-
 
 function_body:
     '{' statement_list '}' {$$ = $2;}
@@ -102,9 +110,19 @@ statement_list:
     ;
 
 statement:
-    assignment {$$ = $1;}
-    | expression { $$ = $1;}
-    | print { $$ = $1;}
+    parameter_declaration ';' { $$ = $1;}
+    | assignment ';' {$$ = $1;}
+    | print ';' { $$ = $1;}
+    | function_call {$$ = $1;}
+    | while_loop { $$ = $1; }
+;
+
+while_loop:
+    While '(' expression ')' function_body { $$ = new WhileNode($3, $5); }
+    ;
+
+function_call:
+    Identifier '(' expression_list ')' ';' {$$ = new FunctionCallNode($1, $3);}
 ;
 
 print:
@@ -115,10 +133,25 @@ assignment:
     Identifier '=' expression { $$ = new AssignmentNode($1, $3);}
     ;
 
+
+expression_list:
+    expression { $$ = new ExpressionListNode($1); }
+    | expression_list ',' expression {dynamic_cast<ExpressionListNode *>($1)->Add($3);}
+;
+
 expression:
    Identifier { $$ = new IdentifierNode($1); }
- | Integer {$$ = new IntegerLiteralNode($1); }
+ | Number {$$ = new NumberLiteralNode($1); }
  | expression '+' expression { $$ = new OperatorNode(token::ADD, $1, $3); }
+ | expression '-' expression { $$ = new OperatorNode(token::SUB, $1, $3); }
+ | expression '*' expression { $$ = new OperatorNode(token::MUL, $1, $3); }
+ | expression '/' expression { $$ = new OperatorNode(token::DIV, $1, $3); }
+ | expression '<' expression { $$ = new OperatorNode(token::LT, $1, $3); }
+ | expression '>' expression { $$ = new OperatorNode(token::GT, $1, $3); }
+ | expression GE expression { $$ = new OperatorNode(token::GE, $1, $3); }
+ | expression LE expression { $$ = new OperatorNode(token::LE, $1, $3); }
+ | expression NE expression { $$ = new OperatorNode(token::NE, $1, $3); }
+ | expression EQ expression { $$ = new OperatorNode(token::EQ, $1, $3); }
  ;
 
 
@@ -130,16 +163,6 @@ if / while / assignment etc er statements, ikke expressions
 
  | identifier { $$ = id($1); }
  | '-' expression %prec UMINUS { $$ = opr(UMINUS, 1, $2); }
- | expression '+' expression { $$ = opr('+', 2, $1, $3); }
- | expression '-' expression { $$ = opr('-', 2, $1, $3); }
- | expression '*' expression { $$ = opr('*', 2, $1, $3); }
- | expression '/' expression { $$ = opr('/', 2, $1, $3); }
- | expression '<' expression { $$ = opr('<', 2, $1, $3); }
- | expression '>' expression { $$ = opr('>', 2, $1, $3); }
- | expression GE expression { $$ = opr(GE, 2, $1, $3); }
- | expression LE expression { $$ = opr(LE, 2, $1, $3); }
- | expression NE expression { $$ = opr(NE, 2, $1, $3); }
- | expression EQ expression { $$ = opr(EQ, 2, $1, $3); }
  | '(' expression ')' { $$ = $2; }
  ;
 

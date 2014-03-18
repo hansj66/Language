@@ -30,13 +30,16 @@ typedef Language::Parser::token token;
 [ \t]+ ; /* Ignore white space */
 [\n] {lineNumber++;}
 
-[0-9]+ {
-                 yylval->ival = atoi(yytext);
-                return token::Integer;
-           }
+([0-9]+|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) {
+            yylval->dval = atoi(yytext);
+            return token::Number;
+            }
+
+"number" { return token::NumberType; }
+"text" { return token::TextType; }
 
 "if"    { return token::IF;}
-"while" { return token::WHILE;}
+"while" { return token::While;}
 "print" {return token::PRINT;}
 "==" {return token::EQ;}
 "!=" {return token::NE;}
@@ -44,7 +47,7 @@ typedef Language::Parser::token token;
 "<=" {return token::LE;}
 
 
-[a-zA-Z]+   {
+[a-z|A-Z]([a-z|A-Z|0-9]+)?   {
                yylval->sval = STOKEN( yytext );
                return( token::Identifier );
             }

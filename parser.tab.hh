@@ -40,15 +40,17 @@
 #ifndef YY_YY_PARSER_TAB_HH_INCLUDED
 # define YY_YY_PARSER_TAB_HH_INCLUDED
 // //                    "%code requires" blocks.
-#line 10 "parser.yy" // lalr1.cc:386
+#line 9 "parser.yy" // lalr1.cc:386
 
    namespace Language {
       class Translator;
       class Scanner;
       class ASTNode;
+      class ParameterListNode;
+      class ParameterNode;
    }
 
-#line 52 "parser.tab.hh" // lalr1.cc:386
+#line 54 "parser.tab.hh" // lalr1.cc:386
 
 
 # include <vector>
@@ -66,7 +68,7 @@
 
 #line 5 "parser.yy" // lalr1.cc:386
 namespace Language {
-#line 70 "parser.tab.hh" // lalr1.cc:386
+#line 72 "parser.tab.hh" // lalr1.cc:386
 
 
 
@@ -80,13 +82,15 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 43 "parser.yy" // lalr1.cc:386
+    #line 45 "parser.yy" // lalr1.cc:386
 
    std::string *sval;
-   int ival;
+   double dval;
    ASTNode * pNode;
+   ParameterNode * parameterNode;
+   ParameterListNode * parameterListNode;
 
-#line 90 "parser.tab.hh" // lalr1.cc:386
+#line 94 "parser.tab.hh" // lalr1.cc:386
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -114,9 +118,16 @@ namespace Language {
         IF = 265,
         WHILE = 266,
         ADD = 267,
-        PRINT = 268,
-        Integer = 269,
-        Identifier = 270
+        SUB = 268,
+        MUL = 269,
+        DIV = 270,
+        PRINT = 271,
+        LT = 272,
+        GT = 273,
+        NumberType = 274,
+        TextType = 275,
+        Number = 276,
+        Identifier = 277
       };
     };
 
@@ -401,13 +412,13 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 27,           //< Last index in yytable_.
-      yynnts_ = 12,  //< Number of nonterminal symbols.
+      yylast_ = 57,           //< Last index in yytable_.
+      yynnts_ = 14,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 6, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 28    //< Number of tokens.
+      yyntokens_ = 36    //< Number of tokens.
     };
 
 
@@ -419,7 +430,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 423 "parser.tab.hh" // lalr1.cc:386
+#line 434 "parser.tab.hh" // lalr1.cc:386
 
 
 

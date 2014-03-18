@@ -407,8 +407,8 @@ int yyFlexLexer::yylex()
 	(yy_c_buf_p) = yy_cp;
 
 /* %% [4.0] data tables for the DFA and the user's section 1 definitions go here */
-#define YY_NUM_RULES 12
-#define YY_END_OF_BUFFER 13
+#define YY_NUM_RULES 13
+#define YY_END_OF_BUFFER 14
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -418,10 +418,10 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[33] =
     {   0,
-        0,    0,   13,   11,    1,   12,   11,    2,   11,   11,
-       11,   10,   10,   10,   10,    1,    7,    2,    9,    6,
-        8,   10,    3,   10,   10,   10,   10,   10,   10,    5,
-        4,    0
+        0,    0,   14,   12,    1,    2,   12,    3,   12,   12,
+       12,   11,   11,   11,   11,    1,    8,    3,   10,    7,
+        9,   11,    4,   11,   11,   11,   11,   11,   11,    6,
+        5,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -498,10 +498,10 @@ static yyconst flex_int16_t yy_chk[59] =
        32,   32,   32,   32,   32,   32,   32,   32
     } ;
 
-static yyconst flex_int16_t yy_rule_linenum[12] =
+static yyconst flex_int16_t yy_rule_linenum[13] =
     {   0,
-       28,   30,   35,   36,   37,   38,   39,   40,   41,   44,
-       49
+       30,   31,   33,   38,   39,   40,   41,   42,   43,   44,
+       47,   52
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -518,6 +518,8 @@ static yyconst flex_int16_t yy_rule_linenum[12] =
 /* Implementation of yyFlexScanner */
 #include "scanner.hpp"
 
+extern int lineNumber;
+
 /* typedef to make the returns for the tokens shorter */
 typedef Language::Parser::token token;
 
@@ -530,7 +532,7 @@ typedef Language::Parser::token token;
 /* msvc2010 requires that we exclude this header file. */
 #define YY_NO_UNISTD_H
 
-#line 534 "lex.yy.cc"
+#line 536 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -687,10 +689,10 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 26 "lexer.l"
+#line 28 "lexer.l"
 
 
-#line 694 "lex.yy.cc"
+#line 696 "lex.yy.cc"
 
 	if ( !(yy_init) )
 		{
@@ -782,12 +784,12 @@ do_action:	/* This label is used only to access EOF actions. */
 			{
 			if ( yy_act == 0 )
 				std::cerr << "--scanner backing up\n";
-			else if ( yy_act < 12 )
+			else if ( yy_act < 13 )
 				std::cerr << "--accepting rule at line " << yy_rule_linenum[yy_act] <<
 				         "(\"" << yytext << "\")\n";
-			else if ( yy_act == 12 )
-				std::cerr << "--accepting default rule (\"" << yytext << "\")\n";
 			else if ( yy_act == 13 )
+				std::cerr << "--accepting default rule (\"" << yytext << "\")\n";
+			else if ( yy_act == 14 )
 				std::cerr << "--(end of buffer or a NUL)\n";
 			else
 				std::cerr << "--EOF (start condition " << YY_START << ")\n";
@@ -805,71 +807,77 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 28 "lexer.l"
+#line 30 "lexer.l"
 ; /* Ignore white space */
 	YY_BREAK
 case 2:
+/* rule 2 can match eol */
 YY_RULE_SETUP
-#line 30 "lexer.l"
+#line 31 "lexer.l"
+{lineNumber++;}
+	YY_BREAK
+case 3:
+YY_RULE_SETUP
+#line 33 "lexer.l"
 {
                  yylval->ival = atoi(yytext);
                 return token::Integer;
            }
 	YY_BREAK
-case 3:
-YY_RULE_SETUP
-#line 35 "lexer.l"
-{ return token::IF;}
-	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 36 "lexer.l"
-{ return token::WHILE;}
+#line 38 "lexer.l"
+{ return token::IF;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 37 "lexer.l"
-{return token::PRINT;}
+#line 39 "lexer.l"
+{ return token::WHILE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 38 "lexer.l"
-{return token::EQ;}
+#line 40 "lexer.l"
+{return token::PRINT;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 39 "lexer.l"
-{return token::NE;}
+#line 41 "lexer.l"
+{return token::EQ;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 40 "lexer.l"
-{return token::GE;}
+#line 42 "lexer.l"
+{return token::NE;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 41 "lexer.l"
-{return token::LE;}
+#line 43 "lexer.l"
+{return token::GE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 44 "lexer.l"
+{return token::LE;}
+	YY_BREAK
+case 11:
+YY_RULE_SETUP
+#line 47 "lexer.l"
 {
                yylval->sval = STOKEN( yytext );
                return( token::Identifier );
             }
 	YY_BREAK
-case 11:
-YY_RULE_SETUP
-#line 49 "lexer.l"
-{ return yytext[0];}
-	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 51 "lexer.l"
+#line 52 "lexer.l"
+{ return yytext[0];}
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 54 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 873 "lex.yy.cc"
+#line 881 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1917,7 +1925,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 51 "lexer.l"
+#line 54 "lexer.l"
 
 
 

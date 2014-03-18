@@ -37,6 +37,8 @@ public:
     bool DefineVariable(string name);
     void StartAR();
     void EndAR();
+
+
    /*
     bool SetValue(string name, string value);
     bool SetValue(string name, double value);

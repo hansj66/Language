@@ -1,14 +1,17 @@
-void TestFunction(int c)
+void TestFunction(number arg1, number arg2)
 {
-    23
+    print arg1+arg2;
 }
 
-int main(int a=0, int b)
+int main(number a, number b)
 {
-    jalla = 3
-    print jalla
+    number n1;
+    number n2;
+    n1 = 3;
+    n2 = 5;
+    while (n2 < 100)
+    {
+        TestFunction(n1,n2);
+        n2 = n2+1;
+     }
 }
-
-
-
-
