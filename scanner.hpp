@@ -10,7 +10,8 @@
 
 #include "parser.tab.hpp"
 
-namespace Language{
+namespace Language
+{
 
 class Scanner : public yyFlexLexer{
 public:

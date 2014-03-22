@@ -1,3 +1,12 @@
+0) FunctionCall:Execute: Push the number of arguments as the last arg on the stack (validate against this in FunctionNode::Execute)
+1) FunctionNode:Execute: Pop argcount from stack. Then zero or more args. Verify type against signature
+2) Error output to std::cerr ?
+3) How to handle the return statement ? (Just put the return value (evaluated expr) in the AR and indicate function exit ?)
+4) Symboltable: Check for duplicates when inserting new names
+    name + argument count + argument types. Overloading should be allowed
+5) README: Add versioninfo for flex, bison + aditional build steps
+6) Clean up code repository. Consider introducing AST namespace ? Split AST classes into separate files in separate folder
+
 Code
 ===
 

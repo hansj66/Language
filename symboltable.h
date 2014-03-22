@@ -2,46 +2,34 @@
 #define SYMBOLTABLE_H
 
 #include "ast.h"
+#include "activationrecord.h"
 #include <string>
 #include <map>
+#include <stack>
 
 using namespace std;
-using namespace Language;
-
-typedef struct
-{
-    int iVal;
-    int dVal;
-    string sVal;
-    string type;
-} VariableRecord;
-
-typedef struct
-{
-    ASTNode * function;
-    string returnType;
-} FunctionRecord;
 
 class SymbolTable
 {
 private:
     SymbolTable();
     static SymbolTable * _instance;
-    map<string, VariableRecord> _variables;
-    map<string, FunctionRecord> _functions;
-    ASTNode * _entrypoint;
+
+    Language::FunctionNode * _entrypoint;
+    stack<ActivationRecord *> _activationRecordStack;
+    stack<QVariant> _argumentStack;
 
 public:
     static SymbolTable * Instance();
 
-    bool DefineVariable(string name);
-    void StartAR();
-    void EndAR();
-   /*
-    bool SetValue(string name, string value);
-    bool SetValue(string name, double value);
-    bool SetValue(string name, int value);
-   */
-};
+    bool DefineFunction(string name, Language::FunctionNode *node);
+    Language::FunctionNode * EntryPoint();
+    ActivationRecord * GetActivationRecord();
+    void PushAR();
+    void PopAR();
+    QVariant PopArgument();
+    void PushArgument(QVariant argument);
+    void PushCommandLineArguments(const int argc, const char **argv);
+ };
 
 #endif // SYMBOLTABLE_H

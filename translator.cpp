@@ -3,6 +3,8 @@
 #include <cassert>
 
 #include "translator.hpp"
+#include "ast.h"
+#include "symboltable.h"
 
 int lineNumber = 1;
 
@@ -14,8 +16,20 @@ Language::Translator::~Translator()
    parser = nullptr;
 }
 
-int Language::Translator::parse( const char *filename )
+
+// Create ParameterList from the rest of the Arguments
+// Push argumentene på argstacken
+// Gjør sjekk inni metoden / evt kanskje før kallet. Sjekk antall, samt type
+// Unngå dynamic casts i .yy
+
+
+int Language::Translator::parse(const int argc, const char **argv)
 {
+    if (argc > 2)
+        SymbolTable::Instance()->PushCommandLineArguments(argc-2, &argv[2]);
+
+    const char * filename = argv[1];
+
    assert( filename != nullptr );
    std::ifstream in_file( filename );
    if( ! in_file.good() )
@@ -50,56 +64,12 @@ int Language::Translator::parse( const char *filename )
    {
       std::cerr << "Parse failed!!\n";
    }
+
+   SymbolTable::Instance()->EntryPoint()->Execute();
+
    return accept;
 }
 
-/*
-void
-Language::Translator::add_upper()
-{
-   uppercase++;
-   chars++;
-   words++;
-}
-
-void
-Language::Translator::add_lower()
-{
-   lowercase++;
-   chars++;
-   words++;
-}
-
-void
-Language::Translator::add_word( const std::string &word )
-{
-   words++;
-   chars += word.length();
-   for(const char &c : word ){
-      if( islower( c ) )
-      {
-         lowercase++;
-      }
-      else if ( isupper( c ) )
-      {
-         uppercase++;
-      }
-   }
-}
-
-void
-Language::Translator::add_newline()
-{
-   lines++;
-   chars++;
-}
-
-void
-Language::Translator::add_char()
-{
-   chars++;
-}
-*/
 
 std::ostream& Language::Translator::print( std::ostream &stream )
 {

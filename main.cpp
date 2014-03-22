@@ -3,14 +3,14 @@
 
 #include "translator.hpp"
 
-int
-main(const int argc, const char **argv)
+
+int main(const int argc, const char **argv)
 {
-   if(argc != 2 )
+   if(argc < 2)
       return ( EXIT_FAILURE );
 
    Language::Translator translator;
-   translator.parse( argv[1] );
+   translator.parse( argc, argv );
    std::cout << "Results\n";
    translator.print(std::cout) << "\n";
 

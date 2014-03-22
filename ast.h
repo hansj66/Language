@@ -9,6 +9,7 @@
 #include "scanner.hpp"
 #include "parser.tab.hpp"
 
+
 using namespace std;
 
 namespace Language
@@ -16,18 +17,14 @@ namespace Language
 class ASTNode
 {
 public:
-    virtual void Execute()
-    {
-        qDebug() << "No implementation..";
-    }
-
-  virtual ~ASTNode() {}
+    virtual void Execute();
+    virtual ~ASTNode();
 };
 
 class NumberLiteralNode : public ASTNode
 {
 public:
-    NumberLiteralNode(int value) : _value(value) {}
+    NumberLiteralNode(int value);
 
 private:
     int _value;
@@ -36,7 +33,7 @@ private:
 class IdentifierNode : public ASTNode
 {
 public:
-    IdentifierNode(string * name) : _name(name) {}
+    IdentifierNode(string * name);
 
 private:
     string * _name;
@@ -45,77 +42,40 @@ private:
 class ParameterNode: public ASTNode
 {
 public:
-    ParameterNode(Language::Parser::token::yytokentype type, string * name)
-        :   _type(type),
-            _name(name)
-    {}
+    ParameterNode(Language::Parser::token::yytokentype type, string * name);
+    void Execute() override;
 
 private:
     Language::Parser::token::yytokentype _type;
-    string * _name;
+    string  _name;
 };
-
 
 class ParameterListNode: public ASTNode
 {
 public:
-    ParameterListNode(ParameterNode * parameter)
-    {
-          _parameters.push_back(parameter);
-    }
-
-    void Add(ParameterNode * parameter)
-    {
-        _parameters.push_back(parameter);
-    }
-
-    int Count()
-    {
-        return _parameters.size();
-    }
+    ParameterListNode(ParameterNode * parameter);
+    void Add(ParameterNode * parameter);
+    int Count();
 
 private:
     std::vector<ParameterNode *> _parameters;
 };
 
-
-
 class ExpressionListNode: public ASTNode
 {
 public:
-    ExpressionListNode(ASTNode * expression)
-    {
-          _expressions.push_back(expression);
-    }
-
-    void Add(ASTNode * expression)
-    {
-        _expressions.push_back(expression);
-    }
+    ExpressionListNode(ASTNode * expression);
+    void Add(ASTNode * expression);
 
 private:
     std::vector<ASTNode *> _expressions;
 };
 
-
 class OperatorNode: public ASTNode
 {
 public:
-    OperatorNode(Language::Parser::token::yytokentype type, ASTNode * op1):
-        _type(type),
-        _op1(op1)
-    {
-        // Unary
-    }
-
-    OperatorNode(Language::Parser::token::yytokentype type, ASTNode * op1, ASTNode * op2)
-        :
-          _type(type),
-          _op1(op1),
-          _op2(op2)
-    {
-        // Binary
-    }
+    OperatorNode(Language::Parser::token::yytokentype type, ASTNode * op1);
+    OperatorNode(Language::Parser::token::yytokentype type, ASTNode * op1, ASTNode * op2);
 
 private:
     Language::Parser::token::yytokentype _type;
@@ -126,119 +86,72 @@ private:
 class AssignmentNode: public ASTNode
 {
 public:
-    AssignmentNode(string * name, ASTNode * expression)
-        :  _name(name),
-         _expression(expression)
-    {
-    }
+    AssignmentNode(string * name, ASTNode * expression);
 
 private:
         string * _name;
         ASTNode * _expression;
 };
-
-
 
 class FunctionCallNode: public ASTNode
 {
 public:
-    FunctionCallNode(string * name, ASTNode * expression)
-        :  _name(name),
-         _expression(expression)
-    {
-    }
+    FunctionCallNode(string * name, ASTNode * expression);
 
 private:
         string * _name;
         ASTNode * _expression;
 };
 
-
 class PrintNode: public ASTNode
 {
 public:
-    PrintNode(ASTNode * expression)
-        :   _expression(expression)
-    {
-    }
+    PrintNode(ASTNode * expression);
 
 private:
         ASTNode * _expression;
 };
 
-
 class StatementListNode: public ASTNode
 {
 public:
-    StatementListNode(ASTNode * parameter)
-    {
-          _statements.push_back(parameter);
-    }
-
-    void Add(ASTNode * parameter)
-    {
-        _statements.push_back(parameter);
-    }
-    int Count()
-    {
-        return _statements.size();
-    }
+    StatementListNode(ASTNode * parameter);
+    void Add(ASTNode * parameter);
+    int Count();
+    void Execute() override;
 
 private:
     std::vector<ASTNode *> _statements;
 };
 
-
 class WhileNode: public ASTNode
 {
 public:
-    WhileNode(ASTNode * expression, ASTNode * body)
-        :  _body(body),
-         _expression(expression)
-    {
-    }
+    WhileNode(ASTNode * expression, ASTNode * body);
 
 private:
         ASTNode * _body;
         ASTNode * _expression;
 };
 
-
-class FunctionDeclarationNode: public ASTNode
+class FunctionNode: public ASTNode
 {
 public:
-    FunctionDeclarationNode(string * type, string * name, ParameterListNode * arguments, StatementListNode * body)
-        : _type(type),
-          _name(name),
-          _arguments(arguments),
-          _body(body)
-    {
-         qDebug() << "Declaring function" << QString::fromStdString(*name);
-         qDebug() << "   type" << QString::fromStdString(*type);
-         qDebug() << "   arguments: " << arguments->Count();
-         qDebug() << "   statements: " << body->Count();
-    }
+    FunctionNode(string * type, string * name, ParameterListNode * arguments, StatementListNode * body);
+    void Execute() override;
 
 private:
     string * _type;
     string * _name;
     ParameterListNode * _arguments;
-    ASTNode * _body;
+    StatementListNode * _body;
 };
-
 
 class FunctionDeclarationListNode: public ASTNode
 {
 public:
-    FunctionDeclarationListNode(ASTNode * functionDeclaration)
-    {
-          _functions.push_back(functionDeclaration);
-    }
-
-    void Add(ASTNode * functionDeclaration)
-    {
-        _functions.push_back(functionDeclaration);
-    }
+    FunctionDeclarationListNode(ASTNode * functionDeclaration);
+    void Add(ASTNode * functionDeclaration);
 
 private:
     std::vector<ASTNode *> _functions;
@@ -258,19 +171,5 @@ public:
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif // AST_H
+

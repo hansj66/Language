@@ -23,7 +23,8 @@ SOURCES += main.cpp\
         translator.cpp \
        symboltable.cpp \
        ast.cpp \
-       interpreter.cpp
+       interpreter.cpp \
+    activationrecord.cpp
 
 HEADERS  += \
     parser.tab.hpp \
@@ -32,7 +33,8 @@ HEADERS  += \
     scanner.hpp \
     symboltable.h \
     ast.h \
-    interpreter.h
+    interpreter.h \
+    activationrecord.h
 
 OTHER_FILES += \
     lexer.l \

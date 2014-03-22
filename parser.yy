@@ -85,12 +85,13 @@ function_declaration_list:
     ;
 
 function_declaration:
-    Identifier Identifier '(' parameter_declaration_list ')' function_body {$$ = new FunctionDeclarationNode($1, $2, $4, $6); }
+    Identifier Identifier '(' parameter_declaration_list ')' function_body {$$ = new FunctionNode($1, $2, $4, $6); }
     ;
 
 parameter_declaration_list:
     parameter_declaration { $$ = new ParameterListNode($1); }
     |parameter_declaration_list ',' parameter_declaration {dynamic_cast<ParameterListNode *>($1)->Add($3);}
+    | {$$ = nullptr;}
 ;
 
 

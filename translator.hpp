@@ -19,23 +19,11 @@ public:
 
    virtual ~Translator();
 
-   int parse( const char *filename );
-
-
-//   void add_upper();
-//   void add_lower();
-//   void add_word( const std::string &word );
-//   void add_newline();
-//   void add_char();
+   int parse(const int argc, const char **argv);
 
    std::ostream& print(std::ostream &stream);
 
 private:
-//   int chars;
-//   int words;
-//   int lines;
-//   int uppercase;
-//   int lowercase;
 
    Language::Parser *parser;
    Language::Scanner *scanner;

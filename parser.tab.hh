@@ -48,9 +48,10 @@
       class ASTNode;
       class ParameterListNode;
       class ParameterNode;
+      class StatementListNode;
    }
 
-#line 54 "parser.tab.hh" // lalr1.cc:386
+#line 55 "parser.tab.hh" // lalr1.cc:386
 
 
 # include <vector>
@@ -68,7 +69,7 @@
 
 #line 5 "parser.yy" // lalr1.cc:386
 namespace Language {
-#line 72 "parser.tab.hh" // lalr1.cc:386
+#line 73 "parser.tab.hh" // lalr1.cc:386
 
 
 
@@ -82,15 +83,16 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 45 "parser.yy" // lalr1.cc:386
+    #line 46 "parser.yy" // lalr1.cc:386
 
    std::string *sval;
    double dval;
    ASTNode * pNode;
    ParameterNode * parameterNode;
    ParameterListNode * parameterListNode;
+   StatementListNode * statementListNode;
 
-#line 94 "parser.tab.hh" // lalr1.cc:386
+#line 96 "parser.tab.hh" // lalr1.cc:386
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -116,7 +118,7 @@ namespace Language {
         IFX = 263,
         ELSE = 264,
         IF = 265,
-        WHILE = 266,
+        While = 266,
         ADD = 267,
         SUB = 268,
         MUL = 269,
@@ -412,8 +414,8 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 57,           //< Last index in yytable_.
-      yynnts_ = 14,  //< Number of nonterminal symbols.
+      yylast_ = 81,           //< Last index in yytable_.
+      yynnts_ = 15,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 6, //< Termination state number.
       yyterror_ = 1,
@@ -430,7 +432,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 434 "parser.tab.hh" // lalr1.cc:386
+#line 436 "parser.tab.hh" // lalr1.cc:386
 
 
 
