@@ -17,13 +17,22 @@ SymbolTable * SymbolTable::Instance()
     return _instance;
 }
 
+Language::FunctionNode * SymbolTable::Function(string name)
+{
+    // TOD: Check for existence
+
+    return _functions[name];
+}
+
 
  bool SymbolTable::DefineFunction(string name, Language::FunctionNode *node)
  {
         // TODO: Check for duplicates. Return false if duplicate
 
-     if (name == "main")
+     if ("main" == name)
          _entrypoint = node;
+
+     _functions[name] = node;
 
      return true;
  }
@@ -33,6 +42,8 @@ Language::FunctionNode * SymbolTable::EntryPoint()
     if (nullptr == _entrypoint)
     {
         // Error: Woops no entrypoint.
+        std::cerr << "Dang ! No entrypoint. Bailing out..." << std::endl;
+        exit(1);
     }
     return _entrypoint;
 }
@@ -74,6 +85,7 @@ void SymbolTable::PushCommandLineArguments(const int argc, const char **argv)
     {
         _argumentStack.push(QVariant(argv[i]));
     }
+    _argumentStack.push(argc);
 }
 
 

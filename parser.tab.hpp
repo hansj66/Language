@@ -49,9 +49,10 @@
       class ParameterListNode;
       class ParameterNode;
       class StatementListNode;
+      class ExpressionListNode;
    }
 
-#line 55 "parser.tab.hpp" // lalr1.cc:386
+#line 56 "parser.tab.hpp" // lalr1.cc:386
 
 
 # include <vector>
@@ -69,7 +70,7 @@
 
 #line 5 "parser.yy" // lalr1.cc:386
 namespace Language {
-#line 73 "parser.tab.hpp" // lalr1.cc:386
+#line 74 "parser.tab.hpp" // lalr1.cc:386
 
 
 
@@ -83,16 +84,18 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 46 "parser.yy" // lalr1.cc:386
+    #line 47 "parser.yy" // lalr1.cc:386
 
    std::string *sval;
    double dval;
+   int ival;
    ASTNode * pNode;
    ParameterNode * parameterNode;
    ParameterListNode * parameterListNode;
    StatementListNode * statementListNode;
+   ExpressionListNode *expressionListNode;
 
-#line 96 "parser.tab.hpp" // lalr1.cc:386
+#line 99 "parser.tab.hpp" // lalr1.cc:386
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -128,8 +131,9 @@ namespace Language {
         GT = 273,
         NumberType = 274,
         TextType = 275,
-        Number = 276,
-        Identifier = 277
+        VoidType = 276,
+        Number = 277,
+        Identifier = 278
       };
     };
 
@@ -299,7 +303,7 @@ namespace Language {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const signed char yycheck_[];
+  static const unsigned char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -414,13 +418,13 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 81,           //< Last index in yytable_.
-      yynnts_ = 15,  //< Number of nonterminal symbols.
+      yylast_ = 95,           //< Last index in yytable_.
+      yynnts_ = 16,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 6, //< Termination state number.
+      yyfinal_ = 8, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 36    //< Number of tokens.
+      yyntokens_ = 37    //< Number of tokens.
     };
 
 
@@ -432,7 +436,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 436 "parser.tab.hpp" // lalr1.cc:386
+#line 440 "parser.tab.hpp" // lalr1.cc:386
 
 
 

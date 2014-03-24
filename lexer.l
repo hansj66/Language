@@ -37,6 +37,7 @@ typedef Language::Parser::token token;
 
 "number" { return token::NumberType; }
 "text" { return token::TextType; }
+"void" { return token::VoidType; }
 
 "if"    { return token::IF;}
 "while" { return token::While;}

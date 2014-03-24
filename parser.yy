@@ -14,6 +14,7 @@
       class ParameterListNode;
       class ParameterNode;
       class StatementListNode;
+      class ExpressionListNode;
    }
 }
 
@@ -46,10 +47,12 @@ extern int lineNumber;
 %union {
    std::string *sval;
    double dval;
+   int ival;
    ASTNode * pNode;
    ParameterNode * parameterNode;
    ParameterListNode * parameterListNode;
    StatementListNode * statementListNode;
+   ExpressionListNode *expressionListNode;
 }
 
 %left GE LE EQ NE '>' '<'
@@ -59,16 +62,18 @@ extern int lineNumber;
 %nonassoc IFX
 %nonassoc ELSE
 
-%token GE LE EQ NE IF While ADD SUB MUL DIV PRINT LT GT NumberType TextType
+%token GE LE EQ NE IF While ADD SUB MUL DIV PRINT LT GT NumberType TextType VoidType
 
 %token  END    0     "end of file"
 %token <dval> Number
 %token <sval> Identifier
 
-%type<pNode>  program expression assignment print statement    function_declaration function_declaration_list expression_list function_call while_loop
+%type<pNode>  program expression assignment print statement    function_declaration function_declaration_list  function_call while_loop
 %type<parameterListNode> parameter_declaration_list
 %type <parameterNode> parameter_declaration
 %type <statementListNode> statement_list function_body
+%type <expressionListNode> expression_list;
+%type <ival> type NumberType TextType VoidType
 
 /* destructor rule for <sval> objects */
 %destructor { if ($$)  { delete ($$); ($$) = nullptr; } } <sval>
@@ -85,7 +90,14 @@ function_declaration_list:
     ;
 
 function_declaration:
-    Identifier Identifier '(' parameter_declaration_list ')' function_body {$$ = new FunctionNode($1, $2, $4, $6); }
+    type Identifier '(' parameter_declaration_list ')' function_body {$$ = new FunctionNode($1, $2, $4, $6); }
+
+    ;
+
+type:
+    NumberType {$$ = $1;}
+    | TextType
+    | VoidType
     ;
 
 parameter_declaration_list:
@@ -128,7 +140,7 @@ function_call:
 
 print:
     PRINT expression { $$ = new PrintNode($2);}
-;
+    ;
 
 assignment:
     Identifier '=' expression { $$ = new AssignmentNode($1, $3);}
@@ -143,6 +155,7 @@ expression_list:
 expression:
    Identifier { $$ = new IdentifierNode($1); }
  | Number {$$ = new NumberLiteralNode($1); }
+ | '-' expression %prec UMINUS { $$ = new OperatorNode(token::UMINUS, $2); }
  | expression '+' expression { $$ = new OperatorNode(token::ADD, $1, $3); }
  | expression '-' expression { $$ = new OperatorNode(token::SUB, $1, $3); }
  | expression '*' expression { $$ = new OperatorNode(token::MUL, $1, $3); }
@@ -153,6 +166,7 @@ expression:
  | expression LE expression { $$ = new OperatorNode(token::LE, $1, $3); }
  | expression NE expression { $$ = new OperatorNode(token::NE, $1, $3); }
  | expression EQ expression { $$ = new OperatorNode(token::EQ, $1, $3); }
+ | '(' expression ')' { $$ = $2; }
  ;
 
 
@@ -160,14 +174,6 @@ expression:
 if / while / assignment etc er statements, ikke expressions
 */
 
-/*
-
- | identifier { $$ = id($1); }
- | '-' expression %prec UMINUS { $$ = opr(UMINUS, 1, $2); }
- | '(' expression ')' { $$ = $2; }
- ;
-
-*/
 
 %%
 

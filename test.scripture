@@ -3,14 +3,20 @@ void TestFunction(number arg1, number arg2)
     print arg1+arg2;
 }
 
-int main(number a, number b)
+number main(number a, number b)
 {
+    print a;
+    print b;
+    print a+(2*b)-(1-a);
+    print 1592;
+
     number n1;
     number n2;
-    n1 = 3;
+    n1 = 3000;
     n2 = 5;
     while (n2 < 100)
     {
+        print n2;
         TestFunction(n1,n2);
         n2 = n2+1;
      }

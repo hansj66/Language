@@ -15,11 +15,16 @@ class ActivationRecord
 {
 public:
     ActivationRecord();
-    bool DefineVariable(string name, QVariant value);
+    bool AssignVariable(string name, QVariant value);
+    bool DeclareVariable(string name, Language::Parser::token::yytokentype type);
+    QVariant GetVariableValue(string name);
+    void SetReturnValue(QVariant value);
+    QVariant GetReturnValue();
 
 private:
     Language::Parser::token::yytokentype returnType;
     map<string, VariableRecord> _variables;
+    QVariant _returnValue;
 };
 
 #endif // ACTIVATIONRECORD_H

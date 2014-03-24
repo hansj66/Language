@@ -18,10 +18,12 @@ private:
     Language::FunctionNode * _entrypoint;
     stack<ActivationRecord *> _activationRecordStack;
     stack<QVariant> _argumentStack;
+    map<string, Language::FunctionNode *> _functions;
 
 public:
     static SymbolTable * Instance();
 
+    Language::FunctionNode * Function(string name);
     bool DefineFunction(string name, Language::FunctionNode *node);
     Language::FunctionNode * EntryPoint();
     ActivationRecord * GetActivationRecord();
