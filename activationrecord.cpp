@@ -1,6 +1,7 @@
 #include "activationrecord.h"
 
-ActivationRecord::ActivationRecord()
+ActivationRecord::ActivationRecord(int returnType)
+    :_returnType(returnType)
 {
 }
 
@@ -13,7 +14,7 @@ bool ActivationRecord::AssignVariable(string name, QVariant value)
 }
 
 
-bool ActivationRecord::DeclareVariable(string name, Language::Parser::token::yytokentype type)
+bool ActivationRecord::DeclareVariable(string name, int type)
 {
     VariableRecord r;
     r.type = type;
@@ -37,6 +38,11 @@ void ActivationRecord::SetReturnValue(QVariant value)
 QVariant ActivationRecord::GetReturnValue()
 {
     return _returnValue;
+}
+
+void ActivationRecord::SetReturnType(int type)
+{
+    _returnType = type;
 }
 
 

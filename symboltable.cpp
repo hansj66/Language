@@ -54,9 +54,9 @@ ActivationRecord * SymbolTable::GetActivationRecord()
     return _activationRecordStack.top();
 }
 
-void SymbolTable::PushAR()
+void SymbolTable::PushAR(int returnType)
 {
-    _activationRecordStack.push(new ActivationRecord());
+    _activationRecordStack.push(new ActivationRecord(returnType));
 }
 
 void SymbolTable::PopAR()

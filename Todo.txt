@@ -1,5 +1,10 @@
 0) Fix return type definition in functions. Formalize basic type system. Function calls can be part of expressions.
 0) Function call execute should take an expression list
+0) Array type
+0) %destructor definitions for other types ?
+0) More consistent use of pointers in string arguments
+
+printing of string expressions (format, newline som egen kommando etc). Må ha med quoted string i lexer
 
     Blog post series
         a) Syntax. Lexer / parser (without semantic actions)

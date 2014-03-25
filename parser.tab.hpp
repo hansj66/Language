@@ -137,7 +137,8 @@ namespace Language {
         TextType = 275,
         VoidType = 276,
         Number = 277,
-        Identifier = 278
+        Identifier = 278,
+        String = 279
       };
     };
 
@@ -422,13 +423,13 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 95,           //< Last index in yytable_.
+      yylast_ = 100,           //< Last index in yytable_.
       yynnts_ = 16,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 8, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 37    //< Number of tokens.
+      yyntokens_ = 38    //< Number of tokens.
     };
 
 
@@ -440,7 +441,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 444 "parser.tab.hpp" // lalr1.cc:386
+#line 445 "parser.tab.hpp" // lalr1.cc:386
 
 
 

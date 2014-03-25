@@ -14,10 +14,12 @@ number main(number a, number b)
     number n2;
     n1 = 3000;
     n2 = 5;
-    while (n2 < 100)
+    while (n2 < b)
     {
         print n2;
         TestFunction(n1,n2);
         n2 = n2+1;
      }
+
+    print "DUDE !";
 }

@@ -159,6 +159,7 @@ QVariant FunctionCallNode::Execute()
         SymbolTable::Instance()->PushArgument(_expressionList->at(i)->Execute());
     SymbolTable::Instance()->PushArgument(_expressionList->Count());
     SymbolTable::Instance()->Function(_name)->Execute();
+    return ASTNode::Execute();
 }
 
 
@@ -168,10 +169,21 @@ PrintNode::PrintNode(ASTNode * expression)
 {
 }
 
+PrintNode::PrintNode(string * strExpression)
+        :   _expression(nullptr)
+{
+    _strExpression = QString::fromStdString(*strExpression).mid(1, strExpression->size()-2).toStdString();
+}
+
+
 
 QVariant PrintNode::Execute()
 {
-    std::cout << QString("%1").arg(_expression->Execute().toDouble()).toStdString() << std::endl;
+    if (nullptr != _expression)
+        std::cout << QString("%1").arg(_expression->Execute().toDouble()).toStdString() << std::endl;
+    else
+        std::cout << _strExpression << std::endl;
+
     return ASTNode::Execute();
 }
 
@@ -194,7 +206,7 @@ int StatementListNode::Count()
 
 QVariant StatementListNode::Execute()
 {
-    for (int i=0; i<_statements.size(); i++)
+    for (size_t i=0; i<_statements.size(); i++)
     {
         _statements.at(i)->Execute();
     }
@@ -219,8 +231,7 @@ QVariant WhileNode::Execute()
 
 
 FunctionNode::FunctionNode(int type, string * name, ParameterListNode * arguments, StatementListNode * body)
-        : _type(type),
-          _name(name),
+        : _returnType(type),
           _arguments(arguments),
           _body(body)
 {
@@ -229,7 +240,7 @@ FunctionNode::FunctionNode(int type, string * name, ParameterListNode * argument
 
 QVariant FunctionNode::Execute()
 {
-    SymbolTable::Instance()->PushAR();
+    SymbolTable::Instance()->PushAR(_returnType);
 
     int argc = SymbolTable::Instance()->PopArgument().toInt();
     if (argc != _arguments->Count())
@@ -254,6 +265,11 @@ QVariant FunctionNode::Execute()
     SymbolTable::Instance()->PopAR();
 
     return retVal;
+}
+
+int FunctionNode::ReturnType()
+{
+    return _returnType;
 }
 
 

@@ -30,6 +30,11 @@ typedef Language::Parser::token token;
 [ \t]+ ; /* Ignore white space */
 [\n] {lineNumber++;}
 
+\"(\\.|[^"])*\" {
+    yylval->sval = STOKEN(yytext);
+    return token::String;
+}
+
 ([0-9]+|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) {
             yylval->dval = atoi(yytext);
             return token::Number;

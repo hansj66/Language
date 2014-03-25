@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <QDebug>
+#include <QVariant>
 
 #include "scanner.hpp"
 #include "parser.tab.hpp"
@@ -49,7 +49,7 @@ public:
     string Name();
 
 private:
-    Language::Parser::token::yytokentype _type;
+    int _type;
     string  _name;
 };
 
@@ -115,10 +115,12 @@ class PrintNode: public ASTNode
 {
 public:
     PrintNode(ASTNode * expression);
+    PrintNode(string * strExpression);
     QVariant Execute() override;
 
 private:
         ASTNode * _expression;
+        string _strExpression;
 };
 
 class StatementListNode: public ASTNode
@@ -150,10 +152,10 @@ class FunctionNode: public ASTNode
 public:
     FunctionNode(int type, string * name, ParameterListNode * arguments, StatementListNode * body);
     QVariant Execute() override;
+    int ReturnType();
 
 private:
-    int _type;
-    string * _name;
+    int _returnType;
     ParameterListNode * _arguments;
     StatementListNode * _body;
 };

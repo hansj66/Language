@@ -7,22 +7,23 @@
 typedef struct
 {
     QVariant value;
-    Language::Parser::token::yytokentype type;
+    int type;
 } VariableRecord;
 
 
 class ActivationRecord
 {
 public:
-    ActivationRecord();
+    ActivationRecord(int returnType);
     bool AssignVariable(string name, QVariant value);
-    bool DeclareVariable(string name, Language::Parser::token::yytokentype type);
+    bool DeclareVariable(string name, int type);
     QVariant GetVariableValue(string name);
     void SetReturnValue(QVariant value);
     QVariant GetReturnValue();
+    void SetReturnType(int type);
 
 private:
-    Language::Parser::token::yytokentype returnType;
+    int _returnType;
     map<string, VariableRecord> _variables;
     QVariant _returnValue;
 };

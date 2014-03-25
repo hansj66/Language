@@ -27,7 +27,7 @@ public:
     bool DefineFunction(string name, Language::FunctionNode *node);
     Language::FunctionNode * EntryPoint();
     ActivationRecord * GetActivationRecord();
-    void PushAR();
+    void PushAR(int _returnType);
     void PopAR();
     QVariant PopArgument();
     void PushArgument(QVariant argument);

@@ -27,15 +27,15 @@
 %parse-param { Translator  &translator  }
 %code{
 
-   #include <iostream>
-   #include <cstdlib>
-   #include <fstream>
+    #include <iostream>
+    #include <cstdlib>
+    #include <fstream>
 
-  #include "ast.h"
-  #include "translator.hpp"
-  #include "symboltable.h"
+    #include "ast.h"
+    #include "translator.hpp"
+    #include "symboltable.h"
 
-extern int lineNumber;
+    extern int lineNumber;
 
    /* this is silly, but I can't figure out a way around */
    static int yylex(Language::Parser::semantic_type *yylval,
@@ -70,6 +70,7 @@ extern int lineNumber;
 %token  END    0     "end of file"
 %token <dval> Number
 %token <sval> Identifier
+%token <sval> String
 
 %type<pNode>  program expression assignment print statement function_call while_loop
 %type<parameterListNode> parameter_declaration_list
@@ -80,7 +81,6 @@ extern int lineNumber;
 %type <functionNode> function_declaration
 %type <functionDeclarationListNode> function_declaration_list
 
-/* destructor rule for <sval> objects */
 %destructor { if ($$)  { delete ($$); ($$) = nullptr; } } <sval>
 
 %%
@@ -96,7 +96,6 @@ function_declaration_list:
 
 function_declaration:
     type Identifier '(' parameter_declaration_list ')' function_body {$$ = new FunctionNode($1, $2, $4, $6); }
-
     ;
 
 type:
@@ -111,7 +110,6 @@ parameter_declaration_list:
     | {$$ = nullptr;}
 ;
 
-
 parameter_declaration:
     NumberType Identifier {$$ = new ParameterNode(token::NumberType, $2);}
     |  TextType Identifier {$$ = new ParameterNode(token::TextType, $2);}
@@ -120,7 +118,6 @@ parameter_declaration:
 function_body:
     '{' statement_list '}' {$$ = $2;}
 ;
-
 
 statement_list:
     statement {$$ = new StatementListNode($1);}
@@ -145,12 +142,12 @@ function_call:
 
 print:
     PRINT expression { $$ = new PrintNode($2);}
+    | PRINT String { $$ = new PrintNode($2); }
     ;
 
 assignment:
     Identifier '=' expression { $$ = new AssignmentNode($1, $3);}
     ;
-
 
 expression_list:
     expression { $$ = new ExpressionListNode($1); }
@@ -174,10 +171,6 @@ expression:
  | '(' expression ')' { $$ = $2; }
  ;
 
-
-/*
-if / while / assignment etc er statements, ikke expressions
-*/
 
 
 %%
