@@ -33,7 +33,6 @@
 
   #include "ast.h"
   #include "translator.hpp"
-  #include "interpreter.h"
   #include "symboltable.h"
 
 extern int lineNumber;

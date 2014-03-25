@@ -122,7 +122,7 @@ QVariant OperatorNode::Execute()
         case Language::Parser::token::NE: return _op1->Execute().toDouble() != _op2->Execute().toDouble();break;
         case Language::Parser::token::EQ: return _op1->Execute().toDouble() == _op2->Execute().toDouble();break;
         default: std::cerr << "Damn ! Looks like we forgot to implement something..." << std::endl;
-            exit(1);
+            exit(EXIT_FAILURE);
     }
 
     return QVariant();
@@ -229,23 +229,19 @@ FunctionNode::FunctionNode(int type, string * name, ParameterListNode * argument
 
 QVariant FunctionNode::Execute()
 {
-    qDebug() << "Executing function" << QString::fromStdString(*_name);
     SymbolTable::Instance()->PushAR();
 
     int argc = SymbolTable::Instance()->PopArgument().toInt();
     if (argc != _arguments->Count())
     {
         std::cerr << "OMG ! Someone has corrupted the stack. Bailing out...";
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     for (int i=0; i<argc; i++)
     {
         QVariant arg = SymbolTable::Instance()->PopArgument();
         string name = _arguments->at(argc-i-1)->Name();
-
-        qDebug() << "Assigning " << arg << "to " << QString::fromStdString(name);
-
         SymbolTable::Instance()->GetActivationRecord()->AssignVariable(name, arg);
     }
 

@@ -56,14 +56,11 @@ ActivationRecord * SymbolTable::GetActivationRecord()
 
 void SymbolTable::PushAR()
 {
-    qDebug() << "Pushing new activation Record on stack";
     _activationRecordStack.push(new ActivationRecord());
 }
 
 void SymbolTable::PopAR()
 {
-    qDebug() << "Popping current activation Record from stack";
-
     _activationRecordStack.pop();
 }
 

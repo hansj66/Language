@@ -23,7 +23,6 @@ SOURCES += main.cpp\
         translator.cpp \
        symboltable.cpp \
        ast.cpp \
-       interpreter.cpp \
     activationrecord.cpp
 
 HEADERS  += \
@@ -33,7 +32,6 @@ HEADERS  += \
     scanner.hpp \
     symboltable.h \
     ast.h \
-    interpreter.h \
     activationrecord.h
 
 OTHER_FILES += \

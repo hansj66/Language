@@ -11,8 +11,6 @@ int main(const int argc, const char **argv)
 
    Language::Translator translator;
    translator.parse( argc, argv );
-   std::cout << "Results\n";
-   translator.print(std::cout) << "\n";
 
    return( EXIT_SUCCESS );
 }

@@ -86,7 +86,7 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 49 "parser.yy" // lalr1.cc:386
+    #line 48 "parser.yy" // lalr1.cc:386
 
    std::string *sval;
    double dval;
