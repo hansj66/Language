@@ -15,6 +15,8 @@
       class ParameterNode;
       class StatementListNode;
       class ExpressionListNode;
+      class FunctionNode;
+      class FunctionDeclarationListNode;
    }
 }
 
@@ -53,6 +55,8 @@ extern int lineNumber;
    ParameterListNode * parameterListNode;
    StatementListNode * statementListNode;
    ExpressionListNode *expressionListNode;
+   FunctionNode * functionNode;
+   FunctionDeclarationListNode * functionDeclarationListNode;
 }
 
 %left GE LE EQ NE '>' '<'
@@ -68,12 +72,14 @@ extern int lineNumber;
 %token <dval> Number
 %token <sval> Identifier
 
-%type<pNode>  program expression assignment print statement    function_declaration function_declaration_list  function_call while_loop
+%type<pNode>  program expression assignment print statement function_call while_loop
 %type<parameterListNode> parameter_declaration_list
 %type <parameterNode> parameter_declaration
 %type <statementListNode> statement_list function_body
 %type <expressionListNode> expression_list;
 %type <ival> type NumberType TextType VoidType
+%type <functionNode> function_declaration
+%type <functionDeclarationListNode> function_declaration_list
 
 /* destructor rule for <sval> objects */
 %destructor { if ($$)  { delete ($$); ($$) = nullptr; } } <sval>
@@ -86,7 +92,7 @@ program:
 
 function_declaration_list:
     function_declaration { $$ = new FunctionDeclarationListNode($1);}
-    | function_declaration_list function_declaration {dynamic_cast<FunctionDeclarationListNode *>($1)->Add($2);}
+    | function_declaration_list function_declaration {$1->Add($2);}
     ;
 
 function_declaration:
@@ -102,7 +108,7 @@ type:
 
 parameter_declaration_list:
     parameter_declaration { $$ = new ParameterListNode($1); }
-    |parameter_declaration_list ',' parameter_declaration {dynamic_cast<ParameterListNode *>($1)->Add($3);}
+    |parameter_declaration_list ',' parameter_declaration {$1->Add($3);}
     | {$$ = nullptr;}
 ;
 
@@ -119,7 +125,7 @@ function_body:
 
 statement_list:
     statement {$$ = new StatementListNode($1);}
-    | statement_list statement {dynamic_cast<StatementListNode*>($1)->Add($2);}
+    | statement_list statement {$1->Add($2);}
     ;
 
 statement:
@@ -149,7 +155,7 @@ assignment:
 
 expression_list:
     expression { $$ = new ExpressionListNode($1); }
-    | expression_list ',' expression {dynamic_cast<ExpressionListNode *>($1)->Add($3);}
+    | expression_list ',' expression {$1->Add($3);}
 ;
 
 expression:

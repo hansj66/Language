@@ -262,12 +262,12 @@ QVariant FunctionNode::Execute()
 
 
 
-FunctionDeclarationListNode::FunctionDeclarationListNode(ASTNode * functionDeclaration)
+FunctionDeclarationListNode::FunctionDeclarationListNode(FunctionNode * functionDeclaration)
 {
       _functions.push_back(functionDeclaration);
 }
 
-void FunctionDeclarationListNode::Add(ASTNode * functionDeclaration)
+void FunctionDeclarationListNode::Add(FunctionNode * functionDeclaration)
 {
     _functions.push_back(functionDeclaration);
 }

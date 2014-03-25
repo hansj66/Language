@@ -161,22 +161,14 @@ private:
 class FunctionDeclarationListNode: public ASTNode
 {
 public:
-    FunctionDeclarationListNode(ASTNode * functionDeclaration);
-    void Add(ASTNode * functionDeclaration);
+    FunctionDeclarationListNode(FunctionNode * functionDeclaration);
+    void Add(FunctionNode * functionDeclaration);
 
 private:
-    std::vector<ASTNode *> _functions;
+    std::vector<FunctionNode *> _functions;
 };
 
 
-/*
-class UnaryOperatorNode: public ASTNode
-{
-public:
-    UnaryOperatorNode(Language::Parser::token type, );
-};
-
-*/
 
 
 

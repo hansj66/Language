@@ -50,9 +50,11 @@
       class ParameterNode;
       class StatementListNode;
       class ExpressionListNode;
+      class FunctionNode;
+      class FunctionDeclarationListNode;
    }
 
-#line 56 "parser.tab.hpp" // lalr1.cc:386
+#line 58 "parser.tab.hpp" // lalr1.cc:386
 
 
 # include <vector>
@@ -70,7 +72,7 @@
 
 #line 5 "parser.yy" // lalr1.cc:386
 namespace Language {
-#line 74 "parser.tab.hpp" // lalr1.cc:386
+#line 76 "parser.tab.hpp" // lalr1.cc:386
 
 
 
@@ -84,7 +86,7 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 47 "parser.yy" // lalr1.cc:386
+    #line 49 "parser.yy" // lalr1.cc:386
 
    std::string *sval;
    double dval;
@@ -94,8 +96,10 @@ namespace Language {
    ParameterListNode * parameterListNode;
    StatementListNode * statementListNode;
    ExpressionListNode *expressionListNode;
+   FunctionNode * functionNode;
+   FunctionDeclarationListNode * functionDeclarationListNode;
 
-#line 99 "parser.tab.hpp" // lalr1.cc:386
+#line 103 "parser.tab.hpp" // lalr1.cc:386
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -436,7 +440,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 440 "parser.tab.hpp" // lalr1.cc:386
+#line 444 "parser.tab.hpp" // lalr1.cc:386
 
 
 
