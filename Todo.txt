@@ -6,6 +6,7 @@
 0) Comment syntax "Let there be..."
 
 0) Return statement. Check return type for function against expression type
+0) Mybe AST Execute should not return QVariant ? This should maybe be reserved for expression nodes. Switch back to evaluate ?
 
 printing of string expressions (format, newline som egen kommando etc). Må ha med quoted string i lexer
 

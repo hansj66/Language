@@ -158,8 +158,7 @@ QVariant FunctionCallNode::Execute()
     for (int i=0; i<_expressionList->Count(); i++)
         SymbolTable::Instance()->PushArgument(_expressionList->at(i)->Execute());
     SymbolTable::Instance()->PushArgument(_expressionList->Count());
-    SymbolTable::Instance()->Function(_name)->Execute();
-    return ASTNode::Execute();
+    return SymbolTable::Instance()->Function(_name)->Execute();
 }
 
 
@@ -208,7 +207,10 @@ QVariant StatementListNode::Execute()
 {
     for (size_t i=0; i<_statements.size(); i++)
     {
-        _statements.at(i)->Execute();
+        ASTNode * pStatement = _statements.at(i);
+        pStatement->Execute();
+        if (dynamic_cast<ReturnNode *>(pStatement))
+            break;
     }
 
     return ASTNode::Execute();
@@ -228,10 +230,23 @@ QVariant WhileNode::Execute()
     return ASTNode::Execute();
 }
 
+
+ReturnNode::ReturnNode(ASTNode * expression)
+    : _expression(expression)
+{
+}
+
+QVariant ReturnNode::Execute()
+{
+    SymbolTable::Instance()->GetActivationRecord()->SetReturnValue(_expression->Execute());
+}
+
+
+
 IfNode::IfNode(ASTNode * expression, ASTNode * bodyTrue, ASTNode * bodyFalse)
-    : _expression(expression),
-      _bodyTrue(bodyTrue),
-      _bodyFalse(bodyFalse)
+    : _bodyTrue(bodyTrue),
+      _bodyFalse(bodyFalse),
+      _expression(expression)
 {
 }
 
@@ -286,8 +301,6 @@ QVariant FunctionNode::Execute()
     }
 
     _body->Execute();
-
-    // TODO: Return values are not really implemented yet..
 
     QVariant retVal = SymbolTable::Instance()->GetActivationRecord()->GetReturnValue();
 

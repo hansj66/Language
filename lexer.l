@@ -48,6 +48,7 @@ typedef Language::Parser::token token;
 "else" { return token::ELSE;}
 "while" { return token::While;}
 "print" {return token::PRINT;}
+"return"  {return token::RETURN;}
 "==" {return token::EQ;}
 "!=" {return token::NE;}
 ">=" {return token::GE;}

@@ -65,14 +65,14 @@
 %nonassoc IFX
 %nonassoc ELSE
 
-%token GE LE EQ NE IF While ADD SUB MUL DIV PRINT LT GT NumberType TextType VoidType
+%token GE LE EQ NE IF While ADD SUB MUL DIV PRINT LT GT RETURN NumberType TextType VoidType
 
 %token  END    0     "end of file"
 %token <dval> Number
 %token <sval> Identifier
 %token <sval> String
 
-%type<pNode>  program expression assignment print statement function_call while_loop if
+%type<pNode>  program expression assignment print statement function_call while_loop if return
 %type<parameterListNode> parameter_declaration_list
 %type <parameterNode> parameter_declaration
 %type <statementListNode> statement_list function_body
@@ -128,9 +128,15 @@ statement:
     parameter_declaration ';' { $$ = $1;}
     | assignment ';' {$$ = $1;}
     | print ';' { $$ = $1;}
-    | function_call {$$ = $1;}
+    | function_call ';' {$$ = $1;}
     | while_loop { $$ = $1; }
     | if { $$ = $1; }
+    | return ';' { $$ = $1;}
+;
+
+
+return:
+    RETURN expression {$$ = new ReturnNode($2); }
 ;
 
 while_loop:
@@ -138,7 +144,7 @@ while_loop:
     ;
 
 function_call:
-    Identifier '(' expression_list ')' ';' {$$ = new FunctionCallNode($1, $3);}
+    Identifier '(' expression_list ')' {$$ = new FunctionCallNode($1, $3);}
 ;
 
 if:
@@ -163,6 +169,7 @@ expression_list:
 expression:
    Identifier { $$ = new IdentifierNode($1); }
  | Number {$$ = new NumberLiteralNode($1); }
+ | function_call { $$ = $1;}
  | '-' expression %prec UMINUS { $$ = new OperatorNode(token::UMINUS, $2); }
  | expression '+' expression { $$ = new OperatorNode(token::ADD, $1, $3); }
  | expression '-' expression { $$ = new OperatorNode(token::SUB, $1, $3); }

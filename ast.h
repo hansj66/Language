@@ -147,6 +147,16 @@ private:
         ASTNode * _expression;
 };
 
+class ReturnNode: public ASTNode
+{
+public:
+    ReturnNode(ASTNode * expression);
+    QVariant Execute() override;
+
+private:
+        ASTNode * _expression;
+};
+
 
 class IfNode: public ASTNode
 {

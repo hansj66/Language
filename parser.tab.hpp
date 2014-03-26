@@ -133,12 +133,13 @@ namespace Language {
         PRINT = 271,
         LT = 272,
         GT = 273,
-        NumberType = 274,
-        TextType = 275,
-        VoidType = 276,
-        Number = 277,
-        Identifier = 278,
-        String = 279
+        RETURN = 274,
+        NumberType = 275,
+        TextType = 276,
+        VoidType = 277,
+        Number = 278,
+        Identifier = 279,
+        String = 280
       };
     };
 
@@ -308,7 +309,7 @@ namespace Language {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const signed char yycheck_[];
+  static const unsigned char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -423,13 +424,13 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 126,           //< Last index in yytable_.
-      yynnts_ = 17,  //< Number of nonterminal symbols.
+      yylast_ = 125,           //< Last index in yytable_.
+      yynnts_ = 18,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 8, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 38    //< Number of tokens.
+      yyntokens_ = 39    //< Number of tokens.
     };
 
 
@@ -441,7 +442,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 445 "parser.tab.hpp" // lalr1.cc:386
+#line 446 "parser.tab.hpp" // lalr1.cc:386
 
 
 

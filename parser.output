@@ -38,119 +38,126 @@ Grammar
    16 statement: parameter_declaration ';'
    17          | assignment ';'
    18          | print ';'
-   19          | function_call
+   19          | function_call ';'
    20          | while_loop
    21          | if
+   22          | return ';'
 
-   22 while_loop: While '(' expression ')' function_body
+   23 return: RETURN expression
 
-   23 function_call: Identifier '(' expression_list ')' ';'
+   24 while_loop: While '(' expression ')' function_body
 
-   24 if: IF '(' expression ')' function_body
-   25   | IF '(' expression ')' function_body ELSE function_body
+   25 function_call: Identifier '(' expression_list ')'
 
-   26 print: PRINT expression
-   27      | PRINT String
+   26 if: IF '(' expression ')' function_body
+   27   | IF '(' expression ')' function_body ELSE function_body
 
-   28 assignment: Identifier '=' expression
+   28 print: PRINT expression
+   29      | PRINT String
 
-   29 expression_list: expression
-   30                | expression_list ',' expression
+   30 assignment: Identifier '=' expression
 
-   31 expression: Identifier
-   32           | Number
-   33           | '-' expression
-   34           | expression '+' expression
-   35           | expression '-' expression
-   36           | expression '*' expression
-   37           | expression '/' expression
-   38           | expression '<' expression
-   39           | expression '>' expression
-   40           | expression GE expression
-   41           | expression LE expression
-   42           | expression NE expression
-   43           | expression EQ expression
-   44           | '(' expression ')'
+   31 expression_list: expression
+   32                | expression_list ',' expression
+
+   33 expression: Identifier
+   34           | Number
+   35           | function_call
+   36           | '-' expression
+   37           | expression '+' expression
+   38           | expression '-' expression
+   39           | expression '*' expression
+   40           | expression '/' expression
+   41           | expression '<' expression
+   42           | expression '>' expression
+   43           | expression GE expression
+   44           | expression LE expression
+   45           | expression NE expression
+   46           | expression EQ expression
+   47           | '(' expression ')'
 
 
 Terminals, with rules where they appear
 
 "end of file" (0) 0
-'(' (40) 4 22 23 24 25 44
-')' (41) 4 22 23 24 25 44
-'*' (42) 36
-'+' (43) 34
-',' (44) 9 30
-'-' (45) 33 35
-'/' (47) 37
-';' (59) 16 17 18 23
-'<' (60) 38
-'=' (61) 28
-'>' (62) 39
+'(' (40) 4 24 25 26 27 47
+')' (41) 4 24 25 26 27 47
+'*' (42) 39
+'+' (43) 37
+',' (44) 9 32
+'-' (45) 36 38
+'/' (47) 40
+';' (59) 16 17 18 19 22
+'<' (60) 41
+'=' (61) 30
+'>' (62) 42
 '{' (123) 13
 '}' (125) 13
 error (256)
-GE (258) 40
-LE (259) 41
-EQ (260) 43
-NE (261) 42
+GE (258) 43
+LE (259) 44
+EQ (260) 46
+NE (261) 45
 UMINUS (262)
 IFX (263)
-ELSE (264) 25
-IF (265) 24 25
-While (266) 22
+ELSE (264) 27
+IF (265) 26 27
+While (266) 24
 ADD (267)
 SUB (268)
 MUL (269)
 DIV (270)
-PRINT (271) 26 27
+PRINT (271) 28 29
 LT (272)
 GT (273)
-NumberType (274) 5 11
-TextType (275) 6 12
-VoidType (276) 7
-Number (277) 32
-Identifier (278) 4 11 12 23 28 31
-String (279) 27
+RETURN (274) 23
+NumberType (275) 5 11
+TextType (276) 6 12
+VoidType (277) 7
+Number (278) 34
+Identifier (279) 4 11 12 25 30 33
+String (280) 29
 
 
 Nonterminals, with rules where they appear
 
-$accept (38)
+$accept (39)
     on left: 0
-program (39)
+program (40)
     on left: 1, on right: 0
-function_declaration_list (40)
+function_declaration_list (41)
     on left: 2 3, on right: 1 3
-function_declaration (41)
+function_declaration (42)
     on left: 4, on right: 2 3
-type (42)
+type (43)
     on left: 5 6 7, on right: 4
-parameter_declaration_list (43)
+parameter_declaration_list (44)
     on left: 8 9 10, on right: 4 9
-parameter_declaration (44)
+parameter_declaration (45)
     on left: 11 12, on right: 8 9 16
-function_body (45)
-    on left: 13, on right: 4 22 24 25
-statement_list (46)
+function_body (46)
+    on left: 13, on right: 4 24 26 27
+statement_list (47)
     on left: 14 15, on right: 13 15
-statement (47)
-    on left: 16 17 18 19 20 21, on right: 14 15
-while_loop (48)
-    on left: 22, on right: 20
-function_call (49)
-    on left: 23, on right: 19
-if (50)
-    on left: 24 25, on right: 21
-print (51)
-    on left: 26 27, on right: 18
-assignment (52)
-    on left: 28, on right: 17
-expression_list (53)
-    on left: 29 30, on right: 23 30
-expression (54)
-    on left: 31 32 33 34 35 36 37 38 39 40 41 42 43 44, on right: 22
-    24 25 26 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44
+statement (48)
+    on left: 16 17 18 19 20 21 22, on right: 14 15
+return (49)
+    on left: 23, on right: 22
+while_loop (50)
+    on left: 24, on right: 20
+function_call (51)
+    on left: 25, on right: 19 35
+if (52)
+    on left: 26 27, on right: 21
+print (53)
+    on left: 28 29, on right: 18
+assignment (54)
+    on left: 30, on right: 17
+expression_list (55)
+    on left: 31 32, on right: 25 32
+expression (56)
+    on left: 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47, on right:
+    23 24 26 27 28 30 31 32 36 37 38 39 40 41 42 43 44 45 46 47
 
 
 State 0
@@ -328,18 +335,20 @@ State 20
     IF          shift, and go to state 23
     While       shift, and go to state 24
     PRINT       shift, and go to state 25
+    RETURN      shift, and go to state 26
     NumberType  shift, and go to state 12
     TextType    shift, and go to state 13
-    Identifier  shift, and go to state 26
+    Identifier  shift, and go to state 27
 
-    parameter_declaration  go to state 27
-    statement_list         go to state 28
-    statement              go to state 29
-    while_loop             go to state 30
-    function_call          go to state 31
-    if                     go to state 32
-    print                  go to state 33
-    assignment             go to state 34
+    parameter_declaration  go to state 28
+    statement_list         go to state 29
+    statement              go to state 30
+    return                 go to state 31
+    while_loop             go to state 32
+    function_call          go to state 33
+    if                     go to state 34
+    print                  go to state 35
+    assignment             go to state 36
 
 
 State 21
@@ -358,50 +367,64 @@ State 22
 
 State 23
 
-   24 if: IF . '(' expression ')' function_body
-   25   | IF . '(' expression ')' function_body ELSE function_body
+   26 if: IF . '(' expression ')' function_body
+   27   | IF . '(' expression ')' function_body ELSE function_body
 
-    '('  shift, and go to state 35
+    '('  shift, and go to state 37
 
 
 State 24
 
-   22 while_loop: While . '(' expression ')' function_body
+   24 while_loop: While . '(' expression ')' function_body
 
-    '('  shift, and go to state 36
+    '('  shift, and go to state 38
 
 
 State 25
 
-   26 print: PRINT . expression
-   27      | PRINT . String
+   28 print: PRINT . expression
+   29      | PRINT . String
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    String      shift, and go to state 40
-    '('         shift, and go to state 41
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    String      shift, and go to state 42
+    '('         shift, and go to state 43
 
-    expression  go to state 42
+    function_call  go to state 44
+    expression     go to state 45
 
 
 State 26
 
-   23 function_call: Identifier . '(' expression_list ')' ';'
-   28 assignment: Identifier . '=' expression
+   23 return: RETURN . expression
 
-    '('  shift, and go to state 43
-    '='  shift, and go to state 44
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 46
 
 
 State 27
 
-   16 statement: parameter_declaration . ';'
+   25 function_call: Identifier . '(' expression_list ')'
+   30 assignment: Identifier . '=' expression
 
-    ';'  shift, and go to state 45
+    '('  shift, and go to state 47
+    '='  shift, and go to state 48
 
 
 State 28
+
+   16 statement: parameter_declaration . ';'
+
+    ';'  shift, and go to state 49
+
+
+State 29
 
    13 function_body: '{' statement_list . '}'
    15 statement_list: statement_list . statement
@@ -409,818 +432,889 @@ State 28
     IF          shift, and go to state 23
     While       shift, and go to state 24
     PRINT       shift, and go to state 25
+    RETURN      shift, and go to state 26
     NumberType  shift, and go to state 12
     TextType    shift, and go to state 13
-    Identifier  shift, and go to state 26
-    '}'         shift, and go to state 46
+    Identifier  shift, and go to state 27
+    '}'         shift, and go to state 50
 
-    parameter_declaration  go to state 27
-    statement              go to state 47
-    while_loop             go to state 30
-    function_call          go to state 31
-    if                     go to state 32
-    print                  go to state 33
-    assignment             go to state 34
+    parameter_declaration  go to state 28
+    statement              go to state 51
+    return                 go to state 31
+    while_loop             go to state 32
+    function_call          go to state 33
+    if                     go to state 34
+    print                  go to state 35
+    assignment             go to state 36
 
 
-State 29
+State 30
 
    14 statement_list: statement .
 
     $default  reduce using rule 14 (statement_list)
 
 
-State 30
+State 31
+
+   22 statement: return . ';'
+
+    ';'  shift, and go to state 52
+
+
+State 32
 
    20 statement: while_loop .
 
     $default  reduce using rule 20 (statement)
 
 
-State 31
+State 33
 
-   19 statement: function_call .
+   19 statement: function_call . ';'
 
-    $default  reduce using rule 19 (statement)
+    ';'  shift, and go to state 53
 
 
-State 32
+State 34
 
    21 statement: if .
 
     $default  reduce using rule 21 (statement)
 
 
-State 33
+State 35
 
    18 statement: print . ';'
 
-    ';'  shift, and go to state 48
-
-
-State 34
-
-   17 statement: assignment . ';'
-
-    ';'  shift, and go to state 49
-
-
-State 35
-
-   24 if: IF '(' . expression ')' function_body
-   25   | IF '(' . expression ')' function_body ELSE function_body
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 50
+    ';'  shift, and go to state 54
 
 
 State 36
 
-   22 while_loop: While '(' . expression ')' function_body
+   17 statement: assignment . ';'
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 51
+    ';'  shift, and go to state 55
 
 
 State 37
 
-   33 expression: '-' . expression
+   26 if: IF '(' . expression ')' function_body
+   27   | IF '(' . expression ')' function_body ELSE function_body
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
 
-    expression  go to state 52
+    function_call  go to state 44
+    expression     go to state 56
 
 
 State 38
 
-   32 expression: Number .
+   24 while_loop: While '(' . expression ')' function_body
 
-    $default  reduce using rule 32 (expression)
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 57
 
 
 State 39
 
-   31 expression: Identifier .
+   36 expression: '-' . expression
 
-    $default  reduce using rule 31 (expression)
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 58
 
 
 State 40
 
-   27 print: PRINT String .
+   34 expression: Number .
 
-    $default  reduce using rule 27 (print)
+    $default  reduce using rule 34 (expression)
 
 
 State 41
 
-   44 expression: '(' . expression ')'
+   25 function_call: Identifier . '(' expression_list ')'
+   33 expression: Identifier .
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
+    '('  shift, and go to state 47
 
-    expression  go to state 53
+    $default  reduce using rule 33 (expression)
 
 
 State 42
 
-   26 print: PRINT expression .
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
+   29 print: PRINT String .
 
-    GE   shift, and go to state 54
-    LE   shift, and go to state 55
-    EQ   shift, and go to state 56
-    NE   shift, and go to state 57
-    '>'  shift, and go to state 58
-    '<'  shift, and go to state 59
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 26 (print)
+    $default  reduce using rule 29 (print)
 
 
 State 43
 
-   23 function_call: Identifier '(' . expression_list ')' ';'
+   47 expression: '(' . expression ')'
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
 
-    expression_list  go to state 64
-    expression       go to state 65
+    function_call  go to state 44
+    expression     go to state 59
 
 
 State 44
 
-   28 assignment: Identifier '=' . expression
+   35 expression: function_call .
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 66
+    $default  reduce using rule 35 (expression)
 
 
 State 45
+
+   28 print: PRINT expression .
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 28 (print)
+
+
+State 46
+
+   23 return: RETURN expression .
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 23 (return)
+
+
+State 47
+
+   25 function_call: Identifier '(' . expression_list ')'
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call    go to state 44
+    expression_list  go to state 70
+    expression       go to state 71
+
+
+State 48
+
+   30 assignment: Identifier '=' . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 72
+
+
+State 49
 
    16 statement: parameter_declaration ';' .
 
     $default  reduce using rule 16 (statement)
 
 
-State 46
+State 50
 
    13 function_body: '{' statement_list '}' .
 
     $default  reduce using rule 13 (function_body)
 
 
-State 47
+State 51
 
    15 statement_list: statement_list statement .
 
     $default  reduce using rule 15 (statement_list)
 
 
-State 48
+State 52
+
+   22 statement: return ';' .
+
+    $default  reduce using rule 22 (statement)
+
+
+State 53
+
+   19 statement: function_call ';' .
+
+    $default  reduce using rule 19 (statement)
+
+
+State 54
 
    18 statement: print ';' .
 
     $default  reduce using rule 18 (statement)
 
 
-State 49
+State 55
 
    17 statement: assignment ';' .
 
     $default  reduce using rule 17 (statement)
 
 
-State 50
-
-   24 if: IF '(' expression . ')' function_body
-   25   | IF '(' expression . ')' function_body ELSE function_body
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    GE   shift, and go to state 54
-    LE   shift, and go to state 55
-    EQ   shift, and go to state 56
-    NE   shift, and go to state 57
-    '>'  shift, and go to state 58
-    '<'  shift, and go to state 59
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-    ')'  shift, and go to state 67
-
-
-State 51
-
-   22 while_loop: While '(' expression . ')' function_body
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    GE   shift, and go to state 54
-    LE   shift, and go to state 55
-    EQ   shift, and go to state 56
-    NE   shift, and go to state 57
-    '>'  shift, and go to state 58
-    '<'  shift, and go to state 59
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-    ')'  shift, and go to state 68
-
-
-State 52
-
-   33 expression: '-' expression .
-   34           | expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    $default  reduce using rule 33 (expression)
-
-
-State 53
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-   44           | '(' expression . ')'
-
-    GE   shift, and go to state 54
-    LE   shift, and go to state 55
-    EQ   shift, and go to state 56
-    NE   shift, and go to state 57
-    '>'  shift, and go to state 58
-    '<'  shift, and go to state 59
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-    ')'  shift, and go to state 69
-
-
-State 54
-
-   40 expression: expression GE . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 70
-
-
-State 55
-
-   41 expression: expression LE . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 71
-
-
 State 56
 
-   43 expression: expression EQ . expression
+   26 if: IF '(' expression . ')' function_body
+   27   | IF '(' expression . ')' function_body ELSE function_body
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 72
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+    ')'  shift, and go to state 73
 
 
 State 57
 
-   42 expression: expression NE . expression
+   24 while_loop: While '(' expression . ')' function_body
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 73
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+    ')'  shift, and go to state 74
 
 
 State 58
 
-   39 expression: expression '>' . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 74
-
-
-State 59
-
-   38 expression: expression '<' . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 75
-
-
-State 60
-
-   35 expression: expression '-' . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 76
-
-
-State 61
-
-   34 expression: expression '+' . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 77
-
-
-State 62
-
-   36 expression: expression '*' . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 78
-
-
-State 63
-
-   37 expression: expression '/' . expression
-
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
-
-    expression  go to state 79
-
-
-State 64
-
-   23 function_call: Identifier '(' expression_list . ')' ';'
-   30 expression_list: expression_list . ',' expression
-
-    ')'  shift, and go to state 80
-    ','  shift, and go to state 81
-
-
-State 65
-
-   29 expression_list: expression .
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    GE   shift, and go to state 54
-    LE   shift, and go to state 55
-    EQ   shift, and go to state 56
-    NE   shift, and go to state 57
-    '>'  shift, and go to state 58
-    '<'  shift, and go to state 59
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 29 (expression_list)
-
-
-State 66
-
-   28 assignment: Identifier '=' expression .
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    GE   shift, and go to state 54
-    LE   shift, and go to state 55
-    EQ   shift, and go to state 56
-    NE   shift, and go to state 57
-    '>'  shift, and go to state 58
-    '<'  shift, and go to state 59
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 28 (assignment)
-
-
-State 67
-
-   24 if: IF '(' expression ')' . function_body
-   25   | IF '(' expression ')' . function_body ELSE function_body
-
-    '{'  shift, and go to state 20
-
-    function_body  go to state 82
-
-
-State 68
-
-   22 while_loop: While '(' expression ')' . function_body
-
-    '{'  shift, and go to state 20
-
-    function_body  go to state 83
-
-
-State 69
-
-   44 expression: '(' expression ')' .
-
-    $default  reduce using rule 44 (expression)
-
-
-State 70
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   40           | expression GE expression .
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 40 (expression)
-
-
-State 71
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   41           | expression LE expression .
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 41 (expression)
-
-
-State 72
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-   43           | expression EQ expression .
-
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 43 (expression)
-
-
-State 73
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   42           | expression NE expression .
-   43           | expression . EQ expression
-
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 42 (expression)
-
-
-State 74
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   39           | expression '>' expression .
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 39 (expression)
-
-
-State 75
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   38           | expression '<' expression .
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 38 (expression)
-
-
-State 76
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   35           | expression '-' expression .
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 35 (expression)
-
-
-State 77
-
-   34 expression: expression . '+' expression
-   34           | expression '+' expression .
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
-
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 34 (expression)
-
-
-State 78
-
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   36           | expression '*' expression .
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
+   36 expression: '-' expression .
+   37           | expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
     $default  reduce using rule 36 (expression)
 
 
+State 59
+
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+   47           | '(' expression . ')'
+
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+    ')'  shift, and go to state 75
+
+
+State 60
+
+   43 expression: expression GE . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 76
+
+
+State 61
+
+   44 expression: expression LE . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 77
+
+
+State 62
+
+   46 expression: expression EQ . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 78
+
+
+State 63
+
+   45 expression: expression NE . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 79
+
+
+State 64
+
+   42 expression: expression '>' . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 80
+
+
+State 65
+
+   41 expression: expression '<' . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 81
+
+
+State 66
+
+   38 expression: expression '-' . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 82
+
+
+State 67
+
+   37 expression: expression '+' . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 83
+
+
+State 68
+
+   39 expression: expression '*' . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 84
+
+
+State 69
+
+   40 expression: expression '/' . expression
+
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 85
+
+
+State 70
+
+   25 function_call: Identifier '(' expression_list . ')'
+   32 expression_list: expression_list . ',' expression
+
+    ')'  shift, and go to state 86
+    ','  shift, and go to state 87
+
+
+State 71
+
+   31 expression_list: expression .
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 31 (expression_list)
+
+
+State 72
+
+   30 assignment: Identifier '=' expression .
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 30 (assignment)
+
+
+State 73
+
+   26 if: IF '(' expression ')' . function_body
+   27   | IF '(' expression ')' . function_body ELSE function_body
+
+    '{'  shift, and go to state 20
+
+    function_body  go to state 88
+
+
+State 74
+
+   24 while_loop: While '(' expression ')' . function_body
+
+    '{'  shift, and go to state 20
+
+    function_body  go to state 89
+
+
+State 75
+
+   47 expression: '(' expression ')' .
+
+    $default  reduce using rule 47 (expression)
+
+
+State 76
+
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   43           | expression GE expression .
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 43 (expression)
+
+
+State 77
+
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   44           | expression LE expression .
+   45           | expression . NE expression
+   46           | expression . EQ expression
+
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 44 (expression)
+
+
+State 78
+
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+   46           | expression EQ expression .
+
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 46 (expression)
+
+
 State 79
 
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   37           | expression '/' expression .
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   45           | expression NE expression .
+   46           | expression . EQ expression
 
-    $default  reduce using rule 37 (expression)
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 45 (expression)
 
 
 State 80
 
-   23 function_call: Identifier '(' expression_list ')' . ';'
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   42           | expression '>' expression .
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    ';'  shift, and go to state 84
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 42 (expression)
 
 
 State 81
 
-   30 expression_list: expression_list ',' . expression
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   41           | expression '<' expression .
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    '-'         shift, and go to state 37
-    Number      shift, and go to state 38
-    Identifier  shift, and go to state 39
-    '('         shift, and go to state 41
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
 
-    expression  go to state 85
+    $default  reduce using rule 41 (expression)
 
 
 State 82
 
-   24 if: IF '(' expression ')' function_body .
-   25   | IF '(' expression ')' function_body . ELSE function_body
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   38           | expression '-' expression .
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    ELSE  shift, and go to state 86
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
 
-    $default  reduce using rule 24 (if)
+    $default  reduce using rule 38 (expression)
 
 
 State 83
 
-   22 while_loop: While '(' expression ')' function_body .
+   37 expression: expression . '+' expression
+   37           | expression '+' expression .
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    $default  reduce using rule 22 (while_loop)
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 37 (expression)
 
 
 State 84
 
-   23 function_call: Identifier '(' expression_list ')' ';' .
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   39           | expression '*' expression .
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    $default  reduce using rule 23 (function_call)
+    $default  reduce using rule 39 (expression)
 
 
 State 85
 
-   30 expression_list: expression_list ',' expression .
-   34 expression: expression . '+' expression
-   35           | expression . '-' expression
-   36           | expression . '*' expression
-   37           | expression . '/' expression
-   38           | expression . '<' expression
-   39           | expression . '>' expression
-   40           | expression . GE expression
-   41           | expression . LE expression
-   42           | expression . NE expression
-   43           | expression . EQ expression
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   40           | expression '/' expression .
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
 
-    GE   shift, and go to state 54
-    LE   shift, and go to state 55
-    EQ   shift, and go to state 56
-    NE   shift, and go to state 57
-    '>'  shift, and go to state 58
-    '<'  shift, and go to state 59
-    '-'  shift, and go to state 60
-    '+'  shift, and go to state 61
-    '*'  shift, and go to state 62
-    '/'  shift, and go to state 63
-
-    $default  reduce using rule 30 (expression_list)
+    $default  reduce using rule 40 (expression)
 
 
 State 86
 
-   25 if: IF '(' expression ')' function_body ELSE . function_body
+   25 function_call: Identifier '(' expression_list ')' .
 
-    '{'  shift, and go to state 20
-
-    function_body  go to state 87
+    $default  reduce using rule 25 (function_call)
 
 
 State 87
 
-   25 if: IF '(' expression ')' function_body ELSE function_body .
+   32 expression_list: expression_list ',' . expression
 
-    $default  reduce using rule 25 (if)
+    '-'         shift, and go to state 39
+    Number      shift, and go to state 40
+    Identifier  shift, and go to state 41
+    '('         shift, and go to state 43
+
+    function_call  go to state 44
+    expression     go to state 90
+
+
+State 88
+
+   26 if: IF '(' expression ')' function_body .
+   27   | IF '(' expression ')' function_body . ELSE function_body
+
+    ELSE  shift, and go to state 91
+
+    $default  reduce using rule 26 (if)
+
+
+State 89
+
+   24 while_loop: While '(' expression ')' function_body .
+
+    $default  reduce using rule 24 (while_loop)
+
+
+State 90
+
+   32 expression_list: expression_list ',' expression .
+   37 expression: expression . '+' expression
+   38           | expression . '-' expression
+   39           | expression . '*' expression
+   40           | expression . '/' expression
+   41           | expression . '<' expression
+   42           | expression . '>' expression
+   43           | expression . GE expression
+   44           | expression . LE expression
+   45           | expression . NE expression
+   46           | expression . EQ expression
+
+    GE   shift, and go to state 60
+    LE   shift, and go to state 61
+    EQ   shift, and go to state 62
+    NE   shift, and go to state 63
+    '>'  shift, and go to state 64
+    '<'  shift, and go to state 65
+    '-'  shift, and go to state 66
+    '+'  shift, and go to state 67
+    '*'  shift, and go to state 68
+    '/'  shift, and go to state 69
+
+    $default  reduce using rule 32 (expression_list)
+
+
+State 91
+
+   27 if: IF '(' expression ')' function_body ELSE . function_body
+
+    '{'  shift, and go to state 20
+
+    function_body  go to state 92
+
+
+State 92
+
+   27 if: IF '(' expression ')' function_body ELSE function_body .
+
+    $default  reduce using rule 27 (if)

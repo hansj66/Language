@@ -39,5 +39,6 @@ OTHER_FILES += \
     parser.yy \
     Links.txt \
     test.scripture \
-    Todo.txt
+    Todo.txt \
+    test2.scripture
 
