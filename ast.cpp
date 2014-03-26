@@ -228,6 +228,35 @@ QVariant WhileNode::Execute()
     return ASTNode::Execute();
 }
 
+IfNode::IfNode(ASTNode * expression, ASTNode * bodyTrue, ASTNode * bodyFalse)
+    : _expression(expression),
+      _bodyTrue(bodyTrue),
+      _bodyFalse(bodyFalse)
+{
+}
+
+QVariant IfNode::Execute()
+{
+    if (nullptr == _bodyFalse)
+    {
+        if ( _expression->Execute().toBool())
+        {
+            _bodyTrue->Execute();
+        }
+    }
+    else
+    {
+        if (_expression->Execute().toBool())
+        {
+            _bodyTrue->Execute();
+        }
+        else
+        {
+            _bodyFalse->Execute();
+        }
+    }
+    return ASTNode::Execute();
+}
 
 
 FunctionNode::FunctionNode(int type, string * name, ParameterListNode * arguments, StatementListNode * body)

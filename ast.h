@@ -147,6 +147,19 @@ private:
         ASTNode * _expression;
 };
 
+
+class IfNode: public ASTNode
+{
+public:
+    IfNode(ASTNode * expression, ASTNode * bodyTrue, ASTNode * bodyFalse = nullptr);
+    QVariant Execute() override;
+
+private:
+        ASTNode * _bodyTrue;
+        ASTNode * _bodyFalse;
+        ASTNode * _expression;
+};
+
 class FunctionNode: public ASTNode
 {
 public:

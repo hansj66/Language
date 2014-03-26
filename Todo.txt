@@ -3,6 +3,9 @@
 0) Array type
 0) %destructor definitions for other types ?
 0) More consistent use of pointers in string arguments
+0) Comment syntax "Let there be..."
+
+0) Return statement. Check return type for function against expression type
 
 printing of string expressions (format, newline som egen kommando etc). Må ha med quoted string i lexer
 

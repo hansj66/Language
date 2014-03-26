@@ -72,7 +72,7 @@
 %token <sval> Identifier
 %token <sval> String
 
-%type<pNode>  program expression assignment print statement function_call while_loop
+%type<pNode>  program expression assignment print statement function_call while_loop if
 %type<parameterListNode> parameter_declaration_list
 %type <parameterNode> parameter_declaration
 %type <statementListNode> statement_list function_body
@@ -130,6 +130,7 @@ statement:
     | print ';' { $$ = $1;}
     | function_call {$$ = $1;}
     | while_loop { $$ = $1; }
+    | if { $$ = $1; }
 ;
 
 while_loop:
@@ -138,6 +139,11 @@ while_loop:
 
 function_call:
     Identifier '(' expression_list ')' ';' {$$ = new FunctionCallNode($1, $3);}
+;
+
+if:
+    IF '(' expression ')' function_body %prec IFX  { $$ = new IfNode($3, $5); }
+    | IF '(' expression ')' function_body ELSE function_body   { $$ = new IfNode($3, $5, $7); }
 ;
 
 print:

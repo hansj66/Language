@@ -1,6 +1,20 @@
 void TestFunction(number arg1, number arg2)
 {
+    print "Inside TestFunction";
     print arg1+arg2;
+    Test3(arg2);
+}
+
+void Test3(number a)
+{
+    if (a > 50)
+    {
+        print "BIGSY !";
+    }
+    else
+    {
+          print "Smallish...";
+    }
 }
 
 number main(number a, number b)

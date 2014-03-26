@@ -45,6 +45,7 @@ typedef Language::Parser::token token;
 "void" { return token::VoidType; }
 
 "if"    { return token::IF;}
+"else" { return token::ELSE;}
 "while" { return token::While;}
 "print" {return token::PRINT;}
 "==" {return token::EQ;}
