@@ -65,9 +65,7 @@ int Language::Translator::parse(const int argc, const char **argv)
       std::cerr << "Parse failed!!\n";
    }
 
-   SymbolTable::Instance()->EntryPoint()->Execute();
-
-   return accept;
+   return SymbolTable::Instance()->EntryPoint()->Execute().toInt();
 }
 
 

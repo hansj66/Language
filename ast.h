@@ -17,8 +17,14 @@ namespace Language
 class ASTNode
 {
 public:
+    ASTNode();
+    ASTNode(int type);
     virtual QVariant Execute();
     virtual ~ASTNode();
+    int Type();
+
+protected:
+    int _type;
 };
 
 class NumberLiteralNode : public ASTNode
@@ -49,7 +55,6 @@ public:
     string Name();
 
 private:
-    int _type;
     string  _name;
 };
 
@@ -84,9 +89,9 @@ public:
     QVariant Execute() override;
 
 private:
-    Language::Parser::token::yytokentype _type;
     ASTNode * _op1;
     ASTNode * _op2;
+    int _operator;
 };
 
 class AssignmentNode: public ASTNode
@@ -107,7 +112,7 @@ public:
     QVariant Execute() override;
 
 private:
-        string _name;
+        string * _name;
         ExpressionListNode * _expressionList;
 };
 
@@ -151,10 +156,13 @@ class ReturnNode: public ASTNode
 {
 public:
     ReturnNode(ASTNode * expression);
+    ReturnNode(string * strExpression);
+
     QVariant Execute() override;
 
 private:
         ASTNode * _expression;
+        string * _strExpression;
 };
 
 
@@ -175,10 +183,9 @@ class FunctionNode: public ASTNode
 public:
     FunctionNode(int type, string * name, ParameterListNode * arguments, StatementListNode * body);
     QVariant Execute() override;
-    int ReturnType();
+    ParameterListNode * Arguments() const ;
 
 private:
-    int _returnType;
     ParameterListNode * _arguments;
     StatementListNode * _body;
 };

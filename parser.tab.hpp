@@ -86,7 +86,7 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 48 "parser.yy" // lalr1.cc:386
+    #line 49 "parser.yy" // lalr1.cc:386
 
    std::string *sval;
    double dval;
@@ -424,7 +424,7 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 125,           //< Last index in yytable_.
+      yylast_ = 130,           //< Last index in yytable_.
       yynnts_ = 18,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 8, //< Termination state number.

@@ -2,13 +2,8 @@
 #define ACTIVATIONRECORD_H
 
 #include "ast.h"
+#include "variablerecord.h"
 #include <QVariant>
-
-typedef struct
-{
-    QVariant value;
-    int type;
-} VariableRecord;
 
 
 class ActivationRecord

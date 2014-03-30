@@ -32,7 +32,9 @@ HEADERS  += \
     scanner.hpp \
     symboltable.h \
     ast.h \
-    activationrecord.h
+    activationrecord.h \
+    errors.h \
+    variablerecord.h
 
 OTHER_FILES += \
     lexer.l \

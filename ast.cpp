@@ -2,6 +2,7 @@
 #include <limits>
 #include "symboltable.h"
 #include "ast.h"
+#include "errors.h"
 
 using namespace std;
 
@@ -17,7 +18,26 @@ ASTNode::~ASTNode()
 {
 }
 
-NumberLiteralNode::NumberLiteralNode(int value) : _value(value)
+ASTNode::ASTNode()
+    :_type(Language::Parser::token::VoidType)
+{
+}
+
+
+ASTNode::ASTNode(int type)
+    :_type(type)
+{
+}
+
+int ASTNode::Type()
+{
+    return _type;
+}
+
+
+NumberLiteralNode::NumberLiteralNode(int value)
+    : ASTNode(Language::Parser::token::NumberType),
+      _value(value)
 {
 }
 
@@ -29,6 +49,7 @@ QVariant NumberLiteralNode::Execute()
 
 IdentifierNode::IdentifierNode(string * name) : _name(*name)
 {
+    _type = SymbolTable::Instance()->VariableType(*name);
 }
 
 QVariant IdentifierNode::Execute()
@@ -39,9 +60,10 @@ QVariant IdentifierNode::Execute()
 
 
 ParameterNode::ParameterNode(Language::Parser::token::yytokentype type, string * name)
-        :   _type(type),
+        :   ASTNode(type),
             _name(*name)
 {
+    SymbolTable::Instance()->DefineVariable(name, type);
 }
 
 QVariant ParameterNode::Execute()
@@ -98,17 +120,16 @@ ASTNode * ExpressionListNode::at(int i)
 
 
 OperatorNode::OperatorNode(Language::Parser::token::yytokentype type, ASTNode * op1, ASTNode * op2)
-        :
-          _type(type),
-          _op1(op1),
-          _op2(op2)
+    : ASTNode(Language::Parser::token::NumberType),
+    _operator(type),
+    _op1(op1),
+    _op2(op2)
 {
-    // Binary
 }
 
 QVariant OperatorNode::Execute()
 {
-    switch(_type)
+    switch(_operator)
     {
         case Language::Parser::token::UMINUS: break; // Only one op.
         case Language::Parser::token::ADD: return _op1->Execute().toDouble() + _op2->Execute().toDouble(); break;
@@ -146,11 +167,33 @@ QVariant AssignmentNode::Execute()
 
 
 FunctionCallNode::FunctionCallNode(string * name, ExpressionListNode * expressionList)
-        :  _name(*name),
+        :  _name(name),
          _expressionList(expressionList)
 {
-}
+    auto function = SymbolTable::Instance()->Function(name);
+    auto expectedArguments = function->Arguments();
 
+    _type = function->Type();
+
+    if (expectedArguments->Count() != expressionList->Count())
+    {
+        std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "(" << *name << ")\n";
+        exit(EXIT_FAILURE);
+    }
+    for (int i=0; i<expressionList->Count(); i++)
+    {
+        int typeExpected = expectedArguments->at(i)->Type();
+        int typeActual = expressionList->at(i)->Type();
+        if (typeExpected != typeActual)
+        {
+            std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(typeExpected) << std::endl;
+            std::cerr << "in function: " << *name << std::endl;
+            std::cerr << "argument: " << i << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    }
+
+}
 
 QVariant FunctionCallNode::Execute()
 {
@@ -236,9 +279,22 @@ ReturnNode::ReturnNode(ASTNode * expression)
 {
 }
 
+ReturnNode::ReturnNode(string * strExpression)
+    : _strExpression(strExpression),
+      _expression(nullptr)
+{
+}
+
+
 QVariant ReturnNode::Execute()
 {
-    SymbolTable::Instance()->GetActivationRecord()->SetReturnValue(_expression->Execute());
+    QVariant returnValue;
+    if (nullptr != _expression)
+        returnValue = _expression->Execute();
+    else
+        returnValue = QString::fromStdString(*_strExpression);
+
+    SymbolTable::Instance()->GetActivationRecord()->SetReturnValue(returnValue);
 }
 
 
@@ -275,21 +331,23 @@ QVariant IfNode::Execute()
 
 
 FunctionNode::FunctionNode(int type, string * name, ParameterListNode * arguments, StatementListNode * body)
-        : _returnType(type),
+        : ASTNode(type),
           _arguments(arguments),
           _body(body)
 {
-     SymbolTable::Instance()->DefineFunction(*name,this);
+     SymbolTable::Instance()->DefineFunction(name,this);
+
+     SymbolTable::Instance()->ClearVariables();
 }
 
 QVariant FunctionNode::Execute()
 {
-    SymbolTable::Instance()->PushAR(_returnType);
+    SymbolTable::Instance()->PushAR(_type);
 
     int argc = SymbolTable::Instance()->PopArgument().toInt();
     if (argc != _arguments->Count())
     {
-        std::cerr << "OMG ! Someone has corrupted the stack. Bailing out...";
+        std::cerr << STACK_CORRUPTED;
         exit(EXIT_FAILURE);
     }
 
@@ -309,9 +367,9 @@ QVariant FunctionNode::Execute()
     return retVal;
 }
 
-int FunctionNode::ReturnType()
+ParameterListNode * FunctionNode::Arguments() const
 {
-    return _returnType;
+    return _arguments;
 }
 
 

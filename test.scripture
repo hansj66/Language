@@ -1,10 +1,3 @@
-void TestFunction(number arg1, number arg2)
-{
-    print "Inside TestFunction";
-    print arg1+arg2;
-    Test3(arg2);
-}
-
 void Test3(number a)
 {
     if (a > 50)
@@ -16,6 +9,15 @@ void Test3(number a)
           print "Smallish...";
     }
 }
+
+void TestFunction(number arg1, number arg2)
+{
+    print "Inside TestFunction";
+    print arg1+arg2;
+    Test3(100);
+}
+
+
 
 number main(number a, number b)
 {

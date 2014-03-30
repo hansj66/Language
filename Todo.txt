@@ -1,12 +1,24 @@
-0) Fix return type definition in functions. Formalize basic type system. Function calls can be part of expressions.
-0) Function call execute should take an expression list
-0) Array type
+Gjenstående funksjonalitet
+0) Få med linjenummer i alle feilmeldinger
+0) Feil informasjon i variablerecord ? (Value brukes ikke for typesjekk og type brukes ikke for valuesjekk)
+0) Rensk opp i formatet på feilmeldinger - output
+0) Sjekk på antall argumenter ved kall av funksjoner
+2) Typesjekk for parametre i funksjoner
+3) Annoter AST-Node med type
+4) Collection-type: Bag (Stuff into, fetch, empty)
+
+0) Se på "This is silly"-kommentaren. Mulig å forenkle dette
+0) MathExpression, LogicalExpression, StringExpression (konkatenering ?)
+0) Lag en egen string-Expression ASTNode + syntaks. Må eksempelvis kunne skrive print <expression> (der expr er stringexpression eller mathexpression>
+0) Annoter noder mtp typing
+0) Nødvendig med subklassing for å støtte flere typer av expressions ?
+0) NBT: Type checker. Annotering av AST-noder. Vurder type inferens istedet for statisk deklarering: http://programmers.stackexchange.com/questions/201968/when-writing-an-interpreter-how-should-the-type-inference-algorithm-change-the
+0) La expressionnoder arve fra AST og resten arve derfra. Tilsvarende med statement.noder (ekstra mellomnivå i ASTen)
+0) Mybe AST Execute should not return QVariant ? This should maybe be reserved for expression nodes. Switch back to evaluate ?
+0) Array types ?
 0) %destructor definitions for other types ?
 0) More consistent use of pointers in string arguments
-0) Comment syntax "Let there be..."
-
 0) Return statement. Check return type for function against expression type
-0) Mybe AST Execute should not return QVariant ? This should maybe be reserved for expression nodes. Switch back to evaluate ?
 
 printing of string expressions (format, newline som egen kommando etc). Må ha med quoted string i lexer
 
@@ -48,9 +60,8 @@ Syntax / keywords:
 
 1) No comment syntax (yet)
 2) EOL
-3) Deny / pray
-
-
+3) Deny / pray / let there be
+4) LT: inferior to, superior to, the equal to, no lesser than, is created equal to
 
 Backend
 Emit AVR Code ?

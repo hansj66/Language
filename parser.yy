@@ -25,6 +25,7 @@
 
 %lex-param   { Translator  &translator  }
 %parse-param { Translator  &translator  }
+
 %code{
 
     #include <iostream>
@@ -137,6 +138,7 @@ statement:
 
 return:
     RETURN expression {$$ = new ReturnNode($2); }
+    | RETURN String { $$ = new ReturnNode($2); }
 ;
 
 while_loop:
@@ -165,6 +167,7 @@ expression_list:
     expression { $$ = new ExpressionListNode($1); }
     | expression_list ',' expression {$1->Add($3);}
 ;
+
 
 expression:
    Identifier { $$ = new IdentifierNode($1); }
