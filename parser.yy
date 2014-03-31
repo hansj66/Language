@@ -73,7 +73,7 @@
 %token <sval> Identifier
 %token <sval> String
 
-%type<pNode>  program expression assignment print statement function_call while_loop if return
+%type<pNode>  program string_expression numerical_expression assignment print statement function_call while_loop if return
 %type<parameterListNode> parameter_declaration_list
 %type <parameterNode> parameter_declaration
 %type <statementListNode> statement_list function_body
@@ -101,8 +101,8 @@ function_declaration:
 
 type:
     NumberType {$$ = $1;}
-    | TextType
-    | VoidType
+    | TextType {$$ = $1;}
+    | VoidType {$$ = $1;}
     ;
 
 parameter_declaration_list:
@@ -137,12 +137,12 @@ statement:
 
 
 return:
-    RETURN expression {$$ = new ReturnNode($2); }
+    RETURN numerical_expression {$$ = new ReturnNode($2); }
     | RETURN String { $$ = new ReturnNode($2); }
 ;
 
 while_loop:
-    While '(' expression ')' function_body { $$ = new WhileNode($3, $5); }
+    While '(' numerical_expression ')' function_body { $$ = new WhileNode($3, $5); }
     ;
 
 function_call:
@@ -150,41 +150,45 @@ function_call:
 ;
 
 if:
-    IF '(' expression ')' function_body %prec IFX  { $$ = new IfNode($3, $5); }
-    | IF '(' expression ')' function_body ELSE function_body   { $$ = new IfNode($3, $5, $7); }
+    IF '(' numerical_expression ')' function_body %prec IFX  { $$ = new IfNode($3, $5); }
+    | IF '(' numerical_expression ')' function_body ELSE function_body   { $$ = new IfNode($3, $5, $7); }
 ;
 
 print:
-    PRINT expression { $$ = new PrintNode($2);}
-    | PRINT String { $$ = new PrintNode($2); }
+    PRINT numerical_expression { $$ = new PrintNode($2);}
+    | PRINT string_expression { $$ = new PrintNode($2); }
     ;
 
 assignment:
-    Identifier '=' expression { $$ = new AssignmentNode($1, $3);}
+    Identifier '=' numerical_expression { $$ = new AssignmentNode($1, $3);}
+    | Identifier '=' string_expression { $$ = new AssignmentNode($1, $3);}
+    ;
+
+string_expression:
+    String { $$ = new StringLiteralNode($1);}
     ;
 
 expression_list:
-    expression { $$ = new ExpressionListNode($1); }
-    | expression_list ',' expression {$1->Add($3);}
+    numerical_expression { $$ = new ExpressionListNode($1); }
+    | expression_list ',' numerical_expression {$1->Add($3);}
 ;
 
-
-expression:
-   Identifier { $$ = new IdentifierNode($1); }
+numerical_expression:
+ Identifier { $$ = new IdentifierNode($1); }
  | Number {$$ = new NumberLiteralNode($1); }
  | function_call { $$ = $1;}
- | '-' expression %prec UMINUS { $$ = new OperatorNode(token::UMINUS, $2); }
- | expression '+' expression { $$ = new OperatorNode(token::ADD, $1, $3); }
- | expression '-' expression { $$ = new OperatorNode(token::SUB, $1, $3); }
- | expression '*' expression { $$ = new OperatorNode(token::MUL, $1, $3); }
- | expression '/' expression { $$ = new OperatorNode(token::DIV, $1, $3); }
- | expression '<' expression { $$ = new OperatorNode(token::LT, $1, $3); }
- | expression '>' expression { $$ = new OperatorNode(token::GT, $1, $3); }
- | expression GE expression { $$ = new OperatorNode(token::GE, $1, $3); }
- | expression LE expression { $$ = new OperatorNode(token::LE, $1, $3); }
- | expression NE expression { $$ = new OperatorNode(token::NE, $1, $3); }
- | expression EQ expression { $$ = new OperatorNode(token::EQ, $1, $3); }
- | '(' expression ')' { $$ = $2; }
+ | '-' numerical_expression %prec UMINUS { $$ = new OperatorNode(token::UMINUS, $2); }
+ | numerical_expression '+' numerical_expression { $$ = new OperatorNode(token::ADD, $1, $3); }
+ | numerical_expression '-' numerical_expression { $$ = new OperatorNode(token::SUB, $1, $3); }
+ | numerical_expression '*' numerical_expression { $$ = new OperatorNode(token::MUL, $1, $3); }
+ | numerical_expression '/' numerical_expression { $$ = new OperatorNode(token::DIV, $1, $3); }
+ | numerical_expression '<' numerical_expression { $$ = new OperatorNode(token::LT, $1, $3); }
+ | numerical_expression '>' numerical_expression { $$ = new OperatorNode(token::GT, $1, $3); }
+ | numerical_expression GE numerical_expression { $$ = new OperatorNode(token::GE, $1, $3); }
+ | numerical_expression LE numerical_expression { $$ = new OperatorNode(token::LE, $1, $3); }
+ | numerical_expression NE numerical_expression { $$ = new OperatorNode(token::NE, $1, $3); }
+ | numerical_expression EQ numerical_expression { $$ = new OperatorNode(token::EQ, $1, $3); }
+ | '(' numerical_expression ')' { $$ = $2; }
  ;
 
 

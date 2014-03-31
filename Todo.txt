@@ -1,5 +1,31 @@
-Gjenstående funksjonalitet
-0) Få med linjenummer i alle feilmeldinger
+Gjenstående funksjonalitet:
+
+
+skisser språkdefinisjon for projectbuilder. (Egen binær, men kan lastes av Pipe-It)
+
+
+0) Lag stringexpression. Sjekk om typetesting funker. Hvis ok, så er det bare å fikse opp i koden.
+0) Sjekk også bruk av et funksjonskall som argument !!
+0) Trengs et logic-expression, string-expression, math-expression-typer ?
+
+Neste bloggpost1:
+    beskriv sammenhengen mellom lexer (tokens fra parser), semantic actions (konstruksjon av AST), annotering av noder i AST mtp typesjekking
+    symboltabell. stack for parameteroverføring, activation records. that's about it - for now
+    Hvordan få fram dualiteten i AST-nodene. Constructors kaller deler av symboltabell, mens execute kaller en annen del. Kankjse
+    symboltabellklassen bør splittes i to ? Hva heter isåfall AR-manager-klassen ?
+    (kan gjøres som semanting actions i et statisk typet språk. Må gjøres runtime i et dynamisk typet språk (derfor hot med TDD etc iom at rockstars liker dynamiske språk, så er testbehovet stort. Kan ta ned masse feil allerede i parseren)
+    lexer (enkelt eksempel + full syntaks
+
+    Tegn klassediagrammer i draw.io (lexer, parser, AST-tre)
+
+Neste bloggpost2:
+    Ze lexer: enkelt eksempel + reellt eksempel fra språket. Kommenter hver linje
+    eksempel på hvordan kjøre lex, outputfiler, kompilere og kjøre resultatets
+
+siste blogpost:
+    mac, linux og windooz-versjon av scripture
+
+0) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
 0) Feil informasjon i variablerecord ? (Value brukes ikke for typesjekk og type brukes ikke for valuesjekk)
 0) Rensk opp i formatet på feilmeldinger - output
 0) Sjekk på antall argumenter ved kall av funksjoner

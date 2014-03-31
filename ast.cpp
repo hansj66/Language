@@ -43,8 +43,21 @@ NumberLiteralNode::NumberLiteralNode(int value)
 
 QVariant NumberLiteralNode::Execute()
 {
-    return _value;
+    return QString("%1").arg(_value);
 }
+
+
+StringLiteralNode::StringLiteralNode(string * value)
+    : ASTNode(Language::Parser::token::TextType),
+      _value(*value)
+{
+}
+
+QVariant StringLiteralNode::Execute()
+{
+    return QString::fromStdString(_value);
+}
+
 
 
 IdentifierNode::IdentifierNode(string * name) : _name(*name)
@@ -211,21 +224,10 @@ PrintNode::PrintNode(ASTNode * expression)
 {
 }
 
-PrintNode::PrintNode(string * strExpression)
-        :   _expression(nullptr)
-{
-    _strExpression = QString::fromStdString(*strExpression).mid(1, strExpression->size()-2).toStdString();
-}
-
-
 
 QVariant PrintNode::Execute()
 {
-    if (nullptr != _expression)
-        std::cout << QString("%1").arg(_expression->Execute().toDouble()).toStdString() << std::endl;
-    else
-        std::cout << _strExpression << std::endl;
-
+    std::cout << QString("%1").arg(_expression->Execute().toString()).toStdString() << std::endl;
     return ASTNode::Execute();
 }
 

@@ -14,6 +14,9 @@ void TestFunction(number arg1, number arg2)
 {
     print "Inside TestFunction";
     print arg1+arg2;
+    text message;
+    message = "Hello!";
+    print message;
     Test3(100);
 }
 

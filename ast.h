@@ -37,6 +37,19 @@ private:
     int _value;
 };
 
+
+class StringLiteralNode : public ASTNode
+{
+public:
+    StringLiteralNode(string * value);
+    QVariant Execute() override;
+
+private:
+    string _value;
+};
+
+
+
 class IdentifierNode : public ASTNode
 {
 public:
@@ -120,12 +133,10 @@ class PrintNode: public ASTNode
 {
 public:
     PrintNode(ASTNode * expression);
-    PrintNode(string * strExpression);
     QVariant Execute() override;
 
 private:
         ASTNode * _expression;
-        string _strExpression;
 };
 
 class StatementListNode: public ASTNode

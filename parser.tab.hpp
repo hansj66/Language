@@ -424,8 +424,8 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 130,           //< Last index in yytable_.
-      yynnts_ = 18,  //< Number of nonterminal symbols.
+      yylast_ = 131,           //< Last index in yytable_.
+      yynnts_ = 19,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 8, //< Termination state number.
       yyterror_ = 1,
