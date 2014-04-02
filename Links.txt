@@ -15,3 +15,6 @@ AST:
 http://llvm.org/docs/tutorial/LangImpl2.html
 
 http://flex.sourceforge.net/manual/Cxx.html#Cxx
+
+C Lex syntax
+http://www.lysator.liu.se/c/ANSI-C-grammar-l.html

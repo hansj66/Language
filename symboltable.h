@@ -5,7 +5,7 @@
 #include "activationrecord.h"
 #include "variablerecord.h"
 
-#include <string>
+#include <QString>
 #include <map>
 #include <stack>
 
@@ -20,17 +20,17 @@ private:
     Language::FunctionNode * _entrypoint;
     stack<ActivationRecord *> _activationRecordStack;
     stack<QVariant> _argumentStack;
-    map<string, Language::FunctionNode *> _functions;
-    map<string, VariableRecord> _variables;
+    map<QString, Language::FunctionNode *> _functions;
+    map<QString, VariableRecord> _variables;
 
 public:
     static SymbolTable * Instance();
 
-    Language::FunctionNode * Function(string * name);
-    bool DefineFunction(string * name, Language::FunctionNode *node);
+    Language::FunctionNode * Function(QString * name);
+    bool DefineFunction(QString * name, Language::FunctionNode *node);
 
-    int VariableType(string name);
-    bool DefineVariable(string * name, int type);
+    int VariableType(QString name);
+    bool DefineVariable(QString * name, int type);
     void ClearVariables();
 
     Language::FunctionNode * EntryPoint();

@@ -9,6 +9,8 @@
 #include "scanner.hpp"
 #include "parser.tab.hpp"
 
+typedef Language::Parser::token token;
+
 
 using namespace std;
 
@@ -41,11 +43,11 @@ private:
 class StringLiteralNode : public ASTNode
 {
 public:
-    StringLiteralNode(string * value);
+    StringLiteralNode(QString * value);
     QVariant Execute() override;
 
 private:
-    string _value;
+    QString _value;
 };
 
 
@@ -53,22 +55,22 @@ private:
 class IdentifierNode : public ASTNode
 {
 public:
-    IdentifierNode(string * name);
+    IdentifierNode(QString * name);
     QVariant Execute() override;
 
 private:
-    string _name;
+    QString _name;
 };
 
 class ParameterNode: public ASTNode
 {
 public:
-    ParameterNode(Language::Parser::token::yytokentype type, string * name);
+    ParameterNode(token::yytokentype type, QString * name);
     QVariant Execute() override;
-    string Name();
+    QString Name();
 
 private:
-    string  _name;
+    QString  _name;
 };
 
 class ParameterListNode: public ASTNode
@@ -98,7 +100,7 @@ private:
 class OperatorNode: public ASTNode
 {
 public:
-    OperatorNode(Language::Parser::token::yytokentype type, ASTNode * op1, ASTNode * op2 = nullptr);
+    OperatorNode(token::yytokentype type, ASTNode * op1, ASTNode * op2 = nullptr);
     QVariant Execute() override;
 
 private:
@@ -110,22 +112,22 @@ private:
 class AssignmentNode: public ASTNode
 {
 public:
-    AssignmentNode(string * name, ASTNode * expression);
+    AssignmentNode(QString * name, ASTNode * expression);
     QVariant Execute() override;
 
 private:
-        string _name;
+        QString _name;
         ASTNode * _expression;
 };
 
 class FunctionCallNode: public ASTNode
 {
 public:
-    FunctionCallNode(string * name, ExpressionListNode * expressionList);
+    FunctionCallNode(QString * name, ExpressionListNode * expressionList);
     QVariant Execute() override;
 
 private:
-        string * _name;
+        QString * _name;
         ExpressionListNode * _expressionList;
 };
 
@@ -167,13 +169,10 @@ class ReturnNode: public ASTNode
 {
 public:
     ReturnNode(ASTNode * expression);
-    ReturnNode(string * strExpression);
-
     QVariant Execute() override;
 
 private:
         ASTNode * _expression;
-        string * _strExpression;
 };
 
 
@@ -192,7 +191,7 @@ private:
 class FunctionNode: public ASTNode
 {
 public:
-    FunctionNode(int type, string * name, ParameterListNode * arguments, StatementListNode * body);
+    FunctionNode(int type, QString * name, ParameterListNode * arguments, StatementListNode * body);
     QVariant Execute() override;
     ParameterListNode * Arguments() const ;
 

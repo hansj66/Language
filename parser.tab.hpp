@@ -52,9 +52,11 @@
       class ExpressionListNode;
       class FunctionNode;
       class FunctionDeclarationListNode;
+      class OperatorNode;
    }
+   class QString;
 
-#line 58 "parser.tab.hpp" // lalr1.cc:386
+#line 60 "parser.tab.hpp" // lalr1.cc:386
 
 
 # include <vector>
@@ -72,7 +74,7 @@
 
 #line 5 "parser.yy" // lalr1.cc:386
 namespace Language {
-#line 76 "parser.tab.hpp" // lalr1.cc:386
+#line 78 "parser.tab.hpp" // lalr1.cc:386
 
 
 
@@ -86,9 +88,9 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 49 "parser.yy" // lalr1.cc:386
+    #line 52 "parser.yy" // lalr1.cc:386
 
-   std::string *sval;
+   QString *sval;
    double dval;
    int ival;
    ASTNode * pNode;
@@ -99,7 +101,7 @@ namespace Language {
    FunctionNode * functionNode;
    FunctionDeclarationListNode * functionDeclarationListNode;
 
-#line 103 "parser.tab.hpp" // lalr1.cc:386
+#line 105 "parser.tab.hpp" // lalr1.cc:386
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -424,8 +426,8 @@ namespace Language {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 131,           //< Last index in yytable_.
-      yynnts_ = 19,  //< Number of nonterminal symbols.
+      yylast_ = 121,           //< Last index in yytable_.
+      yynnts_ = 18,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 8, //< Termination state number.
       yyterror_ = 1,
@@ -442,7 +444,7 @@ namespace Language {
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 446 "parser.tab.hpp" // lalr1.cc:386
+#line 448 "parser.tab.hpp" // lalr1.cc:386
 
 
 

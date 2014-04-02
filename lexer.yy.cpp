@@ -532,8 +532,8 @@ static yyconst flex_int16_t yy_chk[133] =
 
 static yyconst flex_int16_t yy_rule_linenum[19] =
     {   0,
-       30,   31,   33,   38,   43,   44,   45,   47,   48,   49,
-       50,   51,   52,   53,   54,   55,   58,   63
+       31,   32,   34,   39,   44,   45,   46,   48,   49,   50,
+       51,   52,   53,   54,   55,   56,   59,   64
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -546,7 +546,8 @@ static yyconst flex_int16_t yy_rule_linenum[19] =
 #line 1 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 #line 2 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 /* C++ string header, for string ops below */
-#include <string>
+#include <QString>
+
 /* Implementation of yyFlexScanner */
 #include "scanner.hpp"
 
@@ -556,7 +557,7 @@ extern int lineNumber;
 typedef Language::Parser::token token;
 
 /* define to keep from re-typing the same code over and over */
-#define STOKEN( x ) ( new std::string( x ) )
+#define STOKEN( x ) ( new QString( x ) )
 
 /* define yyterminate as this instead of NULL */
 #define yyterminate() return( token::END )
@@ -564,7 +565,7 @@ typedef Language::Parser::token token;
 /* msvc2010 requires that we exclude this header file. */
 #define YY_NO_UNISTD_H
 
-#line 568 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.yy.cpp"
+#line 569 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.yy.cpp"
 
 #define INITIAL 0
 
@@ -721,10 +722,10 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 28 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 29 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 
 
-#line 728 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.yy.cpp"
+#line 729 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.yy.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -839,19 +840,19 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 30 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 31 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 ; /* Ignore white space */
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 31 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 32 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {lineNumber++;}
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 33 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 34 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {
     yylval->sval = STOKEN(yytext);
     return token::String;
@@ -859,7 +860,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 38 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 39 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {
             yylval->dval = atoi(yytext);
             return token::Number;
@@ -867,67 +868,67 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 43 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 44 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 { return token::NumberType; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 44 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 45 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 { return token::TextType; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 45 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 46 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 { return token::VoidType; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 47 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 48 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 { return token::IF;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 48 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 49 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 { return token::ELSE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 49 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 50 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 { return token::While;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 50 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 51 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {return token::PRINT;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 51 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 52 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {return token::RETURN;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 52 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 53 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {return token::EQ;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 53 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 54 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {return token::NE;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 54 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 55 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {return token::GE;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 55 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 56 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {return token::LE;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 58 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 59 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 {
                yylval->sval = STOKEN( yytext );
                return( token::Identifier );
@@ -935,15 +936,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 63 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 64 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 { return yytext[0];}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 65 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 66 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 ECHO;
 	YY_BREAK
-#line 947 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.yy.cpp"
+#line 948 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1991,7 +1992,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 65 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
+#line 66 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 
 
 

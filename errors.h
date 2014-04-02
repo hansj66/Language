@@ -7,5 +7,7 @@
 #define STACK_CORRUPTED "OMG ! Someone has corrupted the stack. Bailing out..."
 #define VARIABLE_REDECLARATION "Woops, variable redeclaration - "
 #define UNDEFINED_VARIABLE "Woops, we seem to have an undefined variable - "
+#define NO_STRINGS_PLEASE "Hmm... We weren't really expecting any text types at this point. Hang on while aborting..."
+
 
 #endif // ERRORS_H

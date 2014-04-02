@@ -5,6 +5,8 @@
 #include "errors.h"
 
 using namespace std;
+extern int lineNumber;
+
 
 namespace Language
 {
@@ -19,7 +21,7 @@ ASTNode::~ASTNode()
 }
 
 ASTNode::ASTNode()
-    :_type(Language::Parser::token::VoidType)
+    :_type(token::VoidType)
 {
 }
 
@@ -36,7 +38,7 @@ int ASTNode::Type()
 
 
 NumberLiteralNode::NumberLiteralNode(int value)
-    : ASTNode(Language::Parser::token::NumberType),
+    : ASTNode(token::NumberType),
       _value(value)
 {
 }
@@ -47,20 +49,20 @@ QVariant NumberLiteralNode::Execute()
 }
 
 
-StringLiteralNode::StringLiteralNode(string * value)
-    : ASTNode(Language::Parser::token::TextType),
-      _value(*value)
+StringLiteralNode::StringLiteralNode(QString * value)
+    : ASTNode(token::TextType)
 {
+    _value = value->mid(1, value->length()-2);
 }
 
 QVariant StringLiteralNode::Execute()
 {
-    return QString::fromStdString(_value);
+    return _value;
 }
 
 
 
-IdentifierNode::IdentifierNode(string * name) : _name(*name)
+IdentifierNode::IdentifierNode(QString * name) : _name(*name)
 {
     _type = SymbolTable::Instance()->VariableType(*name);
 }
@@ -72,7 +74,7 @@ QVariant IdentifierNode::Execute()
 
 
 
-ParameterNode::ParameterNode(Language::Parser::token::yytokentype type, string * name)
+ParameterNode::ParameterNode(token::yytokentype type, QString * name)
         :   ASTNode(type),
             _name(*name)
 {
@@ -85,7 +87,7 @@ QVariant ParameterNode::Execute()
     return ASTNode::Execute();
 }
 
-string ParameterNode::Name()
+QString ParameterNode::Name()
 {
     return _name;
 }
@@ -132,29 +134,45 @@ ASTNode * ExpressionListNode::at(int i)
 }
 
 
-OperatorNode::OperatorNode(Language::Parser::token::yytokentype type, ASTNode * op1, ASTNode * op2)
-    : ASTNode(Language::Parser::token::NumberType),
-    _operator(type),
-    _op1(op1),
-    _op2(op2)
+OperatorNode::OperatorNode(token::yytokentype type, ASTNode * op1, ASTNode * op2)
+    : _op1(op1),
+    _op2(op2),
+    _operator(type)
 {
+    _type = token::NumberType;
+
+    if ((_op1->Type() == token::TextType) || (_op2->Type() == token::TextType))
+    {
+       if (_operator == token::ADD)
+        {
+             _type = token::TextType;
+        }
+        else
+        {
+            std::cout << NO_STRINGS_PLEASE << "(line: " << lineNumber << ")" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 QVariant OperatorNode::Execute()
 {
     switch(_operator)
     {
-        case Language::Parser::token::UMINUS: break; // Only one op.
-        case Language::Parser::token::ADD: return _op1->Execute().toDouble() + _op2->Execute().toDouble(); break;
-        case Language::Parser::token::SUB: return _op1->Execute().toDouble() - _op2->Execute().toDouble(); break;
-        case Language::Parser::token::MUL: return _op1->Execute().toDouble() * _op2->Execute().toDouble(); break;
-        case Language::Parser::token::DIV: return _op1->Execute().toDouble() / _op2->Execute().toDouble(); break;
-        case Language::Parser::token::LT: return _op1->Execute().toDouble() < _op2->Execute().toDouble();break;
-        case Language::Parser::token::GT: return _op1->Execute().toDouble() > _op2->Execute().toDouble();break;
-        case Language::Parser::token::GE: return _op1->Execute().toDouble() >= _op2->Execute().toDouble();break;
-        case Language::Parser::token::LE: return _op1->Execute().toDouble() <= _op2->Execute().toDouble();break;
-        case Language::Parser::token::NE: return _op1->Execute().toDouble() != _op2->Execute().toDouble();break;
-        case Language::Parser::token::EQ: return _op1->Execute().toDouble() == _op2->Execute().toDouble();break;
+        case token::UMINUS: return -_op1->Execute().toDouble(); break;
+        case token::ADD: if ((_op1->Type() == token::TextType) ||
+                                                                   (_op1->Type() == token::TextType))
+                                                                    return QString("%1%2").arg(_op1->Execute().toString()).arg(_op2->Execute().toString());
+                                                                return _op1->Execute().toDouble() + _op2->Execute().toDouble(); break;
+        case token::SUB: return _op1->Execute().toDouble() - _op2->Execute().toDouble(); break;
+        case token::MUL: return _op1->Execute().toDouble() * _op2->Execute().toDouble(); break;
+        case token::DIV: return _op1->Execute().toDouble() / _op2->Execute().toDouble(); break;
+        case token::LT: return _op1->Execute().toDouble() < _op2->Execute().toDouble();break;
+        case token::GT: return _op1->Execute().toDouble() > _op2->Execute().toDouble();break;
+        case token::GE: return _op1->Execute().toDouble() >= _op2->Execute().toDouble();break;
+        case token::LE: return _op1->Execute().toDouble() <= _op2->Execute().toDouble();break;
+        case token::NE: return _op1->Execute().toDouble() != _op2->Execute().toDouble();break;
+        case token::EQ: return _op1->Execute().toDouble() == _op2->Execute().toDouble();break;
         default: std::cerr << "Damn ! Looks like we forgot to implement something..." << std::endl;
             exit(EXIT_FAILURE);
     }
@@ -163,7 +181,7 @@ QVariant OperatorNode::Execute()
 }
 
 
-AssignmentNode::AssignmentNode(string * name, ASTNode * expression)
+AssignmentNode::AssignmentNode(QString * name, ASTNode * expression)
         :  _name(*name),
          _expression(expression)
     {
@@ -179,7 +197,7 @@ QVariant AssignmentNode::Execute()
 
 
 
-FunctionCallNode::FunctionCallNode(string * name, ExpressionListNode * expressionList)
+FunctionCallNode::FunctionCallNode(QString * name, ExpressionListNode * expressionList)
         :  _name(name),
          _expressionList(expressionList)
 {
@@ -190,7 +208,7 @@ FunctionCallNode::FunctionCallNode(string * name, ExpressionListNode * expressio
 
     if (expectedArguments->Count() != expressionList->Count())
     {
-        std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "(" << *name << ")\n";
+        std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "(" << name->toStdString() << ")\n";
         exit(EXIT_FAILURE);
     }
     for (int i=0; i<expressionList->Count(); i++)
@@ -200,7 +218,7 @@ FunctionCallNode::FunctionCallNode(string * name, ExpressionListNode * expressio
         if (typeExpected != typeActual)
         {
             std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(typeExpected) << std::endl;
-            std::cerr << "in function: " << *name << std::endl;
+            std::cerr << "in function: " << name->toStdString() << std::endl;
             std::cerr << "argument: " << i << std::endl;
             exit(EXIT_FAILURE);
         }
@@ -281,22 +299,13 @@ ReturnNode::ReturnNode(ASTNode * expression)
 {
 }
 
-ReturnNode::ReturnNode(string * strExpression)
-    : _strExpression(strExpression),
-      _expression(nullptr)
-{
-}
-
 
 QVariant ReturnNode::Execute()
 {
     QVariant returnValue;
-    if (nullptr != _expression)
-        returnValue = _expression->Execute();
-    else
-        returnValue = QString::fromStdString(*_strExpression);
-
+    returnValue = _expression->Execute();
     SymbolTable::Instance()->GetActivationRecord()->SetReturnValue(returnValue);
+    return ASTNode::Execute();
 }
 
 
@@ -332,7 +341,7 @@ QVariant IfNode::Execute()
 }
 
 
-FunctionNode::FunctionNode(int type, string * name, ParameterListNode * arguments, StatementListNode * body)
+FunctionNode::FunctionNode(int type, QString * name, ParameterListNode * arguments, StatementListNode * body)
         : ASTNode(type),
           _arguments(arguments),
           _body(body)
@@ -356,7 +365,7 @@ QVariant FunctionNode::Execute()
     for (int i=0; i<argc; i++)
     {
         QVariant arg = SymbolTable::Instance()->PopArgument();
-        string name = _arguments->at(argc-i-1)->Name();
+        QString name = _arguments->at(argc-i-1)->Name();
         SymbolTable::Instance()->GetActivationRecord()->AssignVariable(name, arg);
     }
 

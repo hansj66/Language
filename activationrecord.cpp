@@ -6,7 +6,7 @@ ActivationRecord::ActivationRecord(int returnType)
 }
 
 
-bool ActivationRecord::AssignVariable(string name, QVariant value)
+bool ActivationRecord::AssignVariable(QString name, QVariant value)
 {
     // TODO: Check for existence
     _variables[name].value = value;
@@ -14,7 +14,7 @@ bool ActivationRecord::AssignVariable(string name, QVariant value)
 }
 
 
-bool ActivationRecord::DeclareVariable(string name, int type)
+bool ActivationRecord::DeclareVariable(QString name, int type)
 {
     VariableRecord r;
     r.type = type;
@@ -25,7 +25,7 @@ bool ActivationRecord::DeclareVariable(string name, int type)
 }
 
 
-QVariant ActivationRecord::GetVariableValue(string name)
+QVariant ActivationRecord::GetVariableValue(QString name)
 {
     return _variables[name].value;
 }

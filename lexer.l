@@ -1,6 +1,7 @@
 %{
 /* C++ string header, for string ops below */
-#include <string>
+#include <QString>
+
 /* Implementation of yyFlexScanner */
 #include "scanner.hpp"
 
@@ -10,7 +11,7 @@ extern int lineNumber;
 typedef Language::Parser::token token;
 
 /* define to keep from re-typing the same code over and over */
-#define STOKEN( x ) ( new std::string( x ) )
+#define STOKEN( x ) ( new QString( x ) )
 
 /* define yyterminate as this instead of NULL */
 #define yyterminate() return( token::END )

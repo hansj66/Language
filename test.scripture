@@ -10,6 +10,12 @@ void Test3(number a)
     }
 }
 
+void TestTextArgument(text s, number test)
+{
+    print s;
+    print test;
+}
+
 void TestFunction(number arg1, number arg2)
 {
     print "Inside TestFunction";
@@ -24,6 +30,22 @@ void TestFunction(number arg1, number arg2)
 
 number main(number a, number b)
 {
+    print "Should be AAABBB";
+    text jalla1;
+    text jalla2;
+    jalla1 = "AAA";
+    jalla2 = "BBB";
+    print jalla1 + jalla2 + "\n";
+    number num1;
+    num1 = 10;
+    text t1;
+    t1 = "Ouch!";
+    number num2;
+    print "-----------";
+    print t1;
+    print "-----------";
+    TestTextArgument("YIHAAA!", 47);
+
     print a;
     print b;
     print a+(2*b)-(1-a);

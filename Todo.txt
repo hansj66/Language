@@ -1,12 +1,25 @@
 Gjenstående funksjonalitet:
 
-
-skisser språkdefinisjon for projectbuilder. (Egen binær, men kan lastes av Pipe-It)
-
-
-0) Lag stringexpression. Sjekk om typetesting funker. Hvis ok, så er det bare å fikse opp i koden.
-0) Sjekk også bruk av et funksjonskall som argument !!
-0) Trengs et logic-expression, string-expression, math-expression-typer ?
+0) Dropp automatisk \n. La heller dette  dokumenteres i språket
+1) Initialisering ved deklarasjon
+2) Tester:  alle normalcaser. returnverdier, return i expressions, typekonflikter etc
+3) Sjekk også bruk av et funksjonskall som argument !!
+4) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
+5) Feil informasjon i variablerecord ? (Value brukes ikke for typesjekk og type brukes ikke for valuesjekk)
+6) Rensk opp i formatet på feilmeldinger - output
+7) Sjekk på antall argumenter ved kall av funksjoner
+8) Array/Collection-type: Bag (Stuff into, fetch, empty)
+9) Se på "This is silly"-kommentaren. Mulig å forenkle dette
+10) %destructor definitions for other types ?
+11) More consistent use of pointers in string arguments
+12) Return statement. Check return type for function against expression type
+13) For main: use exit-call + return value. Better / common logging
+14) Symboltable: Check for duplicates when inserting new names
+    name + argument count + argument types. Overloading should be allowed
+15) README: Add versioninfo for flex, bison + aditional build steps
+16) Clean up code repository. Consider introducing AST namespace ? Split AST classes into separate files in separate folder
+17) STL Generation (gear). Latham-type structures
+18) Lag scripture-aktig syntaks/semantikk. Legg inn litt udda funksjoner.
 
 Neste bloggpost1:
     beskriv sammenhengen mellom lexer (tokens fra parser), semantic actions (konstruksjon av AST), annotering av noder i AST mtp typesjekking
@@ -25,28 +38,6 @@ Neste bloggpost2:
 siste blogpost:
     mac, linux og windooz-versjon av scripture
 
-0) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
-0) Feil informasjon i variablerecord ? (Value brukes ikke for typesjekk og type brukes ikke for valuesjekk)
-0) Rensk opp i formatet på feilmeldinger - output
-0) Sjekk på antall argumenter ved kall av funksjoner
-2) Typesjekk for parametre i funksjoner
-3) Annoter AST-Node med type
-4) Collection-type: Bag (Stuff into, fetch, empty)
-
-0) Se på "This is silly"-kommentaren. Mulig å forenkle dette
-0) MathExpression, LogicalExpression, StringExpression (konkatenering ?)
-0) Lag en egen string-Expression ASTNode + syntaks. Må eksempelvis kunne skrive print <expression> (der expr er stringexpression eller mathexpression>
-0) Annoter noder mtp typing
-0) Nødvendig med subklassing for å støtte flere typer av expressions ?
-0) NBT: Type checker. Annotering av AST-noder. Vurder type inferens istedet for statisk deklarering: http://programmers.stackexchange.com/questions/201968/when-writing-an-interpreter-how-should-the-type-inference-algorithm-change-the
-0) La expressionnoder arve fra AST og resten arve derfra. Tilsvarende med statement.noder (ekstra mellomnivå i ASTen)
-0) Mybe AST Execute should not return QVariant ? This should maybe be reserved for expression nodes. Switch back to evaluate ?
-0) Array types ?
-0) %destructor definitions for other types ?
-0) More consistent use of pointers in string arguments
-0) Return statement. Check return type for function against expression type
-
-printing of string expressions (format, newline som egen kommando etc). Må ha med quoted string i lexer
 
     Blog post series
         a) Syntax. Lexer / parser (without semantic actions)
@@ -55,17 +46,6 @@ printing of string expressions (format, newline som egen kommando etc). Må ha m
         d) Interpreter
         e) emitting code
 
-0) List of exit codes.
-0) For main: use exit-call + return value
-
-2) Error output to std::cerr ?
-3) How to handle the return statement ? (Just put the return value (evaluated expr) in the AR and indicate function exit ?)
-4) Symboltable: Check for duplicates when inserting new names
-    name + argument count + argument types. Overloading should be allowed
-5) README: Add versioninfo for flex, bison + aditional build steps
-6) Clean up code repository. Consider introducing AST namespace ? Split AST classes into separate files in separate folder
-7) More advanced type system
-8) STL Generation (gear). Latham-type structures
 
 Code
 ===
