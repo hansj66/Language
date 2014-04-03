@@ -11,7 +11,7 @@ void ActivationRecord::AssignVariable(QString name, QVariant value)
 }
 
 
-void ActivationRecord::DeclareVariable(QString name, int type)
+void ActivationRecord::DeclareVariable(QString name)
 {
     _variables[name] = QVariant();
 }

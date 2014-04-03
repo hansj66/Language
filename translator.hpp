@@ -5,28 +5,14 @@
 #include "scanner.hpp"
 #include "parser.tab.hpp"
 
-namespace Language{
+namespace Language
+{
 
-class Translator{
+class Translator
+{
 public:
-   Translator() : /*chars(0),
-                 words(0),
-                 lines(0),
-                 uppercase(0),
-                 lowercase(0), */
-                 parser( nullptr ),
-                 scanner( nullptr ){};
-
-   virtual ~Translator();
-
+   Translator();
    int parse(const int argc, const char **argv);
-
-   std::ostream& print(std::ostream &stream);
-
-private:
-
-   Language::Parser *parser;
-   Language::Scanner *scanner;
 };
 
 }

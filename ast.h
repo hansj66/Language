@@ -152,6 +152,7 @@ public:
     void Add(ASTNode * parameter);
     int Count();
     QVariant Execute() override;
+    ASTNode * at(int i);
 
 private:
     std::vector<ASTNode *> _statements;

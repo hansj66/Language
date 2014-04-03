@@ -25,9 +25,6 @@
 %lex-param   { Scanner  &scanner  }
 %parse-param { Scanner  &scanner  }
 
-%lex-param   { Translator  &translator  }
-%parse-param { Translator  &translator  }
-
 %code{
 
     #include <iostream>
@@ -41,11 +38,7 @@
 
     extern int lineNumber;
 
-   /* this is silly, but I can't figure out a way around */
-   static int yylex(Language::Parser::semantic_type *yylval,
-                    Language::Scanner  &scanner,
-                    Language::Translator   &translator);
-
+    static int yylex(Language::Parser::semantic_type *yylval, Language::Scanner  &scanner);
 }
 
 /* token types */
@@ -202,12 +195,9 @@ Language::Parser::error( const std::string &err_message )
 }
 
 
-/* include for access to scanner.yylex */
 #include "scanner.hpp"
-static int
-yylex( Language::Parser::semantic_type *yylval,
-       Language::Scanner  &scanner,
-       Language::Translator   &translator )
+static int yylex( Language::Parser::semantic_type *yylval, Language::Scanner  &scanner)
 {
    return( scanner.yylex(yylval) );
 }
+

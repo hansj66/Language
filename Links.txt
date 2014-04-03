@@ -1,3 +1,5 @@
+c++ flex / bison example: http://www.thebinaryidiot.com/archives/2010/03/06/flex-bison-cpp-example/
+
 http://research.engineering.wustl.edu/~beardj/FlexBisonC++.html
 https://github.com/jonathan-beard/simple_wc_example
 http://epaperpress.com/lexandyacc/download/LexAndYaccTutorial.pdf

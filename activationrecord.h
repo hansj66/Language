@@ -12,7 +12,7 @@ class ActivationRecord
 public:
     ActivationRecord();
     void AssignVariable(QString name, QVariant value);
-    void DeclareVariable(QString name, int type);
+    void DeclareVariable(QString name);
     QVariant GetVariableValue(QString name);
     void SetReturnValue(QVariant value);
     QVariant GetReturnValue();

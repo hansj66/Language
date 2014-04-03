@@ -82,8 +82,6 @@ void TestNE()
     {
         print "10 == 20 (which is *BAD*)";
     }
-
-
 }
 
 

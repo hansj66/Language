@@ -75,8 +75,8 @@ QVariant IdentifierNode::Execute()
 
 ParameterNode::ParameterNode(int type, QString * name, ASTNode * initializer)
         :   ASTNode(type),
-          _initializer(initializer),
-            _name(*name)
+            _name(*name),
+        _initializer(initializer)
 {
     SymbolTable::Instance()->DefineVariable(name, type);
 }
@@ -98,7 +98,7 @@ ParameterNode::ParameterNode(int type, QString * name)
 
 QVariant ParameterNode::Execute()
 {
-    SymbolTable::Instance()->GetActivationRecord()->DeclareVariable(_name, _type);
+    SymbolTable::Instance()->GetActivationRecord()->DeclareVariable(_name);
     if (nullptr != _initializer)
         SymbolTable::Instance()->GetActivationRecord()->AssignVariable(_name, _initializer->Execute());
     return ASTNode::Execute();
@@ -300,6 +300,11 @@ int StatementListNode::Count()
     return _statements.size();
 }
 
+ASTNode * StatementListNode::at(int i)
+{
+    return _statements.at(i);
+}
+
 
 QVariant StatementListNode::Execute()
 {
@@ -332,6 +337,7 @@ QVariant WhileNode::Execute()
 ReturnNode::ReturnNode(ASTNode * expression)
     : _expression(expression)
 {
+    _type = _expression->Type();
 }
 
 
@@ -382,6 +388,20 @@ FunctionNode::FunctionNode(int type, QString * name, ParameterListNode * argumen
           _body(body)
 {
      SymbolTable::Instance()->DefineFunction(name,this);
+
+     for (int i=0; i<body->Count(); i++)
+     {
+        ASTNode * pStatement = body->at(i);
+         if (auto pReturn = dynamic_cast<ReturnNode *>(pStatement))
+         {
+             int typeActual = pReturn->Type();
+             if (pStatement->Type() != _type)
+             {
+                 std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(_type) << " (line: " << lineNumber << ")" << std::endl;
+                 exit(EXIT_FAILURE);
+             }
+         }
+     }
 
      SymbolTable::Instance()->ClearVariables();
 }

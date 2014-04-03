@@ -88,7 +88,7 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 52 "parser.yy" // lalr1.cc:386
+    #line 45 "parser.yy" // lalr1.cc:386
 
    QString *sval;
    double dval;
@@ -229,7 +229,7 @@ namespace Language {
 
 
     /// Build a parser object.
-    Parser (Scanner  &scanner_yyarg, Translator  &translator_yyarg);
+    Parser (Scanner  &scanner_yyarg);
     virtual ~Parser ();
 
     /// Parse.
@@ -438,13 +438,12 @@ namespace Language {
 
     // User arguments.
     Scanner  &scanner;
-    Translator  &translator;
   };
 
 
 #line 5 "parser.yy" // lalr1.cc:386
 } // Language
-#line 448 "parser.tab.hpp" // lalr1.cc:386
+#line 447 "parser.tab.hpp" // lalr1.cc:386
 
 
 
