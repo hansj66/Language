@@ -65,17 +65,20 @@ private:
 class ParameterNode: public ASTNode
 {
 public:
-    ParameterNode(token::yytokentype type, QString * name);
+    ParameterNode(int type, QString * name, ASTNode * initializer);
+    ParameterNode(int type, QString * name);
     QVariant Execute() override;
     QString Name();
 
 private:
     QString  _name;
+    ASTNode * _initializer;
 };
 
 class ParameterListNode: public ASTNode
 {
 public:
+    ParameterListNode();
     ParameterListNode(ParameterNode * parameter);
     void Add(ParameterNode * parameter);
     int Count();
@@ -88,6 +91,7 @@ private:
 class ExpressionListNode: public ASTNode
 {
 public:
+    ExpressionListNode();
     ExpressionListNode(ASTNode * expression);
     void Add(ASTNode * expression);
     int Count();

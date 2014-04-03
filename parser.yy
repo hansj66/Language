@@ -103,20 +103,20 @@ function_declaration:
     ;
 
 type:
-    NumberType {$$ = $1;}
-    | TextType {$$ = $1;}
-    | VoidType {$$ = $1;}
+    NumberType {$$ = token::NumberType;}
+    | TextType {$$ = token::TextType;}
+    | VoidType {$$ = token::VoidType;}
     ;
 
 parameter_declaration_list:
     parameter_declaration { $$ = new ParameterListNode($1); }
     |parameter_declaration_list ',' parameter_declaration {$1->Add($3);}
-    | {$$ = nullptr;}
+    | {$$ = new ParameterListNode();}
 ;
 
 parameter_declaration:
-    NumberType Identifier {$$ = new ParameterNode(token::NumberType, $2);}
-    |  TextType Identifier {$$ = new ParameterNode(token::TextType, $2);}
+    type Identifier {$$ = new ParameterNode($1, $2);}
+    | type Identifier '=' expression {$$ = new ParameterNode($1, $2, $4);}
 ;
 
 function_body:
@@ -167,6 +167,7 @@ assignment:
 expression_list:
     expression { $$ = new ExpressionListNode($1); }
     | expression_list ',' expression {$1->Add($3);}
+    | {$$ = new ExpressionListNode(); }
 ;
 
 expression:

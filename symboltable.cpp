@@ -121,7 +121,6 @@ bool SymbolTable::DefineVariable(QString * name, int type)
         exit(EXIT_FAILURE);
     }
 
-    std::cout << "Defining variable: " << name->toStdString() << std::endl;
     VariableRecord r;
     r.type = type;
     _variables[*name] = r;

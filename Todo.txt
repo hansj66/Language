@@ -1,5 +1,13 @@
 Gjenstående funksjonalitet:
 
+0) Test på antall forventede argumenter ved oppstart.  Feilmelding hvis feil antall argumenter pushes
+    Segfaulter hvis ingen argumenter sendes på kommandolinja. Må pushe "0" uten args
+    Får stack corruption hvis den forventer argumenter, men ikke får det
+    ingen feil hvis den får argumenter den ikke forventer
+0) Typecheck expression in return statement
+0) There be memory leaks. Use shared_ptr ?
+0) Se om translator::print kan fjernes
+0) Få inn basic mattefunksjoner
 0) Dropp automatisk \n. La heller dette  dokumenteres i språket
 1) Initialisering ved deklarasjon
 2) Tester:  alle normalcaser. returnverdier, return i expressions, typekonflikter etc
@@ -38,14 +46,12 @@ Neste bloggpost2:
 siste blogpost:
     mac, linux og windooz-versjon av scripture
 
-
     Blog post series
         a) Syntax. Lexer / parser (without semantic actions)
         b) SymbolTable / Activation records
         c) Type system
         d) Interpreter
         e) emitting code
-
 
 Code
 ===

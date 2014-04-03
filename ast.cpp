@@ -73,17 +73,34 @@ QVariant IdentifierNode::Execute()
 }
 
 
-
-ParameterNode::ParameterNode(token::yytokentype type, QString * name)
+ParameterNode::ParameterNode(int type, QString * name, ASTNode * initializer)
         :   ASTNode(type),
+          _initializer(initializer),
             _name(*name)
 {
     SymbolTable::Instance()->DefineVariable(name, type);
 }
 
+
+
+ParameterNode::ParameterNode(int type, QString * name)
+        :   ASTNode(type),
+            _name(*name)
+{
+    if (token::NumberType == type)
+        _initializer = new NumberLiteralNode(0);
+    if (token::TextType == type)
+        _initializer = new StringLiteralNode(new QString());
+
+    SymbolTable::Instance()->DefineVariable(name, type);
+}
+
+
 QVariant ParameterNode::Execute()
 {
     SymbolTable::Instance()->GetActivationRecord()->DeclareVariable(_name, _type);
+    if (nullptr != _initializer)
+        SymbolTable::Instance()->GetActivationRecord()->AssignVariable(_name, _initializer->Execute());
     return ASTNode::Execute();
 }
 
@@ -92,6 +109,11 @@ QString ParameterNode::Name()
     return _name;
 }
 
+
+ParameterListNode::ParameterListNode()
+{
+
+}
 
 ParameterListNode::ParameterListNode(ParameterNode * parameter)
 {
@@ -111,6 +133,10 @@ int ParameterListNode::Count()
 ParameterNode * ParameterListNode::at(int i)
 {
     return _parameters.at(i);
+}
+
+ExpressionListNode::ExpressionListNode()
+{
 }
 
 ExpressionListNode::ExpressionListNode(ASTNode * expression)
@@ -141,13 +167,15 @@ OperatorNode::OperatorNode(token::yytokentype type, ASTNode * op1, ASTNode * op2
 {
     _type = token::NumberType;
 
+    if (nullptr == op2)
+        return;
     if ((_op1->Type() == token::TextType) || (_op2->Type() == token::TextType))
     {
        if (_operator == token::ADD)
         {
              _type = token::TextType;
         }
-        else
+       else if ((_operator != token::EQ) && (_operator != token::NE))
         {
             std::cout << NO_STRINGS_PLEASE << "(line: " << lineNumber << ")" << std::endl;
             exit(EXIT_FAILURE);
@@ -171,8 +199,8 @@ QVariant OperatorNode::Execute()
         case token::GT: return _op1->Execute().toDouble() > _op2->Execute().toDouble();break;
         case token::GE: return _op1->Execute().toDouble() >= _op2->Execute().toDouble();break;
         case token::LE: return _op1->Execute().toDouble() <= _op2->Execute().toDouble();break;
-        case token::NE: return _op1->Execute().toDouble() != _op2->Execute().toDouble();break;
-        case token::EQ: return _op1->Execute().toDouble() == _op2->Execute().toDouble();break;
+        case token::NE: return _op1->Execute() != _op2->Execute();break;
+        case token::EQ: return _op1->Execute() == _op2->Execute();break;
         default: std::cerr << "Damn ! Looks like we forgot to implement something..." << std::endl;
             exit(EXIT_FAILURE);
     }
@@ -184,8 +212,15 @@ QVariant OperatorNode::Execute()
 AssignmentNode::AssignmentNode(QString * name, ASTNode * expression)
         :  _name(*name),
          _expression(expression)
+{
+    int typeActual = expression->Type();
+    int typeExpected = SymbolTable::Instance()->VariableType(_name);
+    if (typeActual != typeExpected)
     {
+        std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(typeExpected) << " (line: " << lineNumber << ")" << std::endl;
+        exit(EXIT_FAILURE);
     }
+}
 
 QVariant AssignmentNode::Execute()
 {

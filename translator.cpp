@@ -25,7 +25,7 @@ Language::Translator::~Translator()
 
 int Language::Translator::parse(const int argc, const char **argv)
 {
-    if (argc > 2)
+//    if (argc > 2)
         SymbolTable::Instance()->PushCommandLineArguments(argc-2, &argv[2]);
 
     const char * filename = argv[1];

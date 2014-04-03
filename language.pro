@@ -42,5 +42,6 @@ OTHER_FILES += \
     Links.txt \
     test.scripture \
     Todo.txt \
-    test2.scripture
+    test2.scripture \
+    syntaxtests.scripture
 

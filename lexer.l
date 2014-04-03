@@ -1,17 +1,11 @@
 %{
-/* C++ string header, for string ops below */
-#include <QString>
 
-/* Implementation of yyFlexScanner */
+#include <QString>
 #include "scanner.hpp"
 
 extern int lineNumber;
 
-/* typedef to make the returns for the tokens shorter */
 typedef Language::Parser::token token;
-
-/* define to keep from re-typing the same code over and over */
-#define STOKEN( x ) ( new QString( x ) )
 
 /* define yyterminate as this instead of NULL */
 #define yyterminate() return( token::END )
@@ -28,38 +22,38 @@ typedef Language::Parser::token token;
 
 %%
 
-[ \t]+ ; /* Ignore white space */
-[\n] {lineNumber++;}
+[ \t]+          				; /* Ignore white space */
+[\n]            				{ lineNumber++; }
 
-\"(\\.|[^"])*\" {
-    yylval->sval = STOKEN(yytext);
-    return token::String;
-}
+\/\/(.)* ;
 
-([0-9]+|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) {
-            yylval->dval = atoi(yytext);
-            return token::Number;
-            }
+\"(\\.|[^"])*\" 				{
+							yylval->sval = new QString( yytext );
+							return token::String;
+						}
 
-"number" { return token::NumberType; }
-"text" { return token::TextType; }
-"void" { return token::VoidType; }
+([0-9]+|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?)	{
+							yylval->dval = atoi(yytext);
+							return token::Number;
+						}
 
-"if"    { return token::IF;}
-"else" { return token::ELSE;}
-"while" { return token::While;}
-"print" {return token::PRINT;}
-"return"  {return token::RETURN;}
-"==" {return token::EQ;}
-"!=" {return token::NE;}
-">=" {return token::GE;}
-"<=" {return token::LE;}
+"number"					{ return token::NumberType; }
+"text"	 					{ return token::TextType; }
+"void" 						{ return token::VoidType; }
+"if"						{ return token::IF; }
+"else" 						{ return token::ELSE; }
+"while" 					{ return token::While; }
+"print" 					{ return token::PRINT; }
+"return"  					{ return token::RETURN; }
+"==" 						{ return token::EQ; }
+"!=" 						{ return token::NE; }
+">=" 						{ return token::GE; }
+"<=" 						{ return token::LE; }
 
-
-[a-z|A-Z]([a-z|A-Z|0-9]+)?   {
-               yylval->sval = STOKEN( yytext );
-               return( token::Identifier );
-            }
+[a-z|A-Z]([a-z|A-Z|0-9]+)?   			{
+							yylval->sval = new QString( yytext );
+							return( token::Identifier );
+						}
 
 . { return yytext[0];}
 
