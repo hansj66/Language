@@ -62,6 +62,7 @@ void TestEQ()
 
 }
 
+
 void TestNE()
 {
     if ("A" != "B")
@@ -86,6 +87,11 @@ void TestNE()
 }
 
 
+number calc(number a, number b)
+{
+    return a + b;
+}
+
 number main(number b)
 {
     print "Expecting OK: " +ReturnOK();
@@ -96,6 +102,9 @@ number main(number b)
     TestAssignment();
     TestEQ();
     TestNE();
+
+    print calc(Return23()*2, Return23()/3);
+
 
 
 }

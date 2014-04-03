@@ -35,7 +35,7 @@ public:
 
     Language::FunctionNode * EntryPoint();
     ActivationRecord * GetActivationRecord();
-    void PushAR(int _returnType);
+    void PushAR();
     void PopAR();
     QVariant PopArgument();
     void PushArgument(QVariant argument);

@@ -388,7 +388,7 @@ FunctionNode::FunctionNode(int type, QString * name, ParameterListNode * argumen
 
 QVariant FunctionNode::Execute()
 {
-    SymbolTable::Instance()->PushAR(_type);
+    SymbolTable::Instance()->PushAR();
 
     int argc = SymbolTable::Instance()->PopArgument().toInt();
     if (argc != _arguments->Count())

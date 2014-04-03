@@ -4,26 +4,20 @@ Gjenstående funksjonalitet:
     Segfaulter hvis ingen argumenter sendes på kommandolinja. Må pushe "0" uten args
     Får stack corruption hvis den forventer argumenter, men ikke får det
     ingen feil hvis den får argumenter den ikke forventer
-0) Typecheck expression in return statement
-0) There be memory leaks. Use shared_ptr ?
-0) Se om translator::print kan fjernes
-0) Få inn basic mattefunksjoner
-0) Dropp automatisk \n. La heller dette  dokumenteres i språket
-1) Initialisering ved deklarasjon
-2) Tester:  alle normalcaser. returnverdier, return i expressions, typekonflikter etc
-3) Sjekk også bruk av et funksjonskall som argument !!
-4) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
-5) Feil informasjon i variablerecord ? (Value brukes ikke for typesjekk og type brukes ikke for valuesjekk)
-6) Rensk opp i formatet på feilmeldinger - output
-7) Sjekk på antall argumenter ved kall av funksjoner
+1) Typecheck expression in return statement
+2) There be memory leaks. Use shared_ptr ?
+3) Se om translator::print kan fjernes
+4) Få inn basic mattefunksjoner
+5) Dropp automatisk \n. La heller dette  dokumenteres i språket
+6) Tester:  alle normalcaser. returnverdier, return i expressions, typekonflikter etc
+7) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
+    Rensk opp i formatet på feilmeldinger - output
 8) Array/Collection-type: Bag (Stuff into, fetch, empty)
 9) Se på "This is silly"-kommentaren. Mulig å forenkle dette
 10) %destructor definitions for other types ?
 11) More consistent use of pointers in string arguments
 12) Return statement. Check return type for function against expression type
 13) For main: use exit-call + return value. Better / common logging
-14) Symboltable: Check for duplicates when inserting new names
-    name + argument count + argument types. Overloading should be allowed
 15) README: Add versioninfo for flex, bison + aditional build steps
 16) Clean up code repository. Consider introducing AST namespace ? Split AST classes into separate files in separate folder
 17) STL Generation (gear). Latham-type structures

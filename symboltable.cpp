@@ -33,7 +33,11 @@ Language::FunctionNode * SymbolTable::Function(QString * name)
 
  bool SymbolTable::DefineFunction(QString * name, Language::FunctionNode *node)
  {
-        // TODO: Check for duplicates. Return false if duplicate
+     if (_functions.count(*name) != 0)
+     {
+         std::cerr << FUNCTION_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
+         exit(EXIT_FAILURE);
+     }
 
      if ("main" == *name)
          _entrypoint = node;
@@ -60,9 +64,9 @@ ActivationRecord * SymbolTable::GetActivationRecord()
     return _activationRecordStack.top();
 }
 
-void SymbolTable::PushAR(int returnType)
+void SymbolTable::PushAR()
 {
-    _activationRecordStack.push(new ActivationRecord(returnType));
+    _activationRecordStack.push(new ActivationRecord());
 }
 
 void SymbolTable::PopAR()

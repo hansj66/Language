@@ -10,17 +10,15 @@
 class ActivationRecord
 {
 public:
-    ActivationRecord(int returnType);
-    bool AssignVariable(QString name, QVariant value);
-    bool DeclareVariable(QString name, int type);
+    ActivationRecord();
+    void AssignVariable(QString name, QVariant value);
+    void DeclareVariable(QString name, int type);
     QVariant GetVariableValue(QString name);
     void SetReturnValue(QVariant value);
     QVariant GetReturnValue();
-    void SetReturnType(int type);
 
 private:
-    int _returnType;
-    map<QString, VariableRecord> _variables;
+    map<QString, QVariant> _variables;
     QVariant _returnValue;
 };
 

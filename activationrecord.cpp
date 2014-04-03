@@ -1,33 +1,25 @@
 #include "activationrecord.h"
 
-ActivationRecord::ActivationRecord(int returnType)
-    :_returnType(returnType)
+ActivationRecord::ActivationRecord()
 {
 }
 
 
-bool ActivationRecord::AssignVariable(QString name, QVariant value)
+void ActivationRecord::AssignVariable(QString name, QVariant value)
 {
-    // TODO: Check for existence
-    _variables[name].value = value;
-    return true;
+    _variables[name] = value;
 }
 
 
-bool ActivationRecord::DeclareVariable(QString name, int type)
+void ActivationRecord::DeclareVariable(QString name, int type)
 {
-    VariableRecord r;
-    r.type = type;
-    r.value = QVariant();
-    // TODO: Check for existence
-    _variables[name] = r;
-    return true;
+    _variables[name] = QVariant();
 }
 
 
 QVariant ActivationRecord::GetVariableValue(QString name)
 {
-    return _variables[name].value;
+    return _variables[name];
 }
 
 void ActivationRecord::SetReturnValue(QVariant value)
@@ -40,10 +32,6 @@ QVariant ActivationRecord::GetReturnValue()
     return _returnValue;
 }
 
-void ActivationRecord::SetReturnType(int type)
-{
-    _returnType = type;
-}
 
 
 
