@@ -1,0 +1,21 @@
+number TestFunction(number arg1, number arg2)
+{
+    print "Inside TestFunction";
+    print arg1;
+    print arg2;
+    return arg1+arg2;
+    print "Shouldn't get this far...";
+}
+
+text GetText()
+{
+    return "Yihaaa!";
+}
+
+number main(number a, number b)
+{
+    string s;
+    s = GetText();
+    print s;
+    print TestFunction(a,b);
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2014-04-04T11:39:00. -->
+<!-- Written by Qt Creator 2.4.1, 2014-04-04T21:31:24. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -68,19 +68,19 @@
       <value type="bool" key="QtProjectManager.QMakeBuildStep.QMakeForced">false</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-d -o parser.tab.cpp -v parser.yy</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-d -o parser.tab.cpp -v parser.y</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">/usr/local/bin/bison</value>
       <value type="bool" key="ProjectExplorer.ProcessStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{sourceDir}/</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{sourceDir}/grammar/</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom Process Step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.2">
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-o %{sourceDir}/lexer.yy.cpp %{sourceDir}/lexer.l</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-o %{sourceDir}/grammar/lexer.y.cpp %{sourceDir}/grammar/lexer.l</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">lex</value>
       <value type="bool" key="ProjectExplorer.ProcessStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{sourceDir}/</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{sourceDir}/grammar/</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom Process Step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>

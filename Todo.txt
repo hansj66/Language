@@ -9,11 +9,9 @@ Gjenstående funksjonalitet:
 6) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
     Rensk opp i formatet på feilmeldinger - output
 7) Array/Collection-type: Bag (Stuff into, fetch, empty)
-10) %destructor definitions for other types ?
 11) More consistent use of pointers in string arguments
 13) For main: use exit-call + return value. Better / common logging
 15) README: Add versioninfo for flex, bison + aditional build steps
-16) Clean up code repository. Consider introducing AST namespace ? Split AST classes into separate files in separate folder
 17) STL Generation (gear). Latham-type structures
 18) Lag scripture-aktig syntaks/semantikk. Legg inn litt udda funksjoner.
 
