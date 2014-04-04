@@ -390,7 +390,7 @@ int yyFlexLexer::yylex()
 	return 0;
 	}
 
-#define YY_DECL int Scanner::yylex()
+#define YY_DECL int Lexer::yylex()
 
 /* %if-c-only Standard (non-C++) definition */
 /* %endif */
@@ -548,7 +548,7 @@ static yyconst flex_int16_t yy_rule_linenum[20] =
 #line 2 "/Users/hansj/source/grimstad-macbook/experimental/Language/lexer.l"
 
 #include <QString>
-#include "scanner.hpp"
+#include "lexer.hpp"
 
 extern int lineNumber;
 

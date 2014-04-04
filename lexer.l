@@ -1,7 +1,7 @@
 %{
 
 #include <QString>
-#include "scanner.hpp"
+#include "lexer.hpp"
 
 extern int lineNumber;
 
@@ -16,7 +16,7 @@ typedef Language::Parser::token token;
 %}
 
 %option debug
-%option yyclass="Scanner"
+%option yyclass="Lexer"
 %option noyywrap
 %option c++
 

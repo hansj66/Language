@@ -2,7 +2,7 @@
 #define __TRANSLATOR_HPP__
 
 #include <string>
-#include "scanner.hpp"
+#include "lexer.hpp"
 #include "parser.tab.hpp"
 
 namespace Language

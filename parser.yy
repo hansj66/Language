@@ -9,7 +9,7 @@
 %code requires{
    namespace Language {
       class Translator;
-      class Scanner;
+      class Lexer;
       class ASTNode;
       class ParameterListNode;
       class ParameterNode;
@@ -22,8 +22,8 @@
    class QString;
 }
 
-%lex-param   { Scanner  &scanner  }
-%parse-param { Scanner  &scanner  }
+%lex-param   { Lexer  &lexer  }
+%parse-param { Lexer  &lexer  }
 
 %code{
 
@@ -38,7 +38,7 @@
 
     extern int lineNumber;
 
-    static int yylex(Language::Parser::semantic_type *yylval, Language::Scanner  &scanner);
+    static int yylex(Language::Parser::semantic_type *yylval, Language::Lexer  &lexer);
 }
 
 /* token types */
@@ -195,9 +195,9 @@ Language::Parser::error( const std::string &err_message )
 }
 
 
-#include "scanner.hpp"
-static int yylex( Language::Parser::semantic_type *yylval, Language::Scanner  &scanner)
+#include "lexer.hpp"
+static int yylex( Language::Parser::semantic_type *yylval, Language::Lexer  &lexer)
 {
-   return( scanner.yylex(yylval) );
+   return( lexer.yylex(yylval) );
 }
 

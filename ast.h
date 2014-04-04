@@ -6,7 +6,7 @@
 
 #include <QVariant>
 
-#include "scanner.hpp"
+#include "lexer.hpp"
 #include "parser.tab.hpp"
 
 typedef Language::Parser::token token;

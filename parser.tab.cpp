@@ -63,7 +63,7 @@
 
     extern int lineNumber;
 
-    static int yylex(Language::Parser::semantic_type *yylval, Language::Scanner  &scanner);
+    static int yylex(Language::Parser::semantic_type *yylval, Language::Lexer  &lexer);
 
 #line 69 "parser.tab.cpp" // lalr1.cc:407
 
@@ -173,13 +173,13 @@ namespace Language {
 
 
   /// Build a parser object.
-  Parser::Parser (Scanner  &scanner_yyarg)
+  Parser::Parser (Lexer  &lexer_yyarg)
     :
 #if YYDEBUG
       yydebug_ (false),
       yycdebug_ (&std::cerr),
 #endif
-      scanner (scanner_yyarg)
+      lexer (lexer_yyarg)
   {}
 
   Parser::~Parser ()
@@ -511,7 +511,7 @@ namespace Language {
         YYCDEBUG << "Reading a token: ";
         try
           {
-            yyla.type = yytranslate_ (yylex (&yyla.value, scanner));
+            yyla.type = yytranslate_ (yylex (&yyla.value, lexer));
           }
         catch (const syntax_error& yyexc)
           {
@@ -1362,9 +1362,9 @@ Language::Parser::error( const std::string &err_message )
 }
 
 
-#include "scanner.hpp"
-static int yylex( Language::Parser::semantic_type *yylval, Language::Scanner  &scanner)
+#include "lexer.hpp"
+static int yylex( Language::Parser::semantic_type *yylval, Language::Lexer  &lexer)
 {
-   return( scanner.yylex(yylval) );
+   return( lexer.yylex(yylval) );
 }
 

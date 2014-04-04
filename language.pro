@@ -29,12 +29,12 @@ HEADERS  += \
     parser.tab.hpp \
     stack.hh \
     translator.hpp \
-    scanner.hpp \
     symboltable.h \
     ast.h \
     activationrecord.h \
     errors.h \
-    variablerecord.h
+    variablerecord.h \
+    lexer.hpp
 
 OTHER_FILES += \
     lexer.l \

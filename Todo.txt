@@ -1,6 +1,6 @@
 Gjenstående funksjonalitet:
 
-0) Se på forenkling / forbedring av translator. Error output etc (se på lex/parser-param i .yy, samt scanner.hpp)
+0) Se på hvordan man kan fjerne lexer-klasse. Er det egentlig behov for denne ?
 0) Return error to parser instead of calling exit(EXIT_FAILED);
 0) Test på antall forventede argumenter ved oppstart.  Feilmelding hvis feil antall argumenter pushes
     Segfaulter hvis ingen argumenter sendes på kommandolinja. Må pushe "0" uten args

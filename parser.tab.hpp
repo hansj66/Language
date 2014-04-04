@@ -44,7 +44,7 @@
 
    namespace Language {
       class Translator;
-      class Scanner;
+      class Lexer;
       class ASTNode;
       class ParameterListNode;
       class ParameterNode;
@@ -229,7 +229,7 @@ namespace Language {
 
 
     /// Build a parser object.
-    Parser (Scanner  &scanner_yyarg);
+    Parser (Lexer  &lexer_yyarg);
     virtual ~Parser ();
 
     /// Parse.
@@ -437,7 +437,7 @@ namespace Language {
 
 
     // User arguments.
-    Scanner  &scanner;
+    Lexer  &lexer;
   };
 
 

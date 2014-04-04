@@ -27,8 +27,8 @@ int Translator::parse(const int argc, const char **argv)
    if( ! in_file.good() )
        exit( EXIT_FAILURE );
 
-   Scanner scanner(&in_file);
-   Parser parser(scanner);
+   Lexer lexer(&in_file);
+   Parser parser(lexer);
 
    if( parser.parse() != 0 )
    {
