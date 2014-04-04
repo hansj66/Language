@@ -90,7 +90,7 @@ number calc(number a, number b)
     return a + b;
 }
 
-number main(number b)
+number main(number a)
 {
     print "Expecting OK: " +ReturnOK();
     print "Expecting 23: " + Return23();

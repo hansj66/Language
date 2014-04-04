@@ -5,6 +5,7 @@
 #include "translator.hpp"
 #include "ast.h"
 #include "symboltable.h"
+#include "errors.h"
 
 int lineNumber = 1;
 
@@ -15,11 +16,22 @@ Translator::Translator()
 {
 }
 
+void Translator::PrepareCommandLineArguments(const int argc, const char **argv)
+{
+    int expectedArgumentCount = SymbolTable::Instance()->EntryPoint()->Arguments()->Count();
+
+    if (expectedArgumentCount != argc-2)
+    {
+        std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "script entry point\n";
+        exit(EXIT_FAILURE);
+    }
+
+    SymbolTable::Instance()->PushCommandLineArguments(argc-2, &argv[2]);
+}
+
+
 int Translator::parse(const int argc, const char **argv)
 {
-//    if (argc > 2)
-        SymbolTable::Instance()->PushCommandLineArguments(argc-2, &argv[2]);
-
     const char * filename = argv[1];
 
    assert( filename != nullptr );
@@ -34,6 +46,8 @@ int Translator::parse(const int argc, const char **argv)
    {
       std::cerr << "Parse failed!!\n";
    }
+
+   PrepareCommandLineArguments(argc, argv);
 
    return SymbolTable::Instance()->EntryPoint()->Execute().toInt();
 }

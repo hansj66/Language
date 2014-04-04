@@ -13,6 +13,8 @@ class Translator
 public:
    Translator();
    int parse(const int argc, const char **argv);
+private:
+   void PrepareCommandLineArguments(const int argc, const char **argv);
 };
 
 }

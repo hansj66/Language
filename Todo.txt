@@ -1,19 +1,14 @@
 Gjenstående funksjonalitet:
 
-0) Se på hvordan man kan fjerne lexer-klasse. Er det egentlig behov for denne ?
-0) Return error to parser instead of calling exit(EXIT_FAILED);
-0) Test på antall forventede argumenter ved oppstart.  Feilmelding hvis feil antall argumenter pushes
-    Segfaulter hvis ingen argumenter sendes på kommandolinja. Må pushe "0" uten args
-    Får stack corruption hvis den forventer argumenter, men ikke får det
-    ingen feil hvis den får argumenter den ikke forventer
+0) Formaliser typesjekker (ref dualitet mellom konstruksjon / kjøring)
+1) Return error to parser instead of calling exit(EXIT_FAILED); eller kall riktig parse error
 2) There be memory leaks. Use shared_ptr ?
-3) Se om translator::print kan fjernes
-4) Få inn basic mattefunksjoner
-5) Dropp automatisk \n. La heller dette  dokumenteres i språket
-6) Tester:  alle normalcaser. returnverdier, return i expressions, typekonflikter etc
-7) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
+3) Få inn basic mattefunksjoner
+4) Dropp automatisk \n. La heller dette  dokumenteres i språket
+5) Tester:  alle normalcaser. returnverdier, return i expressions, typekonflikter etc
+6) Få med linjenummer i alle feilmeldinger. Søk etter define. Standard formattering på feilmeldinger. Bruk error-funksjon fra parser.yy
     Rensk opp i formatet på feilmeldinger - output
-8) Array/Collection-type: Bag (Stuff into, fetch, empty)
+7) Array/Collection-type: Bag (Stuff into, fetch, empty)
 10) %destructor definitions for other types ?
 11) More consistent use of pointers in string arguments
 13) For main: use exit-call + return value. Better / common logging
