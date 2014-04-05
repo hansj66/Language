@@ -5,17 +5,11 @@
 
 namespace Language
 {
-    class ParameterListNode: public ASTNode
+    class ParameterListNode: public ASTNode,  public std::vector<ParameterNode *>
     {
     public:
         ParameterListNode();
         ParameterListNode(ParameterNode * parameter);
-        void Add(ParameterNode * parameter);
-        int Count();
-        ParameterNode * at(int i);
-
-    private:
-        std::vector<ParameterNode *> _parameters;
     };
 }
 

@@ -13,7 +13,7 @@ namespace Language
     {
          SymbolTable::Instance()->DefineFunction(name,this);
 
-         for (int i=0; i<body->Count(); i++)
+         for (auto i=0; i<body->size(); i++)
          {
             ASTNode * pStatement = body->at(i);
              if (auto pReturn = dynamic_cast<ReturnNode *>(pStatement))
@@ -34,7 +34,7 @@ namespace Language
         SymbolTable::Instance()->PushAR();
 
         int argc = SymbolTable::Instance()->PopArgument().toInt();
-        if (argc != _arguments->Count())
+        if (argc != _arguments->size())
         {
             std::cerr << STACK_CORRUPTED;
             exit(EXIT_FAILURE);

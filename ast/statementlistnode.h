@@ -5,17 +5,11 @@
 
 namespace Language
 {
-class StatementListNode: public ASTNode
+class StatementListNode: public ASTNode, public std::vector<ASTNode *>
 {
     public:
         StatementListNode(ASTNode * parameter);
-        void Add(ASTNode * parameter);
-        int Count();
         QVariant Execute() override;
-        ASTNode * at(int i);
-
-    private:
-        std::vector<ASTNode *> _statements;
     };
 }
 

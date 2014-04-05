@@ -577,7 +577,7 @@ namespace Language {
 
   case 4:
 #line 89 "parser.y" // lalr1.cc:846
-    {(yystack_[1].value.functionDeclarationListNode)->Add((yystack_[0].value.functionNode));}
+    {(yystack_[1].value.functionDeclarationListNode)->push_back((yystack_[0].value.functionNode));}
 #line 582 "parser.tab.cpp" // lalr1.cc:846
     break;
 
@@ -613,7 +613,7 @@ namespace Language {
 
   case 10:
 #line 104 "parser.y" // lalr1.cc:846
-    {(yystack_[2].value.parameterListNode)->Add((yystack_[0].value.parameterNode));}
+    {(yystack_[2].value.parameterListNode)->push_back((yystack_[0].value.parameterNode));}
 #line 618 "parser.tab.cpp" // lalr1.cc:846
     break;
 
@@ -649,7 +649,7 @@ namespace Language {
 
   case 16:
 #line 119 "parser.y" // lalr1.cc:846
-    {(yystack_[1].value.statementListNode)->Add((yystack_[0].value.pNode));}
+    {(yystack_[1].value.statementListNode)->push_back((yystack_[0].value.pNode));}
 #line 654 "parser.tab.cpp" // lalr1.cc:846
     break;
 
@@ -745,7 +745,7 @@ namespace Language {
 
   case 32:
 #line 160 "parser.y" // lalr1.cc:846
-    {(yystack_[2].value.expressionListNode)->Add((yystack_[0].value.pNode));}
+    {(yystack_[2].value.expressionListNode)->push_back((yystack_[0].value.pNode));}
 #line 750 "parser.tab.cpp" // lalr1.cc:846
     break;
 

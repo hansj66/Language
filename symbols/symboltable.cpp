@@ -30,7 +30,6 @@ Language::FunctionNode * SymbolTable::Function(QString * name)
     return fp;
 }
 
-
  bool SymbolTable::DefineFunction(QString * name, Language::FunctionNode *node)
  {
      if (_functions.count(*name) != 0)
@@ -51,13 +50,11 @@ Language::FunctionNode * SymbolTable::EntryPoint()
 {
     if (nullptr == _entrypoint)
     {
-        // Error: Woops no entrypoint.
         std::cerr << "Dang ! No entrypoint. Bailing out..." << std::endl;
         exit(1);
     }
     return _entrypoint;
 }
-
 
 ActivationRecord * SymbolTable::GetActivationRecord()
 {

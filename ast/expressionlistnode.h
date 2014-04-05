@@ -4,17 +4,11 @@
 
 namespace Language
 {
-    class ExpressionListNode: public ASTNode
+    class ExpressionListNode: public ASTNode, public std::vector<ASTNode *>
     {
     public:
         ExpressionListNode();
         ExpressionListNode(ASTNode * expression);
-        void Add(ASTNode * expression);
-        int Count();
-        ASTNode * at(int i);
-
-    private:
-        std::vector<ASTNode *> _expressions;
     };
 }
 

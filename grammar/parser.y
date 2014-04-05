@@ -86,7 +86,7 @@ program:
 
 function_declaration_list:
     function_declaration { $$ = new FunctionDeclarationListNode($1);}
-    | function_declaration_list function_declaration {$1->Add($2);}
+    | function_declaration_list function_declaration {$1->push_back($2);}
     ;
 
 function_declaration:
@@ -101,7 +101,7 @@ type:
 
 parameter_declaration_list:
     parameter_declaration { $$ = new ParameterListNode($1); }
-    |parameter_declaration_list ',' parameter_declaration {$1->Add($3);}
+    |parameter_declaration_list ',' parameter_declaration {$1->push_back($3);}
     | {$$ = new ParameterListNode();}
 ;
 
@@ -116,7 +116,7 @@ function_body:
 
 statement_list:
     statement {$$ = new StatementListNode($1);}
-    | statement_list statement {$1->Add($2);}
+    | statement_list statement {$1->push_back($2);}
     ;
 
 statement:
@@ -157,7 +157,7 @@ assignment:
 
 expression_list:
     expression { $$ = new ExpressionListNode($1); }
-    | expression_list ',' expression {$1->Add($3);}
+    | expression_list ',' expression {$1->push_back($3);}
     | {$$ = new ExpressionListNode(); }
 ;
 

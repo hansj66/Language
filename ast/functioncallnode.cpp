@@ -14,12 +14,26 @@ namespace Language
 
         _type = function->Type();
 
-        if (expectedArguments->Count() != expressionList->Count())
+        if (expectedArguments->size() != expressionList->size())
         {
             std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "(" << name->toStdString() << ")\n";
             exit(EXIT_FAILURE);
         }
-        for (int i=0; i<expressionList->Count(); i++)
+        /* for (int i=0; i<expressionList->size(); i++)
+        {
+            int typeExpected = expectedArguments->at(i)->Type();
+            int typeActual = expressionList->at(i)->Type();
+            if (typeExpected != typeActual)
+            {
+                std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(typeExpected) << std::endl;
+                std::cerr << "in function: " << name->toStdString() << std::endl;
+                std::cerr << "argument: " << i << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+        */
+
+        for (auto i=0; i<expectedArguments->size(); i++)
         {
             int typeExpected = expectedArguments->at(i)->Type();
             int typeActual = expressionList->at(i)->Type();
@@ -32,14 +46,15 @@ namespace Language
             }
         }
 
+
     }
 
     QVariant FunctionCallNode::Execute()
     {
         // TODO: Maybe wrong order
-        for (int i=0; i<_expressionList->Count(); i++)
+        for (int i=0; i<_expressionList->size(); i++)
             SymbolTable::Instance()->PushArgument(_expressionList->at(i)->Execute());
-        SymbolTable::Instance()->PushArgument(_expressionList->Count());
+        SymbolTable::Instance()->PushArgument((int)_expressionList->size());
         return SymbolTable::Instance()->Function(_name)->Execute();
     }
 }

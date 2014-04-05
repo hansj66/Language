@@ -5,14 +5,10 @@
 
 namespace Language
 {
-    class FunctionDeclarationListNode: public ASTNode
+    class FunctionDeclarationListNode: public ASTNode, public std::vector<FunctionNode *>
     {
     public:
         FunctionDeclarationListNode(FunctionNode * functionDeclaration);
-        void Add(FunctionNode * functionDeclaration);
-
-    private:
-        std::vector<FunctionNode *> _functions;
     };
 }
 

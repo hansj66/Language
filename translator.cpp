@@ -18,7 +18,7 @@ Translator::Translator()
 
 void Translator::PrepareCommandLineArguments(const int argc, const char **argv)
 {
-    int expectedArgumentCount = SymbolTable::Instance()->EntryPoint()->Arguments()->Count();
+    int expectedArgumentCount = SymbolTable::Instance()->EntryPoint()->Arguments()->size();
 
     if (expectedArgumentCount != argc-2)
     {
