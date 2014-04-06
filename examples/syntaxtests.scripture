@@ -1,0 +1,111 @@
+text ReturnOK()
+{
+    print "text function called ok";
+    return "OK";
+}
+
+number Return23()
+{
+    print "number function called ok";
+    return 23;
+}
+
+void ReturnVoid()
+{
+    print "void function called ok";
+}
+
+void TestAssignment()
+{
+    // Declaration and initialization
+    number a = 1;
+    number b;
+    text c = "C";
+    text d;
+
+    print "Expecting 1: " + a;
+    print "Expecting 0: " + b;
+    print "Expecting C: " + c;
+    print "Expecting <empty>: " + d;
+
+    // Reassignment
+    a = 2;
+    b = 3;
+    c = "F";
+    d = "G";
+    print "Expecting 2: " + a;
+    print "Expecting 3: " + b;
+    print "Expecting F: " + c;
+    print "Expecting G: " + d;
+}
+
+void TestEQ()
+{
+    if ("A" == "A")
+    {
+        print "A == A (which is good)";
+    }
+    else
+    {
+        print "A != A (which is *BAD*)";
+    }
+
+    if (0.1 == 0.1)
+    {
+        print "0.1 == 0.1 (which is good)";
+    }
+    else
+    {
+        print "0.1 != 0.1 (which is *BAD*)";
+    }
+
+
+}
+
+
+void TestNE()
+{
+    if ("A" != "B")
+    {
+        print "A != B (which is good)";
+    }
+    else
+    {
+        print "A == B (which is *BAD*)";
+    }
+
+    if (10 != 20)
+    {
+        print "10 != 20 (which is good)";
+    }
+    else
+    {
+        print "10 == 20 (which is *BAD*)";
+    }
+}
+
+
+number calc(number a, number b)
+{
+    return a + b;
+}
+
+number main(number a)
+{
+    print "Expecting OK: " +ReturnOK();
+    print "Expecting 23: " + Return23();
+    ReturnVoid();
+    print "Expecting OKOK: " + ReturnOK() + ReturnOK();
+    print "Expecting AAABBB:  " + "AAA" + "BBB";
+    TestAssignment();
+    TestEQ();
+    TestNE();
+
+    print calc(a*Return23()*2, Return23()/3);
+
+
+
+}
+
+
+

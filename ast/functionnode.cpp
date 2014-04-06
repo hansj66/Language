@@ -6,20 +6,19 @@ extern int lineNumber;
 
 namespace Language
 {
-    FunctionNode::FunctionNode(int type, QString * name, ParameterListNode * arguments, StatementListNode * body)
+    FunctionNode::FunctionNode(int type, QString * name, ListNode<ParameterNode> * arguments, StatementListNode * body)
             : ASTNode(type),
               _arguments(arguments),
               _body(body)
     {
          SymbolTable::Instance()->DefineFunction(name,this);
 
-         for (auto i=0; i<body->size(); i++)
+         for (auto statement: *body)
          {
-            ASTNode * pStatement = body->at(i);
-             if (auto pReturn = dynamic_cast<ReturnNode *>(pStatement))
+             if (auto pReturn = dynamic_cast<ReturnNode *>(statement))
              {
                  int typeActual = pReturn->Type();
-                 if (pStatement->Type() != _type)
+                 if (statement->Type() != _type)
                  {
                      std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(_type) << " (line: " << lineNumber << ")" << std::endl;
                      exit(EXIT_FAILURE);
@@ -34,7 +33,7 @@ namespace Language
         SymbolTable::Instance()->PushAR();
 
         int argc = SymbolTable::Instance()->PopArgument().toInt();
-        if (argc != _arguments->size())
+        if (argc != (int)_arguments->size())
         {
             std::cerr << STACK_CORRUPTED;
             exit(EXIT_FAILURE);
@@ -56,8 +55,9 @@ namespace Language
         return retVal;
     }
 
-    ParameterListNode * FunctionNode::Arguments() const
+    ListNode<ParameterNode> * FunctionNode::Arguments() const
     {
         return _arguments;
     }
 }
+

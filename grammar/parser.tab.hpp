@@ -46,17 +46,15 @@
       class Translator;
       class Lexer;
       class ASTNode;
-      class ParameterListNode;
       class ParameterNode;
-      class StatementListNode;
-      class ExpressionListNode;
       class FunctionNode;
-      class FunctionDeclarationListNode;
       class OperatorNode;
+      class StatementListNode;
+      template <class T> class ListNode;
    }
    class QString;
 
-#line 60 "parser.tab.hpp" // lalr1.cc:386
+#line 58 "parser.tab.hpp" // lalr1.cc:386
 
 
 # include <vector>
@@ -74,7 +72,7 @@
 
 #line 5 "parser.y" // lalr1.cc:386
 namespace Language {
-#line 78 "parser.tab.hpp" // lalr1.cc:386
+#line 76 "parser.tab.hpp" // lalr1.cc:386
 
 
 
@@ -88,20 +86,19 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 45 "parser.y" // lalr1.cc:386
+    #line 43 "parser.y" // lalr1.cc:386
 
    QString *sval;
    double dval;
    int ival;
    ASTNode * pNode;
    ParameterNode * parameterNode;
-   ParameterListNode * parameterListNode;
-   StatementListNode * statementListNode;
-   ExpressionListNode *expressionListNode;
    FunctionNode * functionNode;
-   FunctionDeclarationListNode * functionDeclarationListNode;
+   ListNode<ASTNode> * listNode;
+   ListNode<ParameterNode> * parameterListNode;
+   StatementListNode * statementListNode;
 
-#line 105 "parser.tab.hpp" // lalr1.cc:386
+#line 102 "parser.tab.hpp" // lalr1.cc:386
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -443,7 +440,7 @@ namespace Language {
 
 #line 5 "parser.y" // lalr1.cc:386
 } // Language
-#line 447 "parser.tab.hpp" // lalr1.cc:386
+#line 444 "parser.tab.hpp" // lalr1.cc:386
 
 
 

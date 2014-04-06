@@ -1,0 +1,15 @@
+number cube(number a)
+{
+    return a*a*a;
+}
+
+void main(number stop)
+{
+    number i=0;
+
+    while (i<stop)
+    {
+        print cube(i);
+        i = i+1;
+    }
+}

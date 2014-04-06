@@ -9,6 +9,6 @@
 #define FUNCTION_REDECLARATION "Woops, function redeclaration - no overloading to see here - please move on... "
 #define UNDEFINED_VARIABLE "Woops, we seem to have an undefined variable - "
 #define NO_STRINGS_PLEASE "Hmm... We weren't really expecting any text types at this point. Hang on while aborting..."
-
+#define BAD_SCRIPT_FILE "Hmm, are yout quite sure about that script argument ?"
 
 #endif // ERRORS_H

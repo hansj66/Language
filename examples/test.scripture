@@ -1,0 +1,69 @@
+void Test3(number a)
+{
+    if (a > 50)
+    {
+        print "BIGSY !";
+    }
+    else
+    {
+          print "Smallish...";
+    }
+}
+
+void TestTextArgument(text s, number test)
+{
+    print s;
+    print test;
+}
+
+void TestFunction(number arg1, number arg2)
+{
+    print "Inside TestFunction";
+    print arg1+arg2;
+    text message;
+    message = "Hello!";
+    print message;
+    Test3(100);
+}
+
+
+
+number main(number a, number b)
+{
+    print "Should be AAABBB";
+    text jalla1;
+    text jalla2;
+    jalla1 = "AAA";
+    jalla2 = "BBB";
+    print jalla1 + jalla2 + "\n";
+    number num1;
+    num1 = 10;
+    text t1;
+    t1 = "Ouch!";
+    number num2;
+    print "-----------";
+    print t1;
+    print "-----------";
+    TestTextArgument("YIHAAA!", 47);
+
+    print a;
+    print b;
+    print a+(2*b)-(1-a);
+    print 1592;
+
+    number n1;
+    number n2;
+    n1 = 3000;
+    n2 = 5;
+
+    print "b="+b;
+    print "n2="+n2;
+    while (n2 < b)
+    {
+        print n2;
+        TestFunction(n1,n2);
+        n2 = n2+1;
+     }
+
+    print "DUDE !";
+}

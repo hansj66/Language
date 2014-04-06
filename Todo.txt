@@ -1,8 +1,10 @@
 Gjenstående funksjonalitet:
 
-0) Formaliser typesjekker (ref dualitet mellom konstruksjon / kjøring)
+0) Blogpost. lexer. BNF. Vis yy-fragmenter som er ansvarlige for å generere noder
+0) Bruke make_shared ? Hvilken versjon av clang er denne tilgjengelig i ? (evt boost shared)
+0) Bruk auto ranges
+2) There be memory leaks. Bruke make_shared istedet for new ?
 1) Return error to parser instead of calling exit(EXIT_FAILED); eller kall riktig parse error
-2) There be memory leaks. Use shared_ptr ?
 3) Få inn basic mattefunksjoner
 4) Dropp automatisk \n. La heller dette  dokumenteres i språket
 5) Tester:  alle normalcaser. returnverdier, return i expressions, typekonflikter etc
@@ -11,7 +13,7 @@ Gjenstående funksjonalitet:
 7) Array/Collection-type: Bag (Stuff into, fetch, empty)
 11) More consistent use of pointers in string arguments
 13) For main: use exit-call + return value. Better / common logging
-15) README: Add versioninfo for flex, bison + aditional build steps
+15) README: Add versioninfo for flex, bison + aditional build steps, boost, clang version etc
 17) STL Generation (gear). Latham-type structures
 18) Lag scripture-aktig syntaks/semantikk. Legg inn litt udda funksjoner.
 
@@ -38,13 +40,6 @@ siste blogpost:
         c) Type system
         d) Interpreter
         e) emitting code
-
-Code
-===
-
-1) Type system. Type checking
-2) Add VLD to check for memory leaks
-3) Blog post series (new code category)
 
 Idea dump / Features:
 ==============

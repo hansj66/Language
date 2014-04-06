@@ -8,12 +8,12 @@ namespace Language
     class FunctionNode: public ASTNode
     {
     public:
-        FunctionNode(int type, QString * name, ParameterListNode * arguments, StatementListNode * body);
+        FunctionNode(int type, QString * name, ListNode<ParameterNode> * arguments, StatementListNode * body);
         QVariant Execute() override;
-        ParameterListNode * Arguments() const ;
+        ListNode<ParameterNode> * Arguments() const ;
 
     private:
-        ParameterListNode * _arguments;
+        ListNode<ParameterNode> * _arguments;
         StatementListNode * _body;
     };
 }

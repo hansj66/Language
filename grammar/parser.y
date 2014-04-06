@@ -11,13 +11,11 @@
       class Translator;
       class Lexer;
       class ASTNode;
-      class ParameterListNode;
       class ParameterNode;
-      class StatementListNode;
-      class ExpressionListNode;
       class FunctionNode;
-      class FunctionDeclarationListNode;
       class OperatorNode;
+      class StatementListNode;
+      template <class T> class ListNode;
    }
    class QString;
 }
@@ -48,11 +46,10 @@
    int ival;
    ASTNode * pNode;
    ParameterNode * parameterNode;
-   ParameterListNode * parameterListNode;
-   StatementListNode * statementListNode;
-   ExpressionListNode *expressionListNode;
    FunctionNode * functionNode;
-   FunctionDeclarationListNode * functionDeclarationListNode;
+   ListNode<ASTNode> * listNode;
+   ListNode<ParameterNode> * parameterListNode;
+   StatementListNode * statementListNode;
 }
 
 %left GE LE EQ NE '>' '<'
@@ -70,13 +67,13 @@
 %token <sval> String
 
 %type<pNode>  program expression assignment print statement function_call while_loop if return
-%type<parameterListNode> parameter_declaration_list
 %type <parameterNode> parameter_declaration
-%type <statementListNode> statement_list function_body
-%type <expressionListNode> expression_list;
 %type <ival> type NumberType TextType VoidType
 %type <functionNode> function_declaration
-%type <functionDeclarationListNode> function_declaration_list
+%type <listNode> expression_list function_declaration_list
+%type<parameterListNode> parameter_declaration_list
+%type <statementListNode>statement_list function_body
+
 
 %%
 
@@ -85,7 +82,7 @@ program:
     ;
 
 function_declaration_list:
-    function_declaration { $$ = new FunctionDeclarationListNode($1);}
+    function_declaration { $$ = new ListNode<ASTNode>($1);}
     | function_declaration_list function_declaration {$1->push_back($2);}
     ;
 
@@ -100,9 +97,9 @@ type:
     ;
 
 parameter_declaration_list:
-    parameter_declaration { $$ = new ParameterListNode($1); }
+    parameter_declaration { $$ = new ListNode<ParameterNode>($1); }
     |parameter_declaration_list ',' parameter_declaration {$1->push_back($3);}
-    | {$$ = new ParameterListNode();}
+    | {$$ = new ListNode<ParameterNode>();}
 ;
 
 parameter_declaration:
@@ -156,9 +153,9 @@ assignment:
     ;
 
 expression_list:
-    expression { $$ = new ExpressionListNode($1); }
+    expression { $$ = new ListNode<ASTNode>($1); }
     | expression_list ',' expression {$1->push_back($3);}
-    | {$$ = new ExpressionListNode(); }
+    | {$$ = new ListNode<ASTNode>(); }
 ;
 
 expression:

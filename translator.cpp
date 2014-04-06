@@ -37,7 +37,10 @@ int Translator::parse(const int argc, const char **argv)
    assert( filename != nullptr );
    std::ifstream in_file( filename );
    if( ! in_file.good() )
+   {
+       std::cerr << BAD_SCRIPT_FILE << std::endl;
        exit( EXIT_FAILURE );
+   }
 
    Lexer lexer(&in_file);
    Parser parser(lexer);

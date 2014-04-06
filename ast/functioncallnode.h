@@ -8,12 +8,12 @@ namespace Language
     class FunctionCallNode: public ASTNode
     {
     public:
-        FunctionCallNode(QString * name, ExpressionListNode * expressionList);
+        FunctionCallNode(QString * name, ListNode<ASTNode> * expressionList);
         QVariant Execute() override;
 
     private:
             QString * _name;
-            ExpressionListNode * _expressionList;
+            ListNode<ASTNode> * _expressionList;
     };
 }
 
