@@ -4,8 +4,6 @@
 
 extern int lineNumber;
 
-using namespace std;
-
 namespace Language
 {
     OperatorNode::OperatorNode(token::yytokentype type, ASTNode * op1, ASTNode * op2)
@@ -25,7 +23,7 @@ namespace Language
             }
            else if ((_operator != token::EQ) && (_operator != token::NE))
             {
-                cout << NO_STRINGS_PLEASE << "(line: " << lineNumber << ")" << endl;
+                std::cout << NO_STRINGS_PLEASE << "(line: " << lineNumber << ")" << std::endl;
                 exit(EXIT_FAILURE);
             }
         }
@@ -49,7 +47,7 @@ namespace Language
             case token::LE: return _op1->Execute().toDouble() <= _op2->Execute().toDouble();break;
             case token::NE: return _op1->Execute() != _op2->Execute();break;
             case token::EQ: return _op1->Execute() == _op2->Execute();break;
-            default: cerr << "Damn ! Looks like we forgot to implement something..." << endl;
+            default: std::cerr << "Damn ! Looks like we forgot to implement something..." << std::endl;
                 exit(EXIT_FAILURE);
         }
 

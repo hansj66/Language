@@ -10,8 +10,6 @@
 
 int lineNumber = 1;
 
-using namespace std;
-
 namespace Language
 {
 
@@ -21,15 +19,15 @@ Translator::Translator()
 
 void Translator::PrepareCommandLineArguments(const int argc, const char **argv)
 {
-    int expectedArgumentCount = SymbolTable::Instance()->EntryPoint()->Arguments()->size();
+    int expectedArgumentCount = SymbolTable::Instance().EntryPoint()->Arguments()->size();
 
     if (expectedArgumentCount != argc-2)
     {
-        cerr << WRONG_NUMBER_OF_ARGUMENTS << "script entry point\n";
+        std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "script entry point\n";
         exit(EXIT_FAILURE);
     }
 
-    SymbolTable::Instance()->PushCommandLineArguments(argc-2, &argv[2]);
+    SymbolTable::Instance().PushCommandLineArguments(argc-2, &argv[2]);
 }
 
 
@@ -38,10 +36,10 @@ int Translator::parse(const int argc, const char **argv)
     const char * filename = argv[1];
 
    assert( filename != nullptr );
-   ifstream in_file( filename );
+   std::ifstream in_file( filename );
    if( ! in_file.good() )
    {
-       cerr << BAD_SCRIPT_FILE << endl;
+       std::cerr << BAD_SCRIPT_FILE << std::endl;
        exit( EXIT_FAILURE );
    }
 
@@ -50,11 +48,11 @@ int Translator::parse(const int argc, const char **argv)
 
    if( parser.parse() != 0 )
    {
-      cerr << "Parse failed!!\n";
+      std::cerr << "Parse failed!!\n";
    }
 
    PrepareCommandLineArguments(argc, argv);
 
-   return SymbolTable::Instance()->EntryPoint()->Execute().toInt();
+   return SymbolTable::Instance().EntryPoint()->Execute().toInt();
 }
 }

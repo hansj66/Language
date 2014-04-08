@@ -13,7 +13,7 @@ namespace Language
     {
         QVariant returnValue;
         returnValue = _expression->Execute();
-        SymbolTable::Instance()->GetActivationRecord()->SetReturnValue(returnValue);
+        SymbolTable::Instance().GetActivationRecord()->SetReturnValue(returnValue);
         return ASTNode::Execute();
     }
 }

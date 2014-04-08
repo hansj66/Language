@@ -15,6 +15,7 @@ macx {
     CONFIG -= app_bundle
     QMAKE_CXXFLAGS += -std=c++11
     QMAKE_CXXFLAGS += -stdlib=libc++
+    QMAKE_CXXFLAGS += -Wno-deprecated-register
     LIBS += -stdlib=libc++
     QMAKE_CXXFLAGS += -mmacosx-version-min=10.8
     QMAKE_LFLAGS += -mmacosx-version-min=10.8
@@ -48,7 +49,6 @@ SOURCES += main.cpp\
     grammar/lexer.y.cpp \
     Symbols/activationrecord.cpp \
     Symbols/symboltable.cpp \
-    ast/listnode.cpp \
     ast/statementlistnode.cpp
 
 HEADERS  += \

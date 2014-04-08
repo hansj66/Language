@@ -16,14 +16,14 @@ namespace Language
             if (token::TextType == type)
                 _initializer = new StringLiteralNode(new QString());
         }
-        SymbolTable::Instance()->DefineVariable(name, type);
+        SymbolTable::Instance().DefineVariable(name, type);
     }
 
     QVariant ParameterNode::Execute()
     {
-        SymbolTable::Instance()->GetActivationRecord()->DeclareVariable(_name);
+        SymbolTable::Instance().GetActivationRecord()->DeclareVariable(_name);
         if (nullptr != _initializer)
-            SymbolTable::Instance()->GetActivationRecord()->AssignVariable(_name, _initializer->Execute());
+            SymbolTable::Instance().GetActivationRecord()->AssignVariable(_name, _initializer->Execute());
         return ASTNode::Execute();
     }
 

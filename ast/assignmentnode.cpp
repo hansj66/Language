@@ -11,17 +11,17 @@ namespace Language
              _expression(expression)
     {
         int typeActual = expression->Type();
-        int typeExpected = SymbolTable::Instance()->VariableType(_name);
+        int typeExpected = SymbolTable::Instance().VariableType(_name);
         if (typeActual != typeExpected)
         {
-            cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual).toStdString() << " to " << SymbolTable::Instance()->TypeName(typeExpected).toStdString() << " (line: " << lineNumber << ")" << endl;
+            std::cerr << TYPE_CONFLICT << SymbolTable::Instance().TypeName(typeActual).toStdString() << " to " << SymbolTable::Instance().TypeName(typeExpected).toStdString() << " (line: " << lineNumber << ")" << std::endl;
             exit(EXIT_FAILURE);
         }
     }
 
     QVariant AssignmentNode::Execute()
     {
-        SymbolTable::Instance()->GetActivationRecord()->AssignVariable(_name, _expression->Execute());
+        SymbolTable::Instance().GetActivationRecord()->AssignVariable(_name, _expression->Execute());
         return ASTNode::Execute();
     }
 }

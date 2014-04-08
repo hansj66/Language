@@ -10,15 +10,13 @@
 
 #include "parser.tab.hpp"
 
-using namespace std;
-
 namespace Language
 {
 
 class Lexer : public yyFlexLexer{
 public:
 
-   Lexer(istream *in) : yyFlexLexer(in),
+   Lexer(std::istream *in) : yyFlexLexer(in),
                                   yylval( nullptr ){};
 
    int yylex(Parser::semantic_type *lval)

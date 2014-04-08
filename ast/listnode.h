@@ -3,12 +3,10 @@
 
 #include "astnode.h"
 
-using namespace std;
-
 namespace Language
 {
     template <class T >
-    class ListNode: public ASTNode, public vector<T *>
+    class ListNode: public ASTNode, public std::vector<T *>
     {
     public:
         ListNode() {}

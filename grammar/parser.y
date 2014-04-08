@@ -24,9 +24,6 @@
 %parse-param { Lexer  &lexer  }
 
 %code{
-    #include <vector>
-    #include <iostream>
-    #include <cstring>
     #include "translator.hpp"
     #include "ast.h"
     extern int lineNumber;
@@ -177,11 +174,9 @@ expression:
 
 #include "lexer.hpp"
 
-using namespace std;
-
-void Language::Parser::error( const string &err_message )
+void Language::Parser::error( const std::string &err_message )
 {
-   cerr << "Error: Line:" << lineNumber << "' - " << err_message << "\n";
+   std::cerr << "Error: Line:" << lineNumber << "' - " << err_message << "\n";
 }
 
 static int yylex( Language::Parser::semantic_type *yylval, Language::Lexer  &lexer)

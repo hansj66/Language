@@ -3,13 +3,11 @@
 
 #include "translator.hpp"
 
-using namespace std;
-
 int main(const int argc, const char **argv)
 {
    if(argc < 2)
    {
-       cerr << "Usage: " << "scripture " << "<script>" << " [script arguments]" << endl;
+       std::cerr << "Usage: " << "scripture " << "<script>" << " [script arguments]" << std::endl;
        exit(EXIT_FAILURE);
    }
 

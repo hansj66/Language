@@ -4,22 +4,24 @@
 #include "errors.h"
 #include <memory>
 
-using namespace std;
-
 extern int lineNumber;
 
-SymbolTable * SymbolTable::_instance = nullptr;
+std::unique_ptr<SymbolTable> SymbolTable::_instance = nullptr;
+std::once_flag SymbolTable::_onceFlag;
+
 
 SymbolTable::SymbolTable()
     : _entrypoint(nullptr)
 {
 }
 
-SymbolTable * SymbolTable::Instance()
+SymbolTable & SymbolTable::Instance()
 {
-    if (!_instance)
-        _instance = new SymbolTable();
-    return _instance;
+    std::call_once(_onceFlag,
+            [] {
+                _instance.reset(new SymbolTable);
+        });
+        return *_instance.get();
 }
 
 Language::FunctionNode * SymbolTable::Function(QString * name)
@@ -27,7 +29,7 @@ Language::FunctionNode * SymbolTable::Function(QString * name)
     auto fp = _functions[*name];
     if (nullptr == fp)
     {
-        cerr << UNDEFINED_FUNCTION << "(" << name->toStdString() << ")\n";
+        std::cerr << UNDEFINED_FUNCTION << "(" << name->toStdString() << ")\n";
         exit(EXIT_FAILURE);
     }
     return fp;
@@ -37,7 +39,7 @@ Language::FunctionNode * SymbolTable::Function(QString * name)
  {
      if (_functions.count(*name) != 0)
      {
-         cerr << FUNCTION_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
+         std::cerr << FUNCTION_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
          exit(EXIT_FAILURE);
      }
 
@@ -53,7 +55,7 @@ Language::FunctionNode * SymbolTable::EntryPoint()
 {
     if (nullptr == _entrypoint)
     {
-        cerr << "Dang ! No entrypoint. Bailing out..." << endl;
+        std::cerr << "Dang ! No entrypoint. Bailing out..." << std::endl;
         exit(1);
     }
     return _entrypoint;
@@ -102,7 +104,7 @@ QString SymbolTable::TypeName(int type) const
         case token::NumberType: return "Number";
         case token::TextType: return "Text";
         case token::VoidType: return "Void";
-        default: cerr << "Woops, forgot to map type name...\n";
+        default: std::cerr << "Woops, forgot to map type name...\n";
                               exit(EXIT_FAILURE);
     }
 }
@@ -111,7 +113,7 @@ int SymbolTable::VariableType(QString name)
 {
     if (_variables.count(name) == 0)
     {
-        cerr << UNDEFINED_VARIABLE << "(" << name.toStdString() << " line: " << lineNumber << ")\n";
+        std::cerr << UNDEFINED_VARIABLE << "(" << name.toStdString() << " line: " << lineNumber << ")\n";
         exit(EXIT_FAILURE);
     }
     return _variables[name].type;
@@ -121,7 +123,7 @@ bool SymbolTable::DefineVariable(QString * name, int type)
 {
     if (_variables.count(*name) != 0)
     {
-        cerr << VARIABLE_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
+        std::cerr << VARIABLE_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
         exit(EXIT_FAILURE);
     }
 

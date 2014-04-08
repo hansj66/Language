@@ -86,7 +86,7 @@ namespace Language {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 37 "parser.y" // lalr1.cc:386
+    #line 34 "parser.y" // lalr1.cc:386
 
    QString *sval;
    double dval;
