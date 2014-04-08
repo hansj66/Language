@@ -2,6 +2,9 @@
 #include <map>
 #include "ast.h"
 #include "errors.h"
+#include <memory>
+
+using namespace std;
 
 extern int lineNumber;
 
@@ -24,7 +27,7 @@ Language::FunctionNode * SymbolTable::Function(QString * name)
     auto fp = _functions[*name];
     if (nullptr == fp)
     {
-        std::cerr << UNDEFINED_FUNCTION << "(" << name->toStdString() << ")\n";
+        cerr << UNDEFINED_FUNCTION << "(" << name->toStdString() << ")\n";
         exit(EXIT_FAILURE);
     }
     return fp;
@@ -34,7 +37,7 @@ Language::FunctionNode * SymbolTable::Function(QString * name)
  {
      if (_functions.count(*name) != 0)
      {
-         std::cerr << FUNCTION_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
+         cerr << FUNCTION_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
          exit(EXIT_FAILURE);
      }
 
@@ -50,7 +53,7 @@ Language::FunctionNode * SymbolTable::EntryPoint()
 {
     if (nullptr == _entrypoint)
     {
-        std::cerr << "Dang ! No entrypoint. Bailing out..." << std::endl;
+        cerr << "Dang ! No entrypoint. Bailing out..." << endl;
         exit(1);
     }
     return _entrypoint;
@@ -92,14 +95,14 @@ void SymbolTable::PushCommandLineArguments(const int argc, const char **argv)
     _argumentStack.push(argc);
 }
 
-string SymbolTable::TypeName(int type) const
+QString SymbolTable::TypeName(int type) const
 {
     switch(type)
     {
         case token::NumberType: return "Number";
         case token::TextType: return "Text";
         case token::VoidType: return "Void";
-        default: std::cerr << "Woops, forgot to map type name...\n";
+        default: cerr << "Woops, forgot to map type name...\n";
                               exit(EXIT_FAILURE);
     }
 }
@@ -108,7 +111,7 @@ int SymbolTable::VariableType(QString name)
 {
     if (_variables.count(name) == 0)
     {
-        std::cerr << UNDEFINED_VARIABLE << "(" << name.toStdString() << " line: " << lineNumber << ")\n";
+        cerr << UNDEFINED_VARIABLE << "(" << name.toStdString() << " line: " << lineNumber << ")\n";
         exit(EXIT_FAILURE);
     }
     return _variables[name].type;
@@ -118,7 +121,7 @@ bool SymbolTable::DefineVariable(QString * name, int type)
 {
     if (_variables.count(*name) != 0)
     {
-        std::cerr << VARIABLE_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
+        cerr << VARIABLE_REDECLARATION << "(" << name->toStdString() << ", line: " << lineNumber << ")\n";
         exit(EXIT_FAILURE);
     }
 

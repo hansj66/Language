@@ -1,7 +1,10 @@
+#include <iostream>
 #include "operatornode.h"
 #include "errors.h"
 
 extern int lineNumber;
+
+using namespace std;
 
 namespace Language
 {
@@ -22,7 +25,7 @@ namespace Language
             }
            else if ((_operator != token::EQ) && (_operator != token::NE))
             {
-                std::cout << NO_STRINGS_PLEASE << "(line: " << lineNumber << ")" << std::endl;
+                cout << NO_STRINGS_PLEASE << "(line: " << lineNumber << ")" << endl;
                 exit(EXIT_FAILURE);
             }
         }
@@ -46,7 +49,7 @@ namespace Language
             case token::LE: return _op1->Execute().toDouble() <= _op2->Execute().toDouble();break;
             case token::NE: return _op1->Execute() != _op2->Execute();break;
             case token::EQ: return _op1->Execute() == _op2->Execute();break;
-            default: std::cerr << "Damn ! Looks like we forgot to implement something..." << std::endl;
+            default: cerr << "Damn ! Looks like we forgot to implement something..." << endl;
                 exit(EXIT_FAILURE);
         }
 

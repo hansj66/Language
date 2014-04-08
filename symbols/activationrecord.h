@@ -7,6 +7,7 @@
 #include <QString>
 #include <map>
 
+using namespace std;
 
 class ActivationRecord
 {
@@ -19,7 +20,7 @@ public:
     QVariant GetReturnValue();
 
 private:
-    std::map<QString, QVariant> _variables;
+    map<QString, QVariant> _variables;
     QVariant _returnValue;
 };
 

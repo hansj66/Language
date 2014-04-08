@@ -533,8 +533,8 @@ static yyconst flex_int16_t yy_chk[140] =
 
 static yyconst flex_int16_t yy_rule_linenum[20] =
     {   0,
-       25,   26,   28,   30,   35,   40,   41,   42,   43,   44,
-       45,   46,   47,   48,   49,   50,   51,   53,   58
+       22,   23,   25,   27,   32,   37,   38,   39,   40,   41,
+       42,   43,   44,   45,   46,   47,   48,   50,   55
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -554,13 +554,10 @@ extern int lineNumber;
 
 typedef Language::Parser::token token;
 
-/* define yyterminate as this instead of NULL */
 #define yyterminate() return( token::END )
+#define YY_NO_UNISTD_H // For msvc
 
-/* msvc2010 requires that we exclude this header file. */
-#define YY_NO_UNISTD_H
-
-#line 564 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.y.cpp"
+#line 561 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.y.cpp"
 
 #define INITIAL 0
 
@@ -717,10 +714,10 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 23 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 20 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 
 
-#line 724 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.y.cpp"
+#line 721 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.y.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -835,24 +832,24 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 25 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 22 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 ; /* Ignore white space */
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 26 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 23 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { lineNumber++; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 28 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 25 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 ;
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 30 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 27 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 {
                                                         yylval->sval = new QString( yytext );
                                                         return token::String;
@@ -860,7 +857,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 35 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 32 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 {
                                                         yylval->dval = atoi(yytext);
                                                         return token::Number;
@@ -868,67 +865,67 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 40 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 37 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::NumberType; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 41 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 38 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::TextType; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 42 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 39 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::VoidType; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 43 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 40 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::IF; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 44 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 41 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::ELSE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 45 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 42 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::While; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 46 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 43 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::PRINT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 47 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 44 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::RETURN; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 48 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 45 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::EQ; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 49 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 46 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::NE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 50 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 47 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::GE; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 51 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 48 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return token::LE; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 53 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 50 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 {
                                                         yylval->sval = new QString( yytext );
                                                         return( token::Identifier );
@@ -936,15 +933,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 58 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 55 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 { return yytext[0];}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 60 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 57 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 ECHO;
 	YY_BREAK
-#line 948 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.y.cpp"
+#line 945 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.y.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1992,7 +1989,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 60 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
+#line 57 "/Users/hansj/source/grimstad-macbook/experimental/Language/grammar/lexer.l"
 
 
 

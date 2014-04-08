@@ -20,7 +20,7 @@ namespace Language
                  int typeActual = pReturn->Type();
                  if (statement->Type() != _type)
                  {
-                     std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(_type) << " (line: " << lineNumber << ")" << std::endl;
+                     cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual).toStdString() << " to " << SymbolTable::Instance()->TypeName(_type).toStdString() << " (line: " << lineNumber << ")" << endl;
                      exit(EXIT_FAILURE);
                  }
              }
@@ -35,7 +35,7 @@ namespace Language
         int argc = SymbolTable::Instance()->PopArgument().toInt();
         if (argc != (int)_arguments->size())
         {
-            std::cerr << STACK_CORRUPTED;
+            cerr << STACK_CORRUPTED;
             exit(EXIT_FAILURE);
         }
 

@@ -3,6 +3,8 @@
 #include "symboltable.h"
 #include "errors.h"
 
+using namespace std;
+
 namespace Language
 {
     FunctionCallNode::FunctionCallNode(QString * name, ListNode<ASTNode> * expressionList)
@@ -16,7 +18,7 @@ namespace Language
 
         if (expectedArguments->size() != expressionList->size())
         {
-            std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "(" << name->toStdString() << ")\n";
+            cerr << WRONG_NUMBER_OF_ARGUMENTS << "(" << name->toStdString() << ")\n";
             exit(EXIT_FAILURE);
         }
 
@@ -26,9 +28,9 @@ namespace Language
             int typeActual = expressionList->at(i)->Type();
             if (typeExpected != typeActual)
             {
-                std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(typeExpected) << std::endl;
-                std::cerr << "in function: " << name->toStdString() << std::endl;
-                std::cerr << "argument: " << i << std::endl;
+                cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual).toStdString() << " to " << SymbolTable::Instance()->TypeName(typeExpected).toStdString() << endl;
+                cerr << "in function: " << name->toStdString() << endl;
+                cerr << "argument: " << i << endl;
                 exit(EXIT_FAILURE);
             }
         }

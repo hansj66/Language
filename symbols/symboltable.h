@@ -8,6 +8,7 @@
 #include <QString>
 #include <map>
 #include <stack>
+#include <memory>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ private:
     map<QString, VariableRecord> _variables;
 
 public:
-    static SymbolTable * Instance();
+    static SymbolTable *Instance();
 
     Language::FunctionNode * Function(QString * name);
     bool DefineFunction(QString * name, Language::FunctionNode *node);
@@ -41,7 +42,7 @@ public:
     void PushArgument(QVariant argument);
     void PushCommandLineArguments(const int argc, const char **argv);
 
-    string TypeName(int type) const;
+    QString TypeName(int type) const;
  };
 
 #endif // SYMBOLTABLE_H

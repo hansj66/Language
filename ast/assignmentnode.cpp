@@ -14,7 +14,7 @@ namespace Language
         int typeExpected = SymbolTable::Instance()->VariableType(_name);
         if (typeActual != typeExpected)
         {
-            std::cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual) << " to " << SymbolTable::Instance()->TypeName(typeExpected) << " (line: " << lineNumber << ")" << std::endl;
+            cerr << TYPE_CONFLICT << SymbolTable::Instance()->TypeName(typeActual).toStdString() << " to " << SymbolTable::Instance()->TypeName(typeExpected).toStdString() << " (line: " << lineNumber << ")" << endl;
             exit(EXIT_FAILURE);
         }
     }

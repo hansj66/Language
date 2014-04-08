@@ -1,5 +1,7 @@
 #include "printnode.h"
 
+using namespace std;
+
 namespace Language
 {
     PrintNode::PrintNode(ASTNode * expression)
@@ -9,7 +11,7 @@ namespace Language
 
     QVariant PrintNode::Execute()
     {
-        std::cout << QString("%1").arg(_expression->Execute().toString()).toStdString() << std::endl;
+        cout << QString("%1").arg(_expression->Execute().toString()).toStdString() << endl;
         return ASTNode::Execute();
     }
 }

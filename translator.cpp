@@ -2,12 +2,15 @@
 #include <fstream>
 #include <cassert>
 
+
 #include "translator.hpp"
 #include "ast.h"
 #include "symboltable.h"
 #include "errors.h"
 
 int lineNumber = 1;
+
+using namespace std;
 
 namespace Language
 {
@@ -22,7 +25,7 @@ void Translator::PrepareCommandLineArguments(const int argc, const char **argv)
 
     if (expectedArgumentCount != argc-2)
     {
-        std::cerr << WRONG_NUMBER_OF_ARGUMENTS << "script entry point\n";
+        cerr << WRONG_NUMBER_OF_ARGUMENTS << "script entry point\n";
         exit(EXIT_FAILURE);
     }
 
@@ -35,10 +38,10 @@ int Translator::parse(const int argc, const char **argv)
     const char * filename = argv[1];
 
    assert( filename != nullptr );
-   std::ifstream in_file( filename );
+   ifstream in_file( filename );
    if( ! in_file.good() )
    {
-       std::cerr << BAD_SCRIPT_FILE << std::endl;
+       cerr << BAD_SCRIPT_FILE << endl;
        exit( EXIT_FAILURE );
    }
 
@@ -47,7 +50,7 @@ int Translator::parse(const int argc, const char **argv)
 
    if( parser.parse() != 0 )
    {
-      std::cerr << "Parse failed!!\n";
+      cerr << "Parse failed!!\n";
    }
 
    PrepareCommandLineArguments(argc, argv);

@@ -7,14 +7,24 @@
 QT       += core
 
 CONFIG += console
-CONFIG -= app_bundle
 
 TARGET = language
 TEMPLATE = app
 
-QMAKE_CXXFLAGS += -std=c++11
+macx {
+    CONFIG -= app_bundle
+    QMAKE_CXXFLAGS += -std=c++11
+    QMAKE_CXXFLAGS += -stdlib=libc++
+    LIBS += -stdlib=libc++
+    QMAKE_CXXFLAGS += -mmacosx-version-min=10.8
+    QMAKE_LFLAGS += -mmacosx-version-min=10.8
+}
 
-INCLUDEPATH += ./ast ./grammar ./symbols
+win32 {
+        QMAKE_CXXFLAGS += /MP
+}
+
+INCLUDEPATH += ./ast ./grammar ./symbols $$(BOOSTPATH)
 
 DEFINES += YYDEBUG\
                     YYERROR_VERBOSE

@@ -24,6 +24,10 @@
 %parse-param { Lexer  &lexer  }
 
 %code{
+    #include <vector>
+    #include <iostream>
+    #include <cstring>
+    #include "translator.hpp"
     #include "ast.h"
     extern int lineNumber;
     static int yylex(Language::Parser::semantic_type *yylval, Language::Lexer  &lexer);
@@ -61,7 +65,7 @@
 %type <ival> type NumberType TextType VoidType
 %type <functionNode> function_declaration
 %type <listNode> expression_list function_declaration_list
-%type<parameterListNode> parameter_declaration_list
+%type <parameterListNode> parameter_declaration_list
 %type <statementListNode>statement_list function_body
 
 
@@ -173,9 +177,11 @@ expression:
 
 #include "lexer.hpp"
 
-void Language::Parser::error( const std::string &err_message )
+using namespace std;
+
+void Language::Parser::error( const string &err_message )
 {
-   std::cerr << "Error: Line:" << lineNumber << "' - " << err_message << "\n";
+   cerr << "Error: Line:" << lineNumber << "' - " << err_message << "\n";
 }
 
 static int yylex( Language::Parser::semantic_type *yylval, Language::Lexer  &lexer)
