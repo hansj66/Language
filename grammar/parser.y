@@ -24,18 +24,8 @@
 %parse-param { Lexer  &lexer  }
 
 %code{
-
-    #include <iostream>
-    #include <cstdlib>
-    #include <fstream>
-    #include <QString>
-
     #include "ast.h"
-    #include "translator.hpp"
-    #include "symboltable.h"
-
     extern int lineNumber;
-
     static int yylex(Language::Parser::semantic_type *yylval, Language::Lexer  &lexer);
 }
 
@@ -181,16 +171,13 @@ expression:
 
 %%
 
+#include "lexer.hpp"
 
-
-void
-Language::Parser::error( const std::string &err_message )
+void Language::Parser::error( const std::string &err_message )
 {
    std::cerr << "Error: Line:" << lineNumber << "' - " << err_message << "\n";
 }
 
-
-#include "lexer.hpp"
 static int yylex( Language::Parser::semantic_type *yylval, Language::Lexer  &lexer)
 {
    return( lexer.yylex(yylval) );
